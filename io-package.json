@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "fingerprint",
-    "version": "0.3.2",
+    "version": "0.3.3",
     "news": {
+      "0.3.3": {
+        "en": "Docs: add browser-based Web Flasher link (ESP Web Tools) for flashing a fresh ESP32",
+        "de": "Doku: Link zum browserbasierten Web-Flasher (ESP Web Tools) für frische ESP32 ergänzt",
+        "ru": "Документация: добавлена ссылка на браузерный Web Flasher (ESP Web Tools) для прошивки чистого ESP32",
+        "fr": "Docs : ajout du lien vers le Web Flasher basé navigateur (ESP Web Tools) pour flasher un ESP32 vierge",
+        "it": "Docs: aggiunto link al Web Flasher da browser (ESP Web Tools) per flashare un ESP32 nuovo",
+        "es": "Docs: añadido enlace al Web Flasher desde el navegador (ESP Web Tools) para flashear un ESP32 nuevo",
+        "pl": "Dokumentacja: dodano link do przeglądarkowego Web Flashera (ESP Web Tools) do wgrywania na czysty ESP32",
+        "pt": "Docs: adicionada ligação ao Web Flasher no navegador (ESP Web Tools) para gravar um ESP32 novo",
+        "nl": "Docs: link naar browsergebaseerde Web Flasher (ESP Web Tools) toegevoegd voor een verse ESP32",
+        "zh-cn": "文档：新增基于浏览器的 Web Flasher（ESP Web Tools）链接，用于刷写全新 ESP32"
+      },
       "0.3.2": {
         "en": "Docs: add direct download link to the FingerprintDoorbell v0.9.1 firmware release",
         "de": "Doku: direkten Download-Link zur FingerprintDoorbell-v0.9.1-Firmware ergänzt",
@@ -74,18 +86,6 @@
         "pt": "Diagnóstico para Test Connection: registo de mensagens recebidas, botão sendTo simplificado",
         "nl": "Diagnostiek voor Test Connection: inkomende berichten loggen, sendTo-knop vereenvoudigd",
         "zh-cn": "Test Connection 诊断：记录传入消息，简化 sendTo 按钮"
-      },
-      "0.2.0": {
-        "en": "Server mode auto-provisioning (firmware v0.9.1): adapter registers itself on the device, JSON /api/status polling, working ignoreTouchRing, fingerprint list sync, firmwareVersion/serverMode states, Adapter Host/IP setting",
-        "de": "Server-Modus Auto-Provisionierung (Firmware v0.9.1): Adapter registriert sich am Gerät, JSON /api/status-Abfrage, funktionierendes ignoreTouchRing, Fingerabdruck-Liste, firmwareVersion/serverMode States, Adapter-Host/IP-Einstellung",
-        "ru": "Авто-провижининг server-режима (прошивка v0.9.1): адаптер сам регистрируется на устройстве, опрос JSON /api/status, рабочий ignoreTouchRing, синхронизация списка пальцев, состояния firmwareVersion/serverMode, настройка Хост/IP адаптера",
-        "fr": "Auto-provisionnement du mode serveur (firmware v0.9.1) : l'adaptateur s'enregistre sur l'appareil, interrogation JSON /api/status, ignoreTouchRing fonctionnel, synchro de la liste d'empreintes, états firmwareVersion/serverMode, réglage Hôte/IP de l'adaptateur",
-        "it": "Auto-provisioning modalità server (firmware v0.9.1): l'adattatore si registra sul dispositivo, polling JSON /api/status, ignoreTouchRing funzionante, sincronizzazione elenco impronte, stati firmwareVersion/serverMode, impostazione Host/IP adattatore",
-        "es": "Autoaprovisionamiento del modo servidor (firmware v0.9.1): el adaptador se registra en el dispositivo, sondeo JSON /api/status, ignoreTouchRing funcional, sincronización de lista de huellas, estados firmwareVersion/serverMode, ajuste Host/IP del adaptador",
-        "pl": "Automatyczne provisioning trybu serwera (firmware v0.9.1): adapter rejestruje się na urządzeniu, odpytywanie JSON /api/status, działający ignoreTouchRing, synchronizacja listy odcisków, stany firmwareVersion/serverMode, ustawienie Host/IP adaptera",
-        "pt": "Aprovisionamento automático do modo servidor (firmware v0.9.1): o adaptador regista-se no dispositivo, sondagem JSON /api/status, ignoreTouchRing funcional, sincronização da lista de impressões, estados firmwareVersion/serverMode, definição Host/IP do adaptador",
-        "nl": "Automatische provisioning van servermodus (firmware v0.9.1): adapter registreert zichzelf op het apparaat, JSON /api/status-polling, werkende ignoreTouchRing, synchronisatie vingerafdruklijst, firmwareVersion/serverMode-states, Adapter-host/IP-instelling",
-        "zh-cn": "服务器模式自动配置（固件 v0.9.1）：适配器在设备上自我注册，JSON /api/status 轮询，可用的 ignoreTouchRing，指纹列表同步，firmwareVersion/serverMode 状态，适配器主机/IP 设置"
       }
     },
     "titleLang": {
