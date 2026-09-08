@@ -27,5 +27,8 @@
   "Status Polling": "Опрос статуса",
   "Enable Status Polling": "Включить опрос статуса",
   "Periodically check whether the device is reachable": "Периодически проверять доступность устройства",
-  "Polling Interval (seconds)": "Интервал опроса (секунды)"
+  "Polling Interval (seconds)": "Интервал опроса (секунды)",
+  "Adapter Host/IP": "Хост/IP адаптера",
+  "IP/host of this ioBroker that the device sends events to. Leave empty for auto-detection.": "IP/хост этого ioBroker, на который устройство шлёт события. Оставьте пустым для автоопределения.",
+  "With FingerprintDoorbell firmware >= v0.9.1 the adapter provisions the device automatically (server mode). For firmware v0.9, paste the URLs below into the device settings manually.": "С прошивкой FingerprintDoorbell >= v0.9.1 адаптер настраивает устройство автоматически (режим сервера). Для прошивки v0.9 вставьте URL ниже в настройки устройства вручную."
 }

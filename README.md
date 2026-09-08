@@ -56,9 +56,12 @@ v0.9.1 (server mode), the adapter provisions the URLs and token automatically.
 
 | State | Type | Description |
 |-------|------|-------------|
-| `info.connection` | boolean | Device reachable (via `/debug` poll) |
+| `info.connection` | boolean | Device reachable (via `/api/status` or `/debug` poll) |
 | `info.uptime` | number | Device uptime in seconds |
 | `info.freeHeap` | number | Free heap in bytes |
+| `info.firmwareVersion` | string | Device firmware version |
+| `info.serverMode` | boolean | Device sends events directly to this adapter |
+| `fingerprints.<id>` | string | Name of the enrolled finger with that ID |
 | `lastMatch.id` | number | ID of the last matched finger (1–200) |
 | `lastMatch.name` | string | Name of the last matched finger |
 | `lastMatch.confidence` | number | Match confidence |
@@ -76,6 +79,15 @@ v0.9.1 (server mode), the adapter provisions the URLs and token automatically.
   (planned for **v0.9.1**). Until then, the switch has no effect.
 
 ## Changelog
+
+### 0.2.0
+
+- Server mode auto-provisioning (firmware v0.9.1): adapter registers itself on the device via `/api/register-server`
+- Status polling switched to JSON `/api/status` (with `/debug` fallback for v0.9)
+- Working `control.ignoreTouchRing` via `/set-touch-ring`
+- Fingerprint list sync into `fingerprints.<id>` objects
+- New states `info.firmwareVersion`, `info.serverMode`
+- New "Adapter Host/IP" setting (auto-detected if empty)
 
 ### 0.1.3
 

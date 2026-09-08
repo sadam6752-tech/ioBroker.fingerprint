@@ -68,11 +68,112 @@ class Fingerprint extends utils.Adapter {
             this.log.error(`Failed to start webhook server on port ${webhookPort}: ${err.message}`);
         }
 
+        // Auto-provision the device (server mode): tell the ESP to send events here
+        if (ip) {
+            await this._provisionServer();
+        }
+
         // Status polling
         if (ip && this.config.pollingEnabled) {
             await this._pollStatus();
             this._scheduleNextPoll();
         }
+
+        // Initial fingerprint list sync
+        if (ip) {
+            await this._syncFingerprints();
+        }
+    }
+
+    // ── Server provisioning ──────────────────────────────────────────────────
+
+    /**
+     * Resolve the host/IP the device should send its events to.
+     * Uses the configured serverHost if set, otherwise auto-detects a non-internal IPv4.
+     *
+     * @returns {string} adapter host/IP
+     */
+    _resolveAdapterHost() {
+        const configured = (this.config.serverHost || '').trim();
+        if (configured) {
+            return configured;
+        }
+        const os = require('node:os');
+        const ifaces = os.networkInterfaces();
+        for (const addrs of Object.values(ifaces)) {
+            for (const a of addrs) {
+                if (a.family === 'IPv4' && !a.internal) {
+                    return a.address;
+                }
+            }
+        }
+        return '';
+    }
+
+    /**
+     * Register this adapter as the device's event target (enables server mode on the ESP).
+     *
+     * @returns {Promise<void>} resolves when provisioning attempt completes
+     */
+    async _provisionServer() {
+        const host = this._resolveAdapterHost();
+        if (!host) {
+            this.log.warn('Could not determine adapter host IP for provisioning. Set "Adapter Host/IP" in settings.');
+            return;
+        }
+        const port = this.config.webhookPort || 8095;
+        try {
+            const ok = await this.esp.registerServer(host, port, this._token);
+            if (ok) {
+                this.log.info(`Device provisioned: it will send events to ${host}:${port} (server mode enabled).`);
+            } else {
+                this.log.warn(
+                    'Provisioning failed (check device auth / firmware >= v0.9.1). Falling back to manual URLs.',
+                );
+            }
+        } catch (err) {
+            this.log.warn(`Provisioning request failed: ${err.message}. Falling back to manual URLs.`);
+        }
+    }
+
+    /**
+     * Fetch the enrolled fingerprints and create/update fingerprints.<id> objects.
+     *
+     * @returns {Promise<void>} resolves when the list is synced
+     */
+    async _syncFingerprints() {
+        if (!this.esp) {
+            return;
+        }
+        let list;
+        try {
+            list = await this.esp.getFingerprints();
+        } catch {
+            return;
+        }
+        if (!Array.isArray(list) || list.length === 0) {
+            return;
+        }
+        for (const fp of list) {
+            if (fp.id === undefined) {
+                continue;
+            }
+            const base = `fingerprints.${fp.id}`;
+            await this.extendObjectAsync(base, {
+                type: 'state',
+                common: {
+                    name: fp.name || `Finger ${fp.id}`,
+                    type: 'string',
+                    role: 'text',
+                    read: true,
+                    write: false,
+                    def: '',
+                },
+                native: {},
+            });
+            await this.setStateAsync(base, { val: fp.name || '', ack: true });
+        }
+        this.log.debug(`Synced ${list.length} fingerprint(s).`);
     }
 
     async onUnload(callback) {
@@ -157,19 +258,28 @@ class Fingerprint extends utils.Adapter {
                 user: this.config.adminUser || '',
                 password: this.config.adminPassword || '',
             });
-            const { reachable, info } = await client.ping();
+            // Try JSON status first (firmware >= v0.9.1), fall back to /debug
+            let reachable = false;
+            let version = '';
+            const st = await client.getStatus();
+            if (st.reachable) {
+                reachable = true;
+                version = st.status.version ? ` (v${st.status.version})` : '';
+            } else {
+                const legacy = await client.ping();
+                reachable = legacy.reachable;
+            }
             this.log.debug(`testConnection result: reachable=${reachable}`);
             if (reachable) {
-                const uptime = info['Uptime'] ? `, uptime ${info['Uptime']}` : '';
-                const text = `Connected to ${ip}${uptime}`;
+                const text = `Connected to ${ip}${version}`;
                 this.sendTo(
                     obj.from,
                     obj.command,
                     {
                         result: {
                             en: text,
-                            de: `Verbunden mit ${ip}${uptime}`,
-                            ru: `Подключено к ${ip}${uptime}`,
+                            de: `Verbunden mit ${ip}${version}`,
+                            ru: `Подключено к ${ip}${version}`,
                         },
                     },
                     obj.callback,
@@ -289,21 +399,40 @@ class Fingerprint extends utils.Adapter {
         if (!this.esp) {
             return;
         }
-        const { reachable, info } = await this.esp.ping();
-        await this.setStateAsync('info.connection', { val: reachable, ack: true });
 
+        // Prefer the JSON /api/status endpoint (firmware >= v0.9.1)
+        const { reachable, status } = await this.esp.getStatus();
         if (reachable) {
-            if (info['Uptime'] !== undefined) {
-                const uptime = parseInt(info['Uptime'], 10);
-                if (Number.isFinite(uptime)) {
-                    await this.setStateAsync('info.uptime', { val: uptime, ack: true });
-                }
+            await this.setStateAsync('info.connection', { val: true, ack: true });
+            if (typeof status.uptime === 'number') {
+                await this.setStateAsync('info.uptime', { val: status.uptime, ack: true });
             }
-            if (info['Free heap'] !== undefined) {
-                const heap = parseInt(info['Free heap'], 10);
-                if (Number.isFinite(heap)) {
-                    await this.setStateAsync('info.freeHeap', { val: heap, ack: true });
-                }
+            if (typeof status.freeHeap === 'number') {
+                await this.setStateAsync('info.freeHeap', { val: status.freeHeap, ack: true });
+            }
+            if (status.version !== undefined) {
+                await this.setStateAsync('info.firmwareVersion', { val: String(status.version), ack: true });
+            }
+            if (typeof status.serverMode === 'boolean') {
+                await this.setStateAsync('info.serverMode', { val: status.serverMode, ack: true });
+            }
+            if (typeof status.ignoreTouchRing === 'boolean') {
+                await this.setStateAsync('control.ignoreTouchRing', { val: status.ignoreTouchRing, ack: true });
+            }
+            return;
+        }
+
+        // Fallback to legacy /debug (firmware v0.9)
+        const { reachable: legacyReachable, info } = await this.esp.ping();
+        await this.setStateAsync('info.connection', { val: legacyReachable, ack: true });
+        if (legacyReachable) {
+            const uptime = parseInt(info['Uptime'], 10);
+            if (Number.isFinite(uptime)) {
+                await this.setStateAsync('info.uptime', { val: uptime, ack: true });
+            }
+            const heap = parseInt(info['Free heap'], 10);
+            if (Number.isFinite(heap)) {
+                await this.setStateAsync('info.freeHeap', { val: heap, ack: true });
             }
         }
     }
@@ -354,6 +483,38 @@ class Fingerprint extends utils.Adapter {
         await this.extendObjectAsync('info.freeHeap', {
             type: 'state',
             common: { name: 'Free heap', type: 'number', role: 'value', read: true, write: false, def: 0, unit: 'B' },
+            native: {},
+        });
+        await this.extendObjectAsync('info.firmwareVersion', {
+            type: 'state',
+            common: {
+                name: 'Firmware version',
+                type: 'string',
+                role: 'info.firmware',
+                read: true,
+                write: false,
+                def: '',
+            },
+            native: {},
+        });
+        await this.extendObjectAsync('info.serverMode', {
+            type: 'state',
+            common: {
+                name: 'Server mode active',
+                type: 'boolean',
+                role: 'indicator',
+                read: true,
+                write: false,
+                def: false,
+                desc: 'Device sends events directly to this adapter',
+            },
+            native: {},
+        });
+
+        // fingerprints channel (list of enrolled fingers)
+        await this.extendObjectAsync('fingerprints', {
+            type: 'channel',
+            common: { name: 'Enrolled fingerprints' },
             native: {},
         });
 
@@ -442,7 +603,7 @@ class Fingerprint extends utils.Adapter {
                 read: true,
                 write: true,
                 def: false,
-                desc: 'Requires firmware >= v0.9.1',
+                desc: 'Ignore the capacitive touch ring (firmware >= v0.9.1)',
             },
             native: {},
         });

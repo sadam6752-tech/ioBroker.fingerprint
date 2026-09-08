@@ -70,8 +70,15 @@
     },
     "_webhookInfo": {
       "type": "staticText",
-      "text": "Set the device HTTP Match/Ring URLs to the values below. With FingerprintDoorbell firmware >= v0.9.1 in server mode, the adapter configures the device automatically.",
+      "text": "With FingerprintDoorbell firmware >= v0.9.1 the adapter provisions the device automatically (server mode). For firmware v0.9, paste the URLs below into the device settings manually.",
       "xs": 12
+    },
+    "serverHost": {
+      "type": "text",
+      "label": "Adapter Host/IP",
+      "default": "",
+      "help": "IP/host of this ioBroker that the device sends events to. Leave empty for auto-detection.",
+      "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
     },
     "webhookBind": {
       "type": "ip",

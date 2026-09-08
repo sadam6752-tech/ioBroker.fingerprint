@@ -27,5 +27,8 @@
   "Enable Status Polling": "启用状态轮询",
   "Periodically check whether the device is reachable": "定期检查设备是否可达",
   "Polling Interval (seconds)": "轮询间隔（秒）",
-  "Save the settings first, then test the connection to the device.": "请先保存设置，然后测试与设备的连接。"
+  "Save the settings first, then test the connection to the device.": "请先保存设置，然后测试与设备的连接。",
+  "Adapter Host/IP": "适配器主机/IP",
+  "IP/host of this ioBroker that the device sends events to. Leave empty for auto-detection.": "此 ioBroker 的 IP/主机，设备将事件发送到此处。留空则自动检测。",
+  "With FingerprintDoorbell firmware >= v0.9.1 the adapter provisions the device automatically (server mode). For firmware v0.9, paste the URLs below into the device settings manually.": "使用 FingerprintDoorbell 固件 >= v0.9.1 时，适配器会自动配置设备（服务器模式）。对于固件 v0.9，请手动将下方 URL 粘贴到设备设置中。"
 }

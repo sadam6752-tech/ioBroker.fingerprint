@@ -27,5 +27,8 @@
   "Status Polling": "Status-Abfrage",
   "Enable Status Polling": "Status-Abfrage aktivieren",
   "Periodically check whether the device is reachable": "Regelmäßig prüfen, ob das Gerät erreichbar ist",
-  "Polling Interval (seconds)": "Abfrageintervall (Sekunden)"
+  "Polling Interval (seconds)": "Abfrageintervall (Sekunden)",
+  "Adapter Host/IP": "Adapter-Host/IP",
+  "IP/host of this ioBroker that the device sends events to. Leave empty for auto-detection.": "IP/Host dieses ioBroker, an den das Gerät Ereignisse sendet. Leer lassen für automatische Erkennung.",
+  "With FingerprintDoorbell firmware >= v0.9.1 the adapter provisions the device automatically (server mode). For firmware v0.9, paste the URLs below into the device settings manually.": "Mit FingerprintDoorbell-Firmware >= v0.9.1 richtet der Adapter das Gerät automatisch ein (Server-Modus). Bei Firmware v0.9 die URLs unten manuell in die Geräteeinstellungen eintragen."
 }
