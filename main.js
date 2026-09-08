@@ -218,10 +218,10 @@ class Fingerprint extends utils.Adapter {
     }
 
     async onMessage(obj) {
-        this.log.info(`onMessage received: command="${obj && obj.command}" hasCallback=${!!(obj && obj.callback)}`);
         if (!obj || !obj.command) {
             return;
         }
+        this.log.debug(`onMessage: command="${obj.command}"`);
 
         try {
             await this._processMessage(obj);
@@ -241,13 +241,7 @@ class Fingerprint extends utils.Adapter {
                 this.sendTo(
                     obj.from,
                     obj.command,
-                    {
-                        error: {
-                            en: 'Device IP not configured (save settings first)',
-                            de: 'Geräte-IP nicht konfiguriert (zuerst speichern)',
-                            ru: 'IP устройства не задан (сначала сохраните настройки)',
-                        },
-                    },
+                    { error: 'Device IP not configured (save settings first)' },
                     obj.callback,
                 );
                 return;
@@ -272,32 +266,9 @@ class Fingerprint extends utils.Adapter {
             }
             this.log.debug(`testConnection result: reachable=${reachable}`);
             if (reachable) {
-                const text = `Connected to ${ip}${version}`;
-                this.sendTo(
-                    obj.from,
-                    obj.command,
-                    {
-                        result: {
-                            en: text,
-                            de: `Verbunden mit ${ip}${version}`,
-                            ru: `Подключено к ${ip}${version}`,
-                        },
-                    },
-                    obj.callback,
-                );
+                this.sendTo(obj.from, obj.command, { result: `Connected to ${ip}${version}` }, obj.callback);
             } else {
-                this.sendTo(
-                    obj.from,
-                    obj.command,
-                    {
-                        error: {
-                            en: `Device not reachable at ${ip}`,
-                            de: `Gerät unter ${ip} nicht erreichbar`,
-                            ru: `Устройство недоступно по адресу ${ip}`,
-                        },
-                    },
-                    obj.callback,
-                );
+                this.sendTo(obj.from, obj.command, { error: `Device not reachable at ${ip}` }, obj.callback);
             }
             return;
         }

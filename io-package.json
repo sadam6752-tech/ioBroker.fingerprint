@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "fingerprint",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "news": {
+      "0.2.3": {
+        "en": "Test Connection now shows a plain message (not the raw translation object); remove diagnostics log",
+        "de": "Test Connection zeigt jetzt eine einfache Meldung (nicht das rohe Übersetzungsobjekt); Diagnose-Log entfernt",
+        "ru": "Test Connection теперь показывает простое сообщение (а не сырой объект переводов); убран диагностический лог",
+        "fr": "Test Connection affiche désormais un message simple (et non l'objet de traduction brut) ; journal de diagnostic supprimé",
+        "it": "Test Connection ora mostra un messaggio semplice (non l'oggetto di traduzione grezzo); rimosso il log di diagnostica",
+        "es": "Test Connection ahora muestra un mensaje simple (no el objeto de traducción sin procesar); eliminado el registro de diagnóstico",
+        "pl": "Test Connection pokazuje teraz zwykły komunikat (a nie surowy obiekt tłumaczeń); usunięto log diagnostyczny",
+        "pt": "Test Connection mostra agora uma mensagem simples (não o objeto de tradução em bruto); removido o registo de diagnóstico",
+        "nl": "Test Connection toont nu een eenvoudig bericht (niet het ruwe vertaalobject); diagnostiek-log verwijderd",
+        "zh-cn": "Test Connection 现在显示纯文本消息（而非原始翻译对象）；移除诊断日志"
+      },
       "0.2.2": {
         "en": "Fix Test Connection: enable messagebox so the adapter receives sendTo messages",
         "de": "Test Connection behoben: messagebox aktiviert, damit der Adapter sendTo-Nachrichten empfängt",
@@ -74,18 +86,6 @@
         "pt": "Corrigido jsonConfig inválido: removido 'showProcessState' não suportado do botão Test Connection",
         "nl": "Ongeldige jsonConfig hersteld: niet-ondersteunde 'showProcessState' verwijderd van de Test Connection-knop",
         "zh-cn": "修复无效的 jsonConfig：从 Test Connection 按钮中移除不支持的 'showProcessState'"
-      },
-      "0.1.0": {
-        "en": "Initial release: receive match/ring events via HTTP webhook, ESP status polling, remote reboot and ignore-touch-ring control",
-        "de": "Erstveröffentlichung: Match/Ring-Events per HTTP-Webhook empfangen, ESP-Statusabfrage, Fernneustart und Touch-Ring-Steuerung",
-        "ru": "Первый выпуск: приём событий match/ring через HTTP-webhook, опрос статуса ESP, удалённая перезагрузка и управление touch-ring",
-        "fr": "Version initiale : réception des événements match/ring via webhook HTTP, interrogation du statut ESP, redémarrage à distance et contrôle touch-ring",
-        "it": "Versione iniziale: ricezione eventi match/ring tramite webhook HTTP, polling stato ESP, riavvio remoto e controllo touch-ring",
-        "es": "Versión inicial: recepción de eventos match/ring mediante webhook HTTP, sondeo de estado ESP, reinicio remoto y control touch-ring",
-        "pl": "Pierwsze wydanie: odbiór zdarzeń match/ring przez webhook HTTP, odpytywanie statusu ESP, zdalny restart i sterowanie touch-ring",
-        "pt": "Versão inicial: receção de eventos match/ring via webhook HTTP, sondagem de estado ESP, reinício remoto e controlo touch-ring",
-        "nl": "Eerste release: match/ring-events ontvangen via HTTP-webhook, ESP-statuspolling, herstart op afstand en touch-ring-besturing",
-        "zh-cn": "首次发布：通过 HTTP webhook 接收 match/ring 事件，ESP 状态轮询，远程重启和 touch-ring 控制"
       }
     },
     "titleLang": {

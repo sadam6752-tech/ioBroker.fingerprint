@@ -80,6 +80,14 @@ v0.9.1 (server mode), the adapter provisions the URLs and token automatically.
 
 ## Changelog
 
+### 0.2.3
+
+- Test Connection shows a plain message instead of the raw translation object; remove diagnostics log
+
+### 0.2.2
+
+- Fix Test Connection: enable messagebox so the adapter receives sendTo messages
+
 ### 0.2.0
 
 - Server mode auto-provisioning (firmware v0.9.1): adapter registers itself on the device via `/api/register-server`
