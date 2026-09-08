@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "fingerprint",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "news": {
+      "0.3.1": {
+        "en": "Docs: add firmware requirement section with download/flash instructions (link to FingerprintDoorbell v0.9.1 release)",
+        "de": "Doku: Abschnitt zur Firmware-Voraussetzung mit Download-/Flash-Anleitung ergänzt (Link zum FingerprintDoorbell-v0.9.1-Release)",
+        "ru": "Документация: добавлен раздел о требуемой прошивке с инструкцией по загрузке/прошивке (ссылка на релиз FingerprintDoorbell v0.9.1)",
+        "fr": "Docs : ajout d'une section sur le firmware requis avec instructions de téléchargement/flash (lien vers la version FingerprintDoorbell v0.9.1)",
+        "it": "Docs: aggiunta sezione sul firmware richiesto con istruzioni di download/flash (link alla release FingerprintDoorbell v0.9.1)",
+        "es": "Docs: añadida sección de firmware requerido con instrucciones de descarga/flasheo (enlace a la versión FingerprintDoorbell v0.9.1)",
+        "pl": "Dokumentacja: dodano sekcję o wymaganym firmware z instrukcją pobrania/wgrania (link do wydania FingerprintDoorbell v0.9.1)",
+        "pt": "Docs: adicionada secção de firmware necessário com instruções de download/flash (ligação para a versão FingerprintDoorbell v0.9.1)",
+        "nl": "Docs: sectie firmwarevereiste toegevoegd met download-/flash-instructies (link naar FingerprintDoorbell v0.9.1-release)",
+        "zh-cn": "文档：新增固件要求章节，含下载/刷写说明（链接到 FingerprintDoorbell v0.9.1 发行版）"
+      },
       "0.3.0": {
         "en": "Fingerprint Actions tab: map each finger to an ioBroker object (set/toggle, value, min confidence), ring action, load fingerprints from device (merge)",
         "de": "Tab Fingerabdruck-Aktionen: jeden Finger einem ioBroker-Objekt zuordnen (setzen/umschalten, Wert, Mindest-Konfidenz), Klingel-Aktion, Fingerabdrücke vom Gerät laden (Merge)",
@@ -74,18 +86,6 @@
         "pt": "Corrigido o tempo limite do Test Connection: leitura direta da config (sem jsonData), proteção contra pedidos bloqueados, dica para guardar primeiro",
         "nl": "Test Connection-time-out hersteld: config direct lezen (geen jsonData), bescherming tegen vastlopende verzoeken, hint om eerst op te slaan",
         "zh-cn": "修复 Test Connection 超时：直接读取配置（不使用 jsonData），防止请求挂起，添加先保存的提示"
-      },
-      "0.1.2": {
-        "en": "Fix Test Connection button: return localized result/error and add spinner + request timeout",
-        "de": "Test-Connection-Button behoben: lokalisiertes Ergebnis/Fehler zurückgeben, Spinner + Anfrage-Timeout ergänzt",
-        "ru": "Исправлена кнопка Test Connection: возврат локализованного результата/ошибки, добавлены спиннер и таймаут запроса",
-        "fr": "Correction du bouton Test Connection : renvoi d'un résultat/erreur localisé, ajout d'un spinner et d'un délai de requête",
-        "it": "Corretto il pulsante Test Connection: restituzione di risultato/errore localizzato, aggiunti spinner e timeout richiesta",
-        "es": "Corregido el botón Test Connection: devuelve resultado/error localizado y añade spinner + tiempo de espera",
-        "pl": "Naprawiono przycisk Test Connection: zwracanie zlokalizowanego wyniku/błędu, dodano spinner i limit czasu żądania",
-        "pt": "Corrigido o botão Test Connection: devolve resultado/erro localizado e adiciona spinner + tempo limite",
-        "nl": "Test Connection-knop hersteld: gelokaliseerd resultaat/fout retourneren, spinner + verzoek-time-out toegevoegd",
-        "zh-cn": "修复 Test Connection 按钮：返回本地化的结果/错误，并添加加载指示器和请求超时"
       }
     },
     "titleLang": {

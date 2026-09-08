@@ -9,6 +9,27 @@ The adapter runs a small HTTP webhook receiver. The doorbell calls it directly o
 a fingerprint match or an unknown-finger ring. The adapter also polls the device
 to report its online/offline status and can reboot it or toggle the touch ring.
 
+## Firmware requirement
+
+This adapter talks to the **FingerprintDoorbell** firmware running on your ESP32.
+
+- **Recommended: firmware v0.9.1 or newer** — enables *server mode* (the adapter
+  provisions the device automatically, no manual URLs) plus `control.ignoreTouchRing`
+  and the fingerprint list.
+- **Firmware v0.9** also works in a basic mode (paste the match/ring URLs manually);
+  `ignoreTouchRing` and the fingerprint list require v0.9.1.
+
+Get the firmware here:
+
+- **Download (OTA-ready):** [Releases](https://github.com/sadam6752-tech/FingerprintDoorbell/releases) →
+  download `firmware.bin` from **v0.9.1**.
+- **Flash via OTA:** open `http://<device-ip>/update` → *Firmware* → upload `firmware.bin`.
+- **First-time / USB flash:** build from source with PlatformIO
+  ([FingerprintDoorbell repo](https://github.com/sadam6752-tech/FingerprintDoorbell)),
+  or flash `firmware.bin` + `spiffs.bin` with esptool.
+
+Check the running version at `http://<device-ip>/api/status` (field `version`).
+
 ## How it works
 
 ```
@@ -94,6 +115,10 @@ fingerprint — no JavaScript needed:
   (planned for **v0.9.1**). Until then, the switch has no effect.
 
 ## Changelog
+
+### 0.3.1
+
+- Docs: firmware requirement section with download/flash instructions (link to FingerprintDoorbell v0.9.1 release)
 
 ### 0.3.0
 
