@@ -21,12 +21,12 @@ This adapter talks to the **FingerprintDoorbell** firmware running on your ESP32
 
 Get the firmware here:
 
-- **Download (OTA-ready):** [Releases](https://github.com/sadam6752-tech/FingerprintDoorbell/releases) →
-  download `firmware.bin` from **v0.9.1**.
+- **Download v0.9.1:** [FingerprintDoorbell-v0.9.1.zip](https://github.com/sadam6752-tech/FingerprintDoorbell/releases/download/v0.9.1/FingerprintDoorbell-v0.9.1.zip)
+  (contains `firmware.bin`, `spiffs.bin` and flash instructions) — see all
+  [Releases](https://github.com/sadam6752-tech/FingerprintDoorbell/releases).
 - **Flash via OTA:** open `http://<device-ip>/update` → *Firmware* → upload `firmware.bin`.
-- **First-time / USB flash:** build from source with PlatformIO
-  ([FingerprintDoorbell repo](https://github.com/sadam6752-tech/FingerprintDoorbell)),
-  or flash `firmware.bin` + `spiffs.bin` with esptool.
+- **First-time / USB flash:** flash `firmware.bin` + `spiffs.bin` with esptool, or build
+  from source with PlatformIO ([FingerprintDoorbell repo](https://github.com/sadam6752-tech/FingerprintDoorbell)).
 
 Check the running version at `http://<device-ip>/api/status` (field `version`).
 
@@ -115,6 +115,10 @@ fingerprint — no JavaScript needed:
   (planned for **v0.9.1**). Until then, the switch has no effect.
 
 ## Changelog
+
+### 0.3.2
+
+- Docs: direct download link to the FingerprintDoorbell v0.9.1 firmware release
 
 ### 0.3.1
 

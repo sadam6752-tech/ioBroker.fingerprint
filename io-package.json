@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "fingerprint",
-    "version": "0.3.1",
+    "version": "0.3.2",
     "news": {
+      "0.3.2": {
+        "en": "Docs: add direct download link to the FingerprintDoorbell v0.9.1 firmware release",
+        "de": "Doku: direkten Download-Link zur FingerprintDoorbell-v0.9.1-Firmware ergänzt",
+        "ru": "Документация: добавлена прямая ссылка на скачивание прошивки FingerprintDoorbell v0.9.1",
+        "fr": "Docs : ajout d'un lien de téléchargement direct vers le firmware FingerprintDoorbell v0.9.1",
+        "it": "Docs: aggiunto link di download diretto al firmware FingerprintDoorbell v0.9.1",
+        "es": "Docs: añadido enlace de descarga directa al firmware FingerprintDoorbell v0.9.1",
+        "pl": "Dokumentacja: dodano bezpośredni link do pobrania firmware FingerprintDoorbell v0.9.1",
+        "pt": "Docs: adicionada ligação de download direto para o firmware FingerprintDoorbell v0.9.1",
+        "nl": "Docs: directe downloadlink naar de FingerprintDoorbell v0.9.1-firmware toegevoegd",
+        "zh-cn": "文档：新增 FingerprintDoorbell v0.9.1 固件的直接下载链接"
+      },
       "0.3.1": {
         "en": "Docs: add firmware requirement section with download/flash instructions (link to FingerprintDoorbell v0.9.1 release)",
         "de": "Doku: Abschnitt zur Firmware-Voraussetzung mit Download-/Flash-Anleitung ergänzt (Link zum FingerprintDoorbell-v0.9.1-Release)",
@@ -74,18 +86,6 @@
         "pt": "Aprovisionamento automático do modo servidor (firmware v0.9.1): o adaptador regista-se no dispositivo, sondagem JSON /api/status, ignoreTouchRing funcional, sincronização da lista de impressões, estados firmwareVersion/serverMode, definição Host/IP do adaptador",
         "nl": "Automatische provisioning van servermodus (firmware v0.9.1): adapter registreert zichzelf op het apparaat, JSON /api/status-polling, werkende ignoreTouchRing, synchronisatie vingerafdruklijst, firmwareVersion/serverMode-states, Adapter-host/IP-instelling",
         "zh-cn": "服务器模式自动配置（固件 v0.9.1）：适配器在设备上自我注册，JSON /api/status 轮询，可用的 ignoreTouchRing，指纹列表同步，firmwareVersion/serverMode 状态，适配器主机/IP 设置"
-      },
-      "0.1.3": {
-        "en": "Fix Test Connection timeout: read config directly (no jsonData), guard against hanging requests, add help hint to save first",
-        "de": "Test-Connection-Timeout behoben: Konfiguration direkt lesen (kein jsonData), Schutz vor hängenden Anfragen, Hinweis zum Speichern ergänzt",
-        "ru": "Исправлен таймаут Test Connection: чтение конфига напрямую (без jsonData), защита от зависания запросов, подсказка сначала сохранить",
-        "fr": "Correction du délai Test Connection : lecture directe de la config (sans jsonData), protection contre les requêtes bloquées, ajout d'un conseil pour enregistrer d'abord",
-        "it": "Corretto timeout Test Connection: lettura diretta della config (senza jsonData), protezione da richieste bloccate, aggiunto suggerimento a salvare prima",
-        "es": "Corregido el tiempo de espera de Test Connection: lectura directa de la config (sin jsonData), protección contra solicitudes colgadas, aviso para guardar primero",
-        "pl": "Naprawiono limit czasu Test Connection: bezpośredni odczyt konfiguracji (bez jsonData), zabezpieczenie przed zawieszonymi żądaniami, podpowiedź, aby najpierw zapisać",
-        "pt": "Corrigido o tempo limite do Test Connection: leitura direta da config (sem jsonData), proteção contra pedidos bloqueados, dica para guardar primeiro",
-        "nl": "Test Connection-time-out hersteld: config direct lezen (geen jsonData), bescherming tegen vastlopende verzoeken, hint om eerst op te slaan",
-        "zh-cn": "修复 Test Connection 超时：直接读取配置（不使用 jsonData），防止请求挂起，添加先保存的提示"
       }
     },
     "titleLang": {
