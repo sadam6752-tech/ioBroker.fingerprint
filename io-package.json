@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "fingerprint",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "news": {
+      "0.2.2": {
+        "en": "Fix Test Connection: enable messagebox so the adapter receives sendTo messages",
+        "de": "Test Connection behoben: messagebox aktiviert, damit der Adapter sendTo-Nachrichten empfängt",
+        "ru": "Исправлен Test Connection: включён messagebox, чтобы адаптер получал сообщения sendTo",
+        "fr": "Correction de Test Connection : activation de messagebox pour que l'adaptateur reçoive les messages sendTo",
+        "it": "Corretto Test Connection: abilitato messagebox affinché l'adattatore riceva i messaggi sendTo",
+        "es": "Corregido Test Connection: habilitado messagebox para que el adaptador reciba mensajes sendTo",
+        "pl": "Naprawiono Test Connection: włączono messagebox, aby adapter odbierał wiadomości sendTo",
+        "pt": "Corrigido Test Connection: ativado messagebox para o adaptador receber mensagens sendTo",
+        "nl": "Test Connection hersteld: messagebox ingeschakeld zodat de adapter sendTo-berichten ontvangt",
+        "zh-cn": "修复 Test Connection：启用 messagebox 使适配器接收 sendTo 消息"
+      },
       "0.2.1": {
         "en": "Diagnostics for Test Connection: log incoming messages, simplify the sendTo button",
         "de": "Diagnose für Test Connection: eingehende Nachrichten protokollieren, sendTo-Button vereinfacht",
@@ -113,6 +125,7 @@
     "readme": "https://github.com/sadam6752-tech/ioBroker.fingerprint/blob/main/README.md",
     "loglevel": "info",
     "mode": "daemon",
+    "messagebox": true,
     "type": "hardware",
     "compact": true,
     "connectionType": "local",
