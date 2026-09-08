@@ -46,5 +46,8 @@
   "Ring target object": "Obiekt docelowy dzwonka",
   "Object to set when an unknown finger rings. Leave empty to disable.": "Obiekt ustawiany, gdy zadzwoni nieznany palec. Pozostaw puste, aby wyłączyć.",
   "Ring value": "Wartość dzwonka",
-  "Value written on ring (e.g. true, 1, on, or a number/text)": "Wartość zapisywana przy dzwonku (np. true, 1, on lub liczba/tekst)"
+  "Value written on ring (e.g. true, 1, on, or a number/text)": "Wartość zapisywana przy dzwonku (np. true, 1, on lub liczba/tekst)",
+  "Access Log": "Dziennik dostępu",
+  "Enable access logging": "Włącz dziennik dostępu",
+  "Write a readable access log entry (granted/denied) to the adapter log for every fingerprint event": "Zapisuj czytelny wpis dziennika dostępu (przyznano/odmówiono) w logu adaptera dla każdego zdarzenia odcisku"
 }

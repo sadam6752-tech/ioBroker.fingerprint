@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "fingerprint",
-    "version": "0.3.4",
+    "version": "0.4.0",
     "news": {
+      "0.4.0": {
+        "en": "Access log & history: optional access logging, lastAccess.* and stats.* states, per-finger lastSeen/count (fingerprints.<id> is now a channel)",
+        "de": "Zugriffsprotokoll & Verlauf: optionales Access-Logging, lastAccess.*- und stats.*-States, pro Finger lastSeen/count (fingerprints.<id> ist jetzt ein Kanal)",
+        "ru": "Журнал доступа и история: опциональное логирование доступа, состояния lastAccess.* и stats.*, по пальцу lastSeen/count (fingerprints.<id> теперь канал)",
+        "fr": "Journal d'accès & historique : journalisation d'accès optionnelle, états lastAccess.* et stats.*, par doigt lastSeen/count (fingerprints.<id> est désormais un canal)",
+        "it": "Registro accessi e cronologia: logging accessi opzionale, stati lastAccess.* e stats.*, per dito lastSeen/count (fingerprints.<id> ora è un canale)",
+        "es": "Registro de accesos e historial: registro de accesos opcional, estados lastAccess.* y stats.*, por dedo lastSeen/count (fingerprints.<id> ahora es un canal)",
+        "pl": "Dziennik dostępu i historia: opcjonalne logowanie dostępu, stany lastAccess.* i stats.*, na palec lastSeen/count (fingerprints.<id> jest teraz kanałem)",
+        "pt": "Registo de acessos e histórico: registo de acessos opcional, estados lastAccess.* e stats.*, por dedo lastSeen/count (fingerprints.<id> agora é um canal)",
+        "nl": "Toegangslog & geschiedenis: optionele toegangslogging, lastAccess.*- en stats.*-states, per vinger lastSeen/count (fingerprints.<id> is nu een kanaal)",
+        "zh-cn": "访问日志与历史：可选的访问日志、lastAccess.* 和 stats.* 状态、每个手指的 lastSeen/count（fingerprints.<id> 现为通道）"
+      },
       "0.3.4": {
         "en": "Docs: correct Web Flasher browser support - Firefox 151+ now supports Web Serial",
         "de": "Doku: Browser-Unterstützung des Web-Flashers korrigiert - Firefox 151+ unterstützt jetzt Web Serial",
@@ -74,18 +86,6 @@
         "pt": "Test Connection mostra agora uma mensagem simples (não o objeto de tradução em bruto); removido o registo de diagnóstico",
         "nl": "Test Connection toont nu een eenvoudig bericht (niet het ruwe vertaalobject); diagnostiek-log verwijderd",
         "zh-cn": "Test Connection 现在显示纯文本消息（而非原始翻译对象）；移除诊断日志"
-      },
-      "0.2.2": {
-        "en": "Fix Test Connection: enable messagebox so the adapter receives sendTo messages",
-        "de": "Test Connection behoben: messagebox aktiviert, damit der Adapter sendTo-Nachrichten empfängt",
-        "ru": "Исправлен Test Connection: включён messagebox, чтобы адаптер получал сообщения sendTo",
-        "fr": "Correction de Test Connection : activation de messagebox pour que l'adaptateur reçoive les messages sendTo",
-        "it": "Corretto Test Connection: abilitato messagebox affinché l'adattatore riceva i messaggi sendTo",
-        "es": "Corregido Test Connection: habilitado messagebox para que el adaptador reciba mensajes sendTo",
-        "pl": "Naprawiono Test Connection: włączono messagebox, aby adapter odbierał wiadomości sendTo",
-        "pt": "Corrigido Test Connection: ativado messagebox para o adaptador receber mensagens sendTo",
-        "nl": "Test Connection hersteld: messagebox ingeschakeld zodat de adapter sendTo-berichten ontvangt",
-        "zh-cn": "修复 Test Connection：启用 messagebox 使适配器接收 sendTo 消息"
       }
     },
     "titleLang": {
@@ -158,6 +158,7 @@
     "pollingEnabled": true,
     "pollingInterval": 30,
     "requestTimeout": 5000,
+    "accessLogging": false,
     "actions": [],
     "ringActionObject": "",
     "ringActionValue": ""

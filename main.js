@@ -158,22 +158,52 @@ class Fingerprint extends utils.Adapter {
             if (fp.id === undefined) {
                 continue;
             }
-            const base = `fingerprints.${fp.id}`;
-            await this.extendObjectAsync(base, {
-                type: 'state',
-                common: {
-                    name: fp.name || `Finger ${fp.id}`,
-                    type: 'string',
-                    role: 'text',
-                    read: true,
-                    write: false,
-                    def: '',
-                },
-                native: {},
-            });
-            await this.setStateAsync(base, { val: fp.name || '', ack: true });
+            await this._ensureFingerObjects(fp.id, fp.name || `Finger ${fp.id}`);
+            await this.setStateAsync(`fingerprints.${fp.id}.name`, { val: fp.name || '', ack: true });
         }
         this.log.debug(`Synced ${list.length} fingerprint(s).`);
+    }
+
+    /**
+     * Ensure the channel + sub-states for a fingerprint exist.
+     * Migrates the old flat `fingerprints.<id>` state (v0.3.x) to a channel if needed.
+     *
+     * @param {number|string} id fingerprint id
+     * @param {string} name fingerprint name (for the channel label)
+     * @returns {Promise<void>} resolves when objects exist
+     */
+    async _ensureFingerObjects(id, name) {
+        const base = `fingerprints.${id}`;
+        // Migration: if the old flat state exists (type 'state'), remove it so we can
+        // recreate it as a channel with sub-states.
+        try {
+            const existing = await this.getObjectAsync(base);
+            if (existing && existing.type === 'state') {
+                await this.delObjectAsync(base);
+            }
+        } catch {
+            // ignore
+        }
+        await this.extendObjectAsync(base, {
+            type: 'channel',
+            common: { name: name || `Finger ${id}` },
+            native: {},
+        });
+        await this.extendObjectAsync(`${base}.name`, {
+            type: 'state',
+            common: { name: 'Name', type: 'string', role: 'text', read: true, write: false, def: '' },
+            native: {},
+        });
+        await this.extendObjectAsync(`${base}.lastSeen`, {
+            type: 'state',
+            common: { name: 'Last seen', type: 'number', role: 'date', read: true, write: false, def: 0 },
+            native: {},
+        });
+        await this.extendObjectAsync(`${base}.count`, {
+            type: 'state',
+            common: { name: 'Match count', type: 'number', role: 'value', read: true, write: false, def: 0 },
+            native: {},
+        });
     }
 
     async onUnload(callback) {
@@ -343,8 +373,36 @@ class Fingerprint extends utils.Adapter {
         await this.setStateAsync('lastMatch.matched', { val: true, ack: true });
         this.log.info(`Fingerprint match: id=${event.id} name="${event.name}" confidence=${event.confidence}`);
 
+        // Access log + history
+        const accessText = `Access granted: ${event.name || `id ${event.id}`} (id=${event.id}, confidence=${event.confidence})`;
+        if (this.config.accessLogging) {
+            this.log.info(accessText);
+        }
+        await this.setStateAsync('lastAccess.text', { val: accessText, ack: true });
+        await this.setStateAsync('lastAccess.granted', { val: true, ack: true });
+        await this.setStateAsync('lastAccess.timestamp', { val: ts, ack: true });
+        await this.setStateAsync('stats.lastPerson', { val: event.name || '', ack: true });
+        await this._incrementCounter('stats.totalMatches');
+
+        // Per-finger history
+        await this._ensureFingerObjects(event.id, event.name || `Finger ${event.id}`);
+        await this.setStateAsync(`fingerprints.${event.id}.lastSeen`, { val: ts, ack: true });
+        await this._incrementCounter(`fingerprints.${event.id}.count`);
+
         // Run the configured action for this finger, if any
         await this._runMatchAction(event);
+    }
+
+    /**
+     * Increment a numeric counter state by 1.
+     *
+     * @param {string} id state id
+     * @returns {Promise<void>} resolves when the state is written
+     */
+    async _incrementCounter(id) {
+        const cur = await this.getStateAsync(id);
+        const next = (cur && typeof cur.val === 'number' ? cur.val : 0) + 1;
+        await this.setStateAsync(id, { val: next, ack: true });
     }
 
     async _handleRingEvent() {
@@ -352,6 +410,16 @@ class Fingerprint extends utils.Adapter {
         await this.setStateAsync('ring.timestamp', { val: ts, ack: true });
         await this.setStateAsync('ring.ringing', { val: true, ack: true });
         this.log.info('Doorbell ring (unknown finger)');
+
+        // Access log + history
+        const accessText = 'Access denied: unknown finger';
+        if (this.config.accessLogging) {
+            this.log.info(accessText);
+        }
+        await this.setStateAsync('lastAccess.text', { val: accessText, ack: true });
+        await this.setStateAsync('lastAccess.granted', { val: false, ack: true });
+        await this.setStateAsync('lastAccess.timestamp', { val: ts, ack: true });
+        await this._incrementCounter('stats.totalRings');
 
         // Run the configured ring action, if any
         await this._runRingAction();
@@ -657,6 +725,57 @@ class Fingerprint extends utils.Adapter {
         await this.extendObjectAsync('fingerprints', {
             type: 'channel',
             common: { name: 'Enrolled fingerprints' },
+            native: {},
+        });
+
+        // lastAccess channel (access log)
+        await this.extendObjectAsync('lastAccess', {
+            type: 'channel',
+            common: { name: 'Last access' },
+            native: {},
+        });
+        await this.extendObjectAsync('lastAccess.text', {
+            type: 'state',
+            common: { name: 'Last access (readable)', type: 'string', role: 'text', read: true, write: false, def: '' },
+            native: {},
+        });
+        await this.extendObjectAsync('lastAccess.granted', {
+            type: 'state',
+            common: {
+                name: 'Last access granted',
+                type: 'boolean',
+                role: 'indicator',
+                read: true,
+                write: false,
+                def: false,
+            },
+            native: {},
+        });
+        await this.extendObjectAsync('lastAccess.timestamp', {
+            type: 'state',
+            common: { name: 'Last access timestamp', type: 'number', role: 'date', read: true, write: false, def: 0 },
+            native: {},
+        });
+
+        // stats channel
+        await this.extendObjectAsync('stats', {
+            type: 'channel',
+            common: { name: 'Statistics' },
+            native: {},
+        });
+        await this.extendObjectAsync('stats.totalMatches', {
+            type: 'state',
+            common: { name: 'Total matches', type: 'number', role: 'value', read: true, write: false, def: 0 },
+            native: {},
+        });
+        await this.extendObjectAsync('stats.totalRings', {
+            type: 'state',
+            common: { name: 'Total rings', type: 'number', role: 'value', read: true, write: false, def: 0 },
+            native: {},
+        });
+        await this.extendObjectAsync('stats.lastPerson', {
+            type: 'state',
+            common: { name: 'Last recognized person', type: 'string', role: 'text', read: true, write: false, def: '' },
             native: {},
         });
 

@@ -46,5 +46,8 @@
   "Ring target object": "Целевой объект звонка",
   "Object to set when an unknown finger rings. Leave empty to disable.": "Объект, который устанавливается при звонке неизвестного пальца. Оставьте пустым для отключения.",
   "Ring value": "Значение звонка",
-  "Value written on ring (e.g. true, 1, on, or a number/text)": "Значение, записываемое при звонке (например true, 1, on, или число/текст)"
+  "Value written on ring (e.g. true, 1, on, or a number/text)": "Значение, записываемое при звонке (например true, 1, on, или число/текст)",
+  "Access Log": "Журнал доступа",
+  "Enable access logging": "Включить журнал доступа",
+  "Write a readable access log entry (granted/denied) to the adapter log for every fingerprint event": "Записывать читаемую запись журнала доступа (разрешено/отклонено) в лог адаптера для каждого события отпечатка"
 }

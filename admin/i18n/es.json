@@ -46,5 +46,8 @@
   "Ring target object": "Objeto destino del timbre",
   "Object to set when an unknown finger rings. Leave empty to disable.": "Objeto a establecer cuando un dedo desconocido llama. Déjelo vacío para desactivar.",
   "Ring value": "Valor de timbre",
-  "Value written on ring (e.g. true, 1, on, or a number/text)": "Valor escrito al llamar (p. ej. true, 1, on, o un número/texto)"
+  "Value written on ring (e.g. true, 1, on, or a number/text)": "Valor escrito al llamar (p. ej. true, 1, on, o un número/texto)",
+  "Access Log": "Registro de accesos",
+  "Enable access logging": "Habilitar registro de accesos",
+  "Write a readable access log entry (granted/denied) to the adapter log for every fingerprint event": "Escribir una entrada de registro de accesos legible (concedido/denegado) en el log del adaptador para cada evento de huella"
 }

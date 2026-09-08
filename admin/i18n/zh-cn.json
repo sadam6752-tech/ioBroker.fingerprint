@@ -46,5 +46,8 @@
   "Ring target object": "门铃目标对象",
   "Object to set when an unknown finger rings. Leave empty to disable.": "未知手指按铃时设置的对象。留空则禁用。",
   "Ring value": "门铃值",
-  "Value written on ring (e.g. true, 1, on, or a number/text)": "按铃时写入的值（例如 true、1、on 或数字/文本）"
+  "Value written on ring (e.g. true, 1, on, or a number/text)": "按铃时写入的值（例如 true、1、on 或数字/文本）",
+  "Access Log": "访问日志",
+  "Enable access logging": "启用访问日志",
+  "Write a readable access log entry (granted/denied) to the adapter log for every fingerprint event": "为每个指纹事件在适配器日志中写入可读的访问日志条目（允许/拒绝）"
 }

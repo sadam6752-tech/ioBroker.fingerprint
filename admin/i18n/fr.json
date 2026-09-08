@@ -46,5 +46,8 @@
   "Ring target object": "Objet cible de la sonnette",
   "Object to set when an unknown finger rings. Leave empty to disable.": "Objet à définir lorsqu'un doigt inconnu sonne. Laisser vide pour désactiver.",
   "Ring value": "Valeur de sonnette",
-  "Value written on ring (e.g. true, 1, on, or a number/text)": "Valeur écrite lors de la sonnerie (p. ex. true, 1, on, ou un nombre/texte)"
+  "Value written on ring (e.g. true, 1, on, or a number/text)": "Valeur écrite lors de la sonnerie (p. ex. true, 1, on, ou un nombre/texte)",
+  "Access Log": "Journal d'accès",
+  "Enable access logging": "Activer le journal d'accès",
+  "Write a readable access log entry (granted/denied) to the adapter log for every fingerprint event": "Écrire une entrée de journal d'accès lisible (accordé/refusé) dans le journal de l'adaptateur pour chaque événement d'empreinte"
 }

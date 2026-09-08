@@ -46,5 +46,8 @@
   "Ring target object": "Objeto alvo da campainha",
   "Object to set when an unknown finger rings. Leave empty to disable.": "Objeto a definir quando um dedo desconhecido toca. Deixe vazio para desativar.",
   "Ring value": "Valor da campainha",
-  "Value written on ring (e.g. true, 1, on, or a number/text)": "Valor escrito ao tocar (p. ex. true, 1, on, ou um número/texto)"
+  "Value written on ring (e.g. true, 1, on, or a number/text)": "Valor escrito ao tocar (p. ex. true, 1, on, ou um número/texto)",
+  "Access Log": "Registo de acessos",
+  "Enable access logging": "Ativar registo de acessos",
+  "Write a readable access log entry (granted/denied) to the adapter log for every fingerprint event": "Escrever uma entrada de registo de acessos legível (concedido/negado) no log do adaptador para cada evento de impressão"
 }

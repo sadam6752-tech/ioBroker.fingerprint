@@ -46,5 +46,8 @@
   "Ring target object": "Klingel-Zielobjekt",
   "Object to set when an unknown finger rings. Leave empty to disable.": "Objekt, das gesetzt wird, wenn ein unbekannter Finger klingelt. Leer lassen zum Deaktivieren.",
   "Ring value": "Klingel-Wert",
-  "Value written on ring (e.g. true, 1, on, or a number/text)": "Wert, der beim Klingeln geschrieben wird (z. B. true, 1, on, oder Zahl/Text)"
+  "Value written on ring (e.g. true, 1, on, or a number/text)": "Wert, der beim Klingeln geschrieben wird (z. B. true, 1, on, oder Zahl/Text)",
+  "Access Log": "Zugriffsprotokoll",
+  "Enable access logging": "Zugriffsprotokoll aktivieren",
+  "Write a readable access log entry (granted/denied) to the adapter log for every fingerprint event": "Für jedes Fingerabdruck-Ereignis einen lesbaren Zugriffs-Log-Eintrag (gewährt/abgelehnt) ins Adapter-Log schreiben"
 }

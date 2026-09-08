@@ -46,5 +46,8 @@
   "Ring target object": "Oggetto target campanello",
   "Object to set when an unknown finger rings. Leave empty to disable.": "Oggetto da impostare quando un dito sconosciuto suona. Lasciare vuoto per disattivare.",
   "Ring value": "Valore campanello",
-  "Value written on ring (e.g. true, 1, on, or a number/text)": "Valore scritto al suono (es. true, 1, on, o un numero/testo)"
+  "Value written on ring (e.g. true, 1, on, or a number/text)": "Valore scritto al suono (es. true, 1, on, o un numero/testo)",
+  "Access Log": "Registro accessi",
+  "Enable access logging": "Abilita registro accessi",
+  "Write a readable access log entry (granted/denied) to the adapter log for every fingerprint event": "Scrive una voce di registro accessi leggibile (concesso/negato) nel log dell'adattatore per ogni evento impronta"
 }

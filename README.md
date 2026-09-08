@@ -98,7 +98,15 @@ fingerprint — no JavaScript needed:
 | `info.freeHeap` | number | Free heap in bytes |
 | `info.firmwareVersion` | string | Device firmware version |
 | `info.serverMode` | boolean | Device sends events directly to this adapter |
-| `fingerprints.<id>` | string | Name of the enrolled finger with that ID |
+| `fingerprints.<id>.name` | string | Name of the enrolled finger with that ID |
+| `fingerprints.<id>.lastSeen` | number | Timestamp the finger was last matched |
+| `fingerprints.<id>.count` | number | How often the finger was matched |
+| `lastAccess.text` | string | Readable last access entry (granted/denied) |
+| `lastAccess.granted` | boolean | Whether the last access was granted |
+| `lastAccess.timestamp` | number | Timestamp of the last access |
+| `stats.totalMatches` | number | Total fingerprint matches |
+| `stats.totalRings` | number | Total doorbell rings (unknown finger) |
+| `stats.lastPerson` | string | Name of the last recognized person |
 | `lastMatch.id` | number | ID of the last matched finger (1–200) |
 | `lastMatch.name` | string | Name of the last matched finger |
 | `lastMatch.confidence` | number | Match confidence |
@@ -116,6 +124,12 @@ fingerprint — no JavaScript needed:
   (planned for **v0.9.1**). Until then, the switch has no effect.
 
 ## Changelog
+
+### 0.4.0
+
+- Access log & history: optional access logging (checkbox), `lastAccess.*` and `stats.*` states
+- Per-finger history: `fingerprints.<id>` is now a channel with `name`, `lastSeen`, `count`
+  (the old flat `fingerprints.<id>` state is migrated automatically)
 
 ### 0.3.4
 

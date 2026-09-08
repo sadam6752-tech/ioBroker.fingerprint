@@ -46,5 +46,8 @@
   "Ring target object": "Ring target object",
   "Object to set when an unknown finger rings. Leave empty to disable.": "Object to set when an unknown finger rings. Leave empty to disable.",
   "Ring value": "Ring value",
-  "Value written on ring (e.g. true, 1, on, or a number/text)": "Value written on ring (e.g. true, 1, on, or a number/text)"
+  "Value written on ring (e.g. true, 1, on, or a number/text)": "Value written on ring (e.g. true, 1, on, or a number/text)",
+  "Access Log": "Access Log",
+  "Enable access logging": "Enable access logging",
+  "Write a readable access log entry (granted/denied) to the adapter log for every fingerprint event": "Write a readable access log entry (granted/denied) to the adapter log for every fingerprint event"
 }

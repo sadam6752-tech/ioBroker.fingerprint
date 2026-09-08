@@ -46,5 +46,8 @@
   "Ring target object": "Bel-doelobject",
   "Object to set when an unknown finger rings. Leave empty to disable.": "Object dat wordt ingesteld wanneer een onbekende vinger belt. Laat leeg om uit te schakelen.",
   "Ring value": "Belwaarde",
-  "Value written on ring (e.g. true, 1, on, or a number/text)": "Waarde die bij bellen wordt geschreven (bijv. true, 1, on, of een getal/tekst)"
+  "Value written on ring (e.g. true, 1, on, or a number/text)": "Waarde die bij bellen wordt geschreven (bijv. true, 1, on, of een getal/tekst)",
+  "Access Log": "Toegangslogboek",
+  "Enable access logging": "Toegangslogboek inschakelen",
+  "Write a readable access log entry (granted/denied) to the adapter log for every fingerprint event": "Schrijf voor elke vingerafdrukgebeurtenis een leesbare toegangslogregel (toegestaan/geweigerd) naar het adapterlog"
 }
