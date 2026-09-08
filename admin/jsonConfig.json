@@ -59,6 +59,8 @@
       "jsonData": "{ \"espIp\": \"${data.espIp}\", \"espPort\": ${data.espPort}, \"adminUser\": \"${data.adminUser}\", \"adminPassword\": \"${data.adminPassword}\" }",
       "variant": "contained",
       "color": "primary",
+      "showProcess": true,
+      "timeout": 10000,
       "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
     },
     "_webhookHeader": {

@@ -136,15 +136,33 @@ class Fingerprint extends utils.Adapter {
             });
             const { reachable, info } = await client.ping();
             if (reachable) {
-                const version = info['Version'] || info['VersionInfo'] || '';
+                const uptime = info['Uptime'] ? `, uptime ${info['Uptime']}` : '';
+                const text = `Connected to ${ip}${uptime}`;
                 this.sendTo(
                     obj.from,
                     obj.command,
-                    { result: version ? `Connected (${version})` : 'Connected' },
+                    {
+                        result: {
+                            en: text,
+                            de: `Verbunden mit ${ip}${uptime}`,
+                            ru: `Подключено к ${ip}${uptime}`,
+                        },
+                    },
                     obj.callback,
                 );
             } else {
-                this.sendTo(obj.from, obj.command, { error: `Device not reachable at ${ip}` }, obj.callback);
+                this.sendTo(
+                    obj.from,
+                    obj.command,
+                    {
+                        error: {
+                            en: `Device not reachable at ${ip}`,
+                            de: `Gerät unter ${ip} nicht erreichbar`,
+                            ru: `Устройство недоступно по адресу ${ip}`,
+                        },
+                    },
+                    obj.callback,
+                );
             }
             return;
         }

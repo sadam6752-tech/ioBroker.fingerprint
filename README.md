@@ -77,6 +77,10 @@ v0.9.1 (server mode), the adapter provisions the URLs and token automatically.
 
 ## Changelog
 
+### 0.1.2
+
+- Fix Test Connection button: return localized result/error and add spinner + request timeout
+
 ### 0.1.1
 
 - Fix invalid jsonConfig: remove unsupported `showProcessState` from the Test Connection button

@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "fingerprint",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "news": {
+      "0.1.2": {
+        "en": "Fix Test Connection button: return localized result/error and add spinner + request timeout",
+        "de": "Test-Connection-Button behoben: lokalisiertes Ergebnis/Fehler zurückgeben, Spinner + Anfrage-Timeout ergänzt",
+        "ru": "Исправлена кнопка Test Connection: возврат локализованного результата/ошибки, добавлены спиннер и таймаут запроса",
+        "fr": "Correction du bouton Test Connection : renvoi d'un résultat/erreur localisé, ajout d'un spinner et d'un délai de requête",
+        "it": "Corretto il pulsante Test Connection: restituzione di risultato/errore localizzato, aggiunti spinner e timeout richiesta",
+        "es": "Corregido el botón Test Connection: devuelve resultado/error localizado y añade spinner + tiempo de espera",
+        "pl": "Naprawiono przycisk Test Connection: zwracanie zlokalizowanego wyniku/błędu, dodano spinner i limit czasu żądania",
+        "pt": "Corrigido o botão Test Connection: devolve resultado/erro localizado e adiciona spinner + tempo limite",
+        "nl": "Test Connection-knop hersteld: gelokaliseerd resultaat/fout retourneren, spinner + verzoek-time-out toegevoegd",
+        "zh-cn": "修复 Test Connection 按钮：返回本地化的结果/错误，并添加加载指示器和请求超时"
+      },
       "0.1.1": {
         "en": "Fix invalid jsonConfig: remove unsupported 'showProcessState' from the Test Connection button",
         "de": "Ungültige jsonConfig behoben: nicht unterstütztes 'showProcessState' vom Test-Connection-Button entfernt",
