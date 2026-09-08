@@ -1,4 +1,4 @@
-![Logo](admin/fingerprint.png)
+<img src="https://raw.githubusercontent.com/sadam6752-tech/ioBroker.fingerprint/main/admin/fingerprint.png" width="120" alt="FingerprintDoorbell logo" />
 
 # ioBroker.fingerprint
 
@@ -124,6 +124,10 @@ fingerprint — no JavaScript needed:
   (planned for **v0.9.1**). Until then, the switch has no effect.
 
 ## Changelog
+
+### 0.4.1
+
+- Docs: use an absolute logo URL in README so it shows on the npm package page
 
 ### 0.4.0
 

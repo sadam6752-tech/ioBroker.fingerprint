@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "fingerprint",
-    "version": "0.4.0",
+    "version": "0.4.1",
     "news": {
+      "0.4.1": {
+        "en": "Docs: use an absolute logo URL in README so it shows on the npm package page",
+        "de": "Doku: absolute Logo-URL im README, damit es auf der npm-Paketseite angezeigt wird",
+        "ru": "Документация: абсолютный URL логотипа в README, чтобы он отображался на странице пакета npm",
+        "fr": "Docs : URL absolue du logo dans le README pour qu'il s'affiche sur la page du paquet npm",
+        "it": "Docs: URL assoluto del logo nel README così appare sulla pagina del pacchetto npm",
+        "es": "Docs: URL absoluta del logo en el README para que aparezca en la página del paquete npm",
+        "pl": "Dokumentacja: bezwzględny URL logo w README, aby pojawiało się na stronie pakietu npm",
+        "pt": "Docs: URL absoluto do logótipo no README para aparecer na página do pacote npm",
+        "nl": "Docs: absolute logo-URL in README zodat het op de npm-pakketpagina verschijnt",
+        "zh-cn": "文档：在 README 中使用绝对 logo URL，使其显示在 npm 包页面上"
+      },
       "0.4.0": {
         "en": "Access log & history: optional access logging, lastAccess.* and stats.* states, per-finger lastSeen/count (fingerprints.<id> is now a channel)",
         "de": "Zugriffsprotokoll & Verlauf: optionales Access-Logging, lastAccess.*- und stats.*-States, pro Finger lastSeen/count (fingerprints.<id> ist jetzt ein Kanal)",
@@ -74,18 +86,6 @@
         "pt": "Separador Ações de impressão: associar cada dedo a um objeto ioBroker (set/toggle, valor, confiança mín), ação de campainha, carregar impressões do dispositivo (fusão)",
         "nl": "Tabblad Vingerafdrukacties: koppel elke vinger aan een ioBroker-object (set/toggle, waarde, min. betrouwbaarheid), belactie, vingerafdrukken van apparaat laden (samenvoegen)",
         "zh-cn": "指纹动作选项卡：将每个手指映射到 ioBroker 对象（设置/切换、值、最低置信度）、门铃动作、从设备加载指纹（合并）"
-      },
-      "0.2.3": {
-        "en": "Test Connection now shows a plain message (not the raw translation object); remove diagnostics log",
-        "de": "Test Connection zeigt jetzt eine einfache Meldung (nicht das rohe Übersetzungsobjekt); Diagnose-Log entfernt",
-        "ru": "Test Connection теперь показывает простое сообщение (а не сырой объект переводов); убран диагностический лог",
-        "fr": "Test Connection affiche désormais un message simple (et non l'objet de traduction brut) ; journal de diagnostic supprimé",
-        "it": "Test Connection ora mostra un messaggio semplice (non l'oggetto di traduzione grezzo); rimosso il log di diagnostica",
-        "es": "Test Connection ahora muestra un mensaje simple (no el objeto de traducción sin procesar); eliminado el registro de diagnóstico",
-        "pl": "Test Connection pokazuje teraz zwykły komunikat (a nie surowy obiekt tłumaczeń); usunięto log diagnostyczny",
-        "pt": "Test Connection mostra agora uma mensagem simples (não o objeto de tradução em bruto); removido o registo de diagnóstico",
-        "nl": "Test Connection toont nu een eenvoudig bericht (niet het ruwe vertaalobject); diagnostiek-log verwijderd",
-        "zh-cn": "Test Connection 现在显示纯文本消息（而非原始翻译对象）；移除诊断日志"
       }
     },
     "titleLang": {
