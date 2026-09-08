@@ -30,5 +30,21 @@
   "Save the settings first, then test the connection to the device.": "Enregistrez d'abord les paramètres, puis testez la connexion à l'appareil.",
   "Adapter Host/IP": "Hôte/IP de l'adaptateur",
   "IP/host of this ioBroker that the device sends events to. Leave empty for auto-detection.": "IP/hôte de cet ioBroker auquel l'appareil envoie les événements. Laisser vide pour la détection automatique.",
-  "With FingerprintDoorbell firmware >= v0.9.1 the adapter provisions the device automatically (server mode). For firmware v0.9, paste the URLs below into the device settings manually.": "Avec le firmware FingerprintDoorbell >= v0.9.1, l'adaptateur configure l'appareil automatiquement (mode serveur). Pour le firmware v0.9, collez les URL ci-dessous manuellement dans les paramètres de l'appareil."
+  "With FingerprintDoorbell firmware >= v0.9.1 the adapter provisions the device automatically (server mode). For firmware v0.9, paste the URLs below into the device settings manually.": "Avec le firmware FingerprintDoorbell >= v0.9.1, l'adaptateur configure l'appareil automatiquement (mode serveur). Pour le firmware v0.9, collez les URL ci-dessous manuellement dans les paramètres de l'appareil.",
+  "Connection": "Connexion",
+  "Fingerprint Actions": "Actions d'empreinte",
+  "Map each fingerprint to an ioBroker object. On a match the adapter sets/toggles the target. Load the fingerprints from the device, then choose an object and action per row.": "Associez chaque empreinte à un objet ioBroker. Lors d'une correspondance, l'adaptateur définit/bascule la cible. Chargez les empreintes depuis l'appareil, puis choisissez un objet et une action par ligne.",
+  "Load fingerprints from device": "Charger les empreintes depuis l'appareil",
+  "Match actions": "Actions de correspondance",
+  "Target object": "Objet cible",
+  "Action": "Action",
+  "Set value": "Définir la valeur",
+  "Toggle": "Basculer",
+  "Value": "Valeur",
+  "Min conf.": "Conf. min",
+  "Ring action (unknown finger)": "Action de sonnette (doigt inconnu)",
+  "Ring target object": "Objet cible de la sonnette",
+  "Object to set when an unknown finger rings. Leave empty to disable.": "Objet à définir lorsqu'un doigt inconnu sonne. Laisser vide pour désactiver.",
+  "Ring value": "Valeur de sonnette",
+  "Value written on ring (e.g. true, 1, on, or a number/text)": "Valeur écrite lors de la sonnerie (p. ex. true, 1, on, ou un nombre/texte)"
 }

@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "fingerprint",
-    "version": "0.2.3",
+    "version": "0.3.0",
     "news": {
+      "0.3.0": {
+        "en": "Fingerprint Actions tab: map each finger to an ioBroker object (set/toggle, value, min confidence), ring action, load fingerprints from device (merge)",
+        "de": "Tab Fingerabdruck-Aktionen: jeden Finger einem ioBroker-Objekt zuordnen (setzen/umschalten, Wert, Mindest-Konfidenz), Klingel-Aktion, Fingerabdrücke vom Gerät laden (Merge)",
+        "ru": "Вкладка «Действия по отпечаткам»: сопоставление каждого пальца с объектом ioBroker (set/toggle, значение, мин. уверенность), действие звонка, загрузка отпечатков с устройства (merge)",
+        "fr": "Onglet Actions d'empreinte : associer chaque doigt à un objet ioBroker (set/toggle, valeur, confiance min), action de sonnette, chargement des empreintes depuis l'appareil (fusion)",
+        "it": "Scheda Azioni impronta: associa ogni dito a un oggetto ioBroker (set/toggle, valore, confidenza min), azione campanello, caricamento impronte dal dispositivo (merge)",
+        "es": "Pestaña Acciones de huella: asignar cada dedo a un objeto ioBroker (set/toggle, valor, confianza mín), acción de timbre, cargar huellas del dispositivo (fusión)",
+        "pl": "Karta Akcje odcisków: przypisanie każdego palca do obiektu ioBroker (set/toggle, wartość, min pewność), akcja dzwonka, wczytanie odcisków z urządzenia (scalanie)",
+        "pt": "Separador Ações de impressão: associar cada dedo a um objeto ioBroker (set/toggle, valor, confiança mín), ação de campainha, carregar impressões do dispositivo (fusão)",
+        "nl": "Tabblad Vingerafdrukacties: koppel elke vinger aan een ioBroker-object (set/toggle, waarde, min. betrouwbaarheid), belactie, vingerafdrukken van apparaat laden (samenvoegen)",
+        "zh-cn": "指纹动作选项卡：将每个手指映射到 ioBroker 对象（设置/切换、值、最低置信度）、门铃动作、从设备加载指纹（合并）"
+      },
       "0.2.3": {
         "en": "Test Connection now shows a plain message (not the raw translation object); remove diagnostics log",
         "de": "Test Connection zeigt jetzt eine einfache Meldung (nicht das rohe Übersetzungsobjekt); Diagnose-Log entfernt",
@@ -74,18 +86,6 @@
         "pt": "Corrigido o botão Test Connection: devolve resultado/erro localizado e adiciona spinner + tempo limite",
         "nl": "Test Connection-knop hersteld: gelokaliseerd resultaat/fout retourneren, spinner + verzoek-time-out toegevoegd",
         "zh-cn": "修复 Test Connection 按钮：返回本地化的结果/错误，并添加加载指示器和请求超时"
-      },
-      "0.1.1": {
-        "en": "Fix invalid jsonConfig: remove unsupported 'showProcessState' from the Test Connection button",
-        "de": "Ungültige jsonConfig behoben: nicht unterstütztes 'showProcessState' vom Test-Connection-Button entfernt",
-        "ru": "Исправлен некорректный jsonConfig: убрано неподдерживаемое 'showProcessState' у кнопки Test Connection",
-        "fr": "Correction du jsonConfig invalide : suppression de 'showProcessState' non pris en charge du bouton Test Connection",
-        "it": "Corretto jsonConfig non valido: rimosso 'showProcessState' non supportato dal pulsante Test Connection",
-        "es": "Corregido jsonConfig no válido: eliminado 'showProcessState' no compatible del botón Test Connection",
-        "pl": "Naprawiono nieprawidłowy jsonConfig: usunięto nieobsługiwane 'showProcessState' z przycisku Test Connection",
-        "pt": "Corrigido jsonConfig inválido: removido 'showProcessState' não suportado do botão Test Connection",
-        "nl": "Ongeldige jsonConfig hersteld: niet-ondersteunde 'showProcessState' verwijderd van de Test Connection-knop",
-        "zh-cn": "修复无效的 jsonConfig：从 Test Connection 按钮中移除不支持的 'showProcessState'"
       }
     },
     "titleLang": {
@@ -157,7 +157,10 @@
     "adminPassword": "",
     "pollingEnabled": true,
     "pollingInterval": 30,
-    "requestTimeout": 5000
+    "requestTimeout": 5000,
+    "actions": [],
+    "ringActionObject": "",
+    "ringActionValue": ""
   },
   "objects": [],
   "instanceObjects": [

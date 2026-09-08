@@ -30,5 +30,21 @@
   "Save the settings first, then test the connection to the device.": "Guarde primeiro as definições e depois teste a ligação ao dispositivo.",
   "Adapter Host/IP": "Host/IP do adaptador",
   "IP/host of this ioBroker that the device sends events to. Leave empty for auto-detection.": "IP/host deste ioBroker para onde o dispositivo envia eventos. Deixe vazio para deteção automática.",
-  "With FingerprintDoorbell firmware >= v0.9.1 the adapter provisions the device automatically (server mode). For firmware v0.9, paste the URLs below into the device settings manually.": "Com firmware FingerprintDoorbell >= v0.9.1, o adaptador aprovisiona o dispositivo automaticamente (modo servidor). Para firmware v0.9, cole os URLs abaixo manualmente nas definições do dispositivo."
+  "With FingerprintDoorbell firmware >= v0.9.1 the adapter provisions the device automatically (server mode). For firmware v0.9, paste the URLs below into the device settings manually.": "Com firmware FingerprintDoorbell >= v0.9.1, o adaptador aprovisiona o dispositivo automaticamente (modo servidor). Para firmware v0.9, cole os URLs abaixo manualmente nas definições do dispositivo.",
+  "Connection": "Ligação",
+  "Fingerprint Actions": "Ações de impressão",
+  "Map each fingerprint to an ioBroker object. On a match the adapter sets/toggles the target. Load the fingerprints from the device, then choose an object and action per row.": "Associe cada impressão a um objeto ioBroker. Numa correspondência, o adaptador define/alterna o alvo. Carregue as impressões do dispositivo e escolha objeto e ação por linha.",
+  "Load fingerprints from device": "Carregar impressões do dispositivo",
+  "Match actions": "Ações de correspondência",
+  "Target object": "Objeto alvo",
+  "Action": "Ação",
+  "Set value": "Definir valor",
+  "Toggle": "Alternar",
+  "Value": "Valor",
+  "Min conf.": "Conf. mín",
+  "Ring action (unknown finger)": "Ação de campainha (dedo desconhecido)",
+  "Ring target object": "Objeto alvo da campainha",
+  "Object to set when an unknown finger rings. Leave empty to disable.": "Objeto a definir quando um dedo desconhecido toca. Deixe vazio para desativar.",
+  "Ring value": "Valor da campainha",
+  "Value written on ring (e.g. true, 1, on, or a number/text)": "Valor escrito ao tocar (p. ex. true, 1, on, ou um número/texto)"
 }

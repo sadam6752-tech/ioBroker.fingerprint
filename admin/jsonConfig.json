@@ -1,147 +1,238 @@
 {
   "i18n": true,
-  "type": "panel",
+  "type": "tabs",
   "items": {
-    "_espHeader": {
-      "type": "header",
-      "text": "FingerprintDoorbell Device",
-      "size": 3
+    "_tabConnection": {
+      "type": "panel",
+      "label": "Connection",
+      "items": {
+        "_espHeader": {
+          "type": "header",
+          "text": "FingerprintDoorbell Device",
+          "size": 3
+        },
+        "espIp": {
+          "type": "text",
+          "label": "Device IP Address",
+          "default": "",
+          "help": "IP address of the FingerprintDoorbell (ESP32)",
+          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
+        },
+        "espPort": {
+          "type": "number",
+          "label": "Device Port",
+          "default": 80,
+          "min": 1,
+          "max": 65535,
+          "help": "HTTP port of the device WebUI (default: 80)",
+          "xs": 12, "sm": 6, "md": 3, "lg": 2, "xl": 2
+        },
+        "requestTimeout": {
+          "type": "number",
+          "label": "Request Timeout (ms)",
+          "default": 5000,
+          "min": 1000,
+          "max": 30000,
+          "xs": 12, "sm": 6, "md": 3, "lg": 2, "xl": 2
+        },
+        "_authHeader": {
+          "type": "header",
+          "text": "Device Authentication",
+          "size": 3
+        },
+        "adminUser": {
+          "type": "text",
+          "label": "Admin User",
+          "default": "",
+          "help": "HTTP Basic Auth user of the device WebUI (leave empty if not set)",
+          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
+        },
+        "adminPassword": {
+          "type": "password",
+          "label": "Admin Password",
+          "default": "",
+          "help": "HTTP Basic Auth password of the device WebUI",
+          "visible": true,
+          "repeat": false,
+          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
+        },
+        "testConnectionButton": {
+          "type": "sendTo",
+          "label": "Test Connection",
+          "command": "testConnection",
+          "variant": "contained",
+          "color": "primary",
+          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
+        },
+        "_webhookHeader": {
+          "type": "header",
+          "text": "Webhook Receiver",
+          "size": 3
+        },
+        "_webhookInfo": {
+          "type": "staticText",
+          "text": "With FingerprintDoorbell firmware >= v0.9.1 the adapter provisions the device automatically (server mode). For firmware v0.9, paste the URLs below into the device settings manually.",
+          "xs": 12
+        },
+        "serverHost": {
+          "type": "text",
+          "label": "Adapter Host/IP",
+          "default": "",
+          "help": "IP/host of this ioBroker that the device sends events to. Leave empty for auto-detection.",
+          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
+        },
+        "webhookBind": {
+          "type": "ip",
+          "listenOnAllPorts": true,
+          "label": "Webhook Bind IP Address",
+          "help": "IP address to bind the webhook receiver to. Select 0.0.0.0 for all interfaces.",
+          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
+        },
+        "webhookPort": {
+          "type": "number",
+          "label": "Webhook Port",
+          "default": 8095,
+          "min": 1024,
+          "max": 65535,
+          "help": "Port the adapter listens on for events from the device (default: 8095)",
+          "xs": 12, "sm": 6, "md": 3, "lg": 2, "xl": 2
+        },
+        "restrictToDeviceIp": {
+          "type": "checkbox",
+          "label": "Accept webhooks only from the device IP",
+          "default": false,
+          "help": "Reject webhook events coming from any host other than the configured device IP",
+          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
+        },
+        "webhookToken": {
+          "type": "text",
+          "label": "Webhook Token",
+          "help": "Shared secret required on incoming events. Auto-generated on first start. Regenerate by clearing this field and saving.",
+          "readOnly": true,
+          "copyToClipboard": true,
+          "xs": 12, "sm": 12, "md": 8, "lg": 6, "xl": 6
+        },
+        "_matchUrlHint": {
+          "type": "pattern",
+          "label": "HTTP Match URL (paste into device)",
+          "copyToClipboard": true,
+          "pattern": "http://<iobroker-ip>:${data.webhookPort}/match?id={id}&name={name}&confidence={confidence}&token=${data.webhookToken}",
+          "xs": 12, "sm": 12, "md": 12, "lg": 8, "xl": 8
+        },
+        "_ringUrlHint": {
+          "type": "pattern",
+          "label": "HTTP Ring URL (paste into device)",
+          "copyToClipboard": true,
+          "pattern": "http://<iobroker-ip>:${data.webhookPort}/ring?token=${data.webhookToken}",
+          "xs": 12, "sm": 12, "md": 12, "lg": 8, "xl": 8
+        },
+        "_pollingHeader": {
+          "type": "header",
+          "text": "Status Polling",
+          "size": 3
+        },
+        "pollingEnabled": {
+          "type": "checkbox",
+          "label": "Enable Status Polling",
+          "default": true,
+          "help": "Periodically check whether the device is reachable",
+          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
+        },
+        "pollingInterval": {
+          "type": "number",
+          "label": "Polling Interval (seconds)",
+          "default": 30,
+          "min": 5,
+          "max": 600,
+          "disabled": "!data.pollingEnabled",
+          "xs": 12, "sm": 6, "md": 3, "lg": 2, "xl": 2
+        }
+      }
     },
-    "espIp": {
-      "type": "text",
-      "label": "Device IP Address",
-      "default": "",
-      "help": "IP address of the FingerprintDoorbell (ESP32)",
-      "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
-    },
-    "espPort": {
-      "type": "number",
-      "label": "Device Port",
-      "default": 80,
-      "min": 1,
-      "max": 65535,
-      "help": "HTTP port of the device WebUI (default: 80)",
-      "xs": 12, "sm": 6, "md": 3, "lg": 2, "xl": 2
-    },
-    "requestTimeout": {
-      "type": "number",
-      "label": "Request Timeout (ms)",
-      "default": 5000,
-      "min": 1000,
-      "max": 30000,
-      "xs": 12, "sm": 6, "md": 3, "lg": 2, "xl": 2
-    },
-    "_authHeader": {
-      "type": "header",
-      "text": "Device Authentication",
-      "size": 3
-    },
-    "adminUser": {
-      "type": "text",
-      "label": "Admin User",
-      "default": "",
-      "help": "HTTP Basic Auth user of the device WebUI (leave empty if not set)",
-      "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
-    },
-    "adminPassword": {
-      "type": "password",
-      "label": "Admin Password",
-      "default": "",
-      "help": "HTTP Basic Auth password of the device WebUI",
-      "visible": true,
-      "repeat": false,
-      "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
-    },
-    "testConnectionButton": {
-      "type": "sendTo",
-      "label": "Test Connection",
-      "command": "testConnection",
-      "variant": "contained",
-      "color": "primary",
-      "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
-    },
-    "_webhookHeader": {
-      "type": "header",
-      "text": "Webhook Receiver",
-      "size": 3
-    },
-    "_webhookInfo": {
-      "type": "staticText",
-      "text": "With FingerprintDoorbell firmware >= v0.9.1 the adapter provisions the device automatically (server mode). For firmware v0.9, paste the URLs below into the device settings manually.",
-      "xs": 12
-    },
-    "serverHost": {
-      "type": "text",
-      "label": "Adapter Host/IP",
-      "default": "",
-      "help": "IP/host of this ioBroker that the device sends events to. Leave empty for auto-detection.",
-      "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
-    },
-    "webhookBind": {
-      "type": "ip",
-      "listenOnAllPorts": true,
-      "label": "Webhook Bind IP Address",
-      "help": "IP address to bind the webhook receiver to. Select 0.0.0.0 for all interfaces.",
-      "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
-    },
-    "webhookPort": {
-      "type": "number",
-      "label": "Webhook Port",
-      "default": 8095,
-      "min": 1024,
-      "max": 65535,
-      "help": "Port the adapter listens on for events from the device (default: 8095)",
-      "xs": 12, "sm": 6, "md": 3, "lg": 2, "xl": 2
-    },
-    "restrictToDeviceIp": {
-      "type": "checkbox",
-      "label": "Accept webhooks only from the device IP",
-      "default": false,
-      "help": "Reject webhook events coming from any host other than the configured device IP",
-      "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
-    },
-    "webhookToken": {
-      "type": "text",
-      "label": "Webhook Token",
-      "help": "Shared secret required on incoming events. Auto-generated on first start. Regenerate by clearing this field and saving.",
-      "readOnly": true,
-      "copyToClipboard": true,
-      "xs": 12, "sm": 12, "md": 8, "lg": 6, "xl": 6
-    },
-    "_matchUrlHint": {
-      "type": "pattern",
-      "label": "HTTP Match URL (paste into device)",
-      "copyToClipboard": true,
-      "pattern": "http://<iobroker-ip>:${data.webhookPort}/match?id={id}&name={name}&confidence={confidence}&token=${data.webhookToken}",
-      "xs": 12, "sm": 12, "md": 12, "lg": 8, "xl": 8
-    },
-    "_ringUrlHint": {
-      "type": "pattern",
-      "label": "HTTP Ring URL (paste into device)",
-      "copyToClipboard": true,
-      "pattern": "http://<iobroker-ip>:${data.webhookPort}/ring?token=${data.webhookToken}",
-      "xs": 12, "sm": 12, "md": 12, "lg": 8, "xl": 8
-    },
-    "_pollingHeader": {
-      "type": "header",
-      "text": "Status Polling",
-      "size": 3
-    },
-    "pollingEnabled": {
-      "type": "checkbox",
-      "label": "Enable Status Polling",
-      "default": true,
-      "help": "Periodically check whether the device is reachable",
-      "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
-    },
-    "pollingInterval": {
-      "type": "number",
-      "label": "Polling Interval (seconds)",
-      "default": 30,
-      "min": 5,
-      "max": 600,
-      "disabled": "!data.pollingEnabled",
-      "xs": 12, "sm": 6, "md": 3, "lg": 2, "xl": 2
+    "_tabActions": {
+      "type": "panel",
+      "label": "Fingerprint Actions",
+      "items": {
+        "_actionsInfo": {
+          "type": "staticText",
+          "text": "Map each fingerprint to an ioBroker object. On a match the adapter sets/toggles the target. Load the fingerprints from the device, then choose an object and action per row.",
+          "xs": 12
+        },
+        "loadFingerprintsButton": {
+          "type": "sendTo",
+          "label": "Load fingerprints from device",
+          "command": "loadFingerprints",
+          "variant": "contained",
+          "color": "primary",
+          "useNative": true,
+          "xs": 12, "sm": 8, "md": 6, "lg": 4, "xl": 4
+        },
+        "actions": {
+          "type": "table",
+          "label": "Match actions",
+          "items": [
+            {
+              "type": "number",
+              "attr": "id",
+              "title": "ID",
+              "width": "8%"
+            },
+            {
+              "type": "text",
+              "attr": "name",
+              "title": "Name",
+              "width": "22%"
+            },
+            {
+              "type": "objectId",
+              "attr": "objectId",
+              "title": "Target object",
+              "width": "34%"
+            },
+            {
+              "type": "select",
+              "attr": "action",
+              "title": "Action",
+              "width": "12%",
+              "default": "set",
+              "options": [
+                { "value": "set", "label": "Set value" },
+                { "value": "toggle", "label": "Toggle" }
+              ]
+            },
+            {
+              "type": "text",
+              "attr": "value",
+              "title": "Value",
+              "width": "14%"
+            },
+            {
+              "type": "number",
+              "attr": "minConfidence",
+              "title": "Min conf.",
+              "width": "10%"
+            }
+          ],
+          "xs": 12
+        },
+        "_ringHeader": {
+          "type": "header",
+          "text": "Ring action (unknown finger)",
+          "size": 3
+        },
+        "ringActionObject": {
+          "type": "objectId",
+          "label": "Ring target object",
+          "help": "Object to set when an unknown finger rings. Leave empty to disable.",
+          "xs": 12, "sm": 8, "md": 6, "lg": 5, "xl": 5
+        },
+        "ringActionValue": {
+          "type": "text",
+          "label": "Ring value",
+          "help": "Value written on ring (e.g. true, 1, on, or a number/text)",
+          "xs": 12, "sm": 4, "md": 3, "lg": 2, "xl": 2
+        }
+      }
     }
   }
 }

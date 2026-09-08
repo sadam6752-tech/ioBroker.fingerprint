@@ -30,5 +30,21 @@
   "Polling Interval (seconds)": "Интервал опроса (секунды)",
   "Adapter Host/IP": "Хост/IP адаптера",
   "IP/host of this ioBroker that the device sends events to. Leave empty for auto-detection.": "IP/хост этого ioBroker, на который устройство шлёт события. Оставьте пустым для автоопределения.",
-  "With FingerprintDoorbell firmware >= v0.9.1 the adapter provisions the device automatically (server mode). For firmware v0.9, paste the URLs below into the device settings manually.": "С прошивкой FingerprintDoorbell >= v0.9.1 адаптер настраивает устройство автоматически (режим сервера). Для прошивки v0.9 вставьте URL ниже в настройки устройства вручную."
+  "With FingerprintDoorbell firmware >= v0.9.1 the adapter provisions the device automatically (server mode). For firmware v0.9, paste the URLs below into the device settings manually.": "С прошивкой FingerprintDoorbell >= v0.9.1 адаптер настраивает устройство автоматически (режим сервера). Для прошивки v0.9 вставьте URL ниже в настройки устройства вручную.",
+  "Connection": "Подключение",
+  "Fingerprint Actions": "Действия по отпечаткам",
+  "Map each fingerprint to an ioBroker object. On a match the adapter sets/toggles the target. Load the fingerprints from the device, then choose an object and action per row.": "Сопоставьте каждый отпечаток с объектом ioBroker. При совпадении адаптер устанавливает/переключает цель. Загрузите отпечатки с устройства, затем выберите объект и действие для каждой строки.",
+  "Load fingerprints from device": "Загрузить отпечатки с устройства",
+  "Match actions": "Действия при совпадении",
+  "Target object": "Целевой объект",
+  "Action": "Действие",
+  "Set value": "Установить значение",
+  "Toggle": "Переключить",
+  "Value": "Значение",
+  "Min conf.": "Мин. увер.",
+  "Ring action (unknown finger)": "Действие звонка (неизвестный палец)",
+  "Ring target object": "Целевой объект звонка",
+  "Object to set when an unknown finger rings. Leave empty to disable.": "Объект, который устанавливается при звонке неизвестного пальца. Оставьте пустым для отключения.",
+  "Ring value": "Значение звонка",
+  "Value written on ring (e.g. true, 1, on, or a number/text)": "Значение, записываемое при звонке (например true, 1, on, или число/текст)"
 }

@@ -30,5 +30,21 @@
   "Polling Interval (seconds)": "Polling Interval (seconds)",
   "Adapter Host/IP": "Adapter Host/IP",
   "IP/host of this ioBroker that the device sends events to. Leave empty for auto-detection.": "IP/host of this ioBroker that the device sends events to. Leave empty for auto-detection.",
-  "With FingerprintDoorbell firmware >= v0.9.1 the adapter provisions the device automatically (server mode). For firmware v0.9, paste the URLs below into the device settings manually.": "With FingerprintDoorbell firmware >= v0.9.1 the adapter provisions the device automatically (server mode). For firmware v0.9, paste the URLs below into the device settings manually."
+  "With FingerprintDoorbell firmware >= v0.9.1 the adapter provisions the device automatically (server mode). For firmware v0.9, paste the URLs below into the device settings manually.": "With FingerprintDoorbell firmware >= v0.9.1 the adapter provisions the device automatically (server mode). For firmware v0.9, paste the URLs below into the device settings manually.",
+  "Connection": "Connection",
+  "Fingerprint Actions": "Fingerprint Actions",
+  "Map each fingerprint to an ioBroker object. On a match the adapter sets/toggles the target. Load the fingerprints from the device, then choose an object and action per row.": "Map each fingerprint to an ioBroker object. On a match the adapter sets/toggles the target. Load the fingerprints from the device, then choose an object and action per row.",
+  "Load fingerprints from device": "Load fingerprints from device",
+  "Match actions": "Match actions",
+  "Target object": "Target object",
+  "Action": "Action",
+  "Set value": "Set value",
+  "Toggle": "Toggle",
+  "Value": "Value",
+  "Min conf.": "Min conf.",
+  "Ring action (unknown finger)": "Ring action (unknown finger)",
+  "Ring target object": "Ring target object",
+  "Object to set when an unknown finger rings. Leave empty to disable.": "Object to set when an unknown finger rings. Leave empty to disable.",
+  "Ring value": "Ring value",
+  "Value written on ring (e.g. true, 1, on, or a number/text)": "Value written on ring (e.g. true, 1, on, or a number/text)"
 }

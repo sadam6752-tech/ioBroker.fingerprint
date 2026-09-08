@@ -30,5 +30,21 @@
   "Polling Interval (seconds)": "Abfrageintervall (Sekunden)",
   "Adapter Host/IP": "Adapter-Host/IP",
   "IP/host of this ioBroker that the device sends events to. Leave empty for auto-detection.": "IP/Host dieses ioBroker, an den das Gerät Ereignisse sendet. Leer lassen für automatische Erkennung.",
-  "With FingerprintDoorbell firmware >= v0.9.1 the adapter provisions the device automatically (server mode). For firmware v0.9, paste the URLs below into the device settings manually.": "Mit FingerprintDoorbell-Firmware >= v0.9.1 richtet der Adapter das Gerät automatisch ein (Server-Modus). Bei Firmware v0.9 die URLs unten manuell in die Geräteeinstellungen eintragen."
+  "With FingerprintDoorbell firmware >= v0.9.1 the adapter provisions the device automatically (server mode). For firmware v0.9, paste the URLs below into the device settings manually.": "Mit FingerprintDoorbell-Firmware >= v0.9.1 richtet der Adapter das Gerät automatisch ein (Server-Modus). Bei Firmware v0.9 die URLs unten manuell in die Geräteeinstellungen eintragen.",
+  "Connection": "Verbindung",
+  "Fingerprint Actions": "Fingerabdruck-Aktionen",
+  "Map each fingerprint to an ioBroker object. On a match the adapter sets/toggles the target. Load the fingerprints from the device, then choose an object and action per row.": "Ordne jedem Fingerabdruck ein ioBroker-Objekt zu. Bei einem Treffer setzt/schaltet der Adapter das Ziel. Lade die Fingerabdrücke vom Gerät und wähle je Zeile Objekt und Aktion.",
+  "Load fingerprints from device": "Fingerabdrücke vom Gerät laden",
+  "Match actions": "Treffer-Aktionen",
+  "Target object": "Zielobjekt",
+  "Action": "Aktion",
+  "Set value": "Wert setzen",
+  "Toggle": "Umschalten",
+  "Value": "Wert",
+  "Min conf.": "Min. Konf.",
+  "Ring action (unknown finger)": "Klingel-Aktion (unbekannter Finger)",
+  "Ring target object": "Klingel-Zielobjekt",
+  "Object to set when an unknown finger rings. Leave empty to disable.": "Objekt, das gesetzt wird, wenn ein unbekannter Finger klingelt. Leer lassen zum Deaktivieren.",
+  "Ring value": "Klingel-Wert",
+  "Value written on ring (e.g. true, 1, on, or a number/text)": "Wert, der beim Klingeln geschrieben wird (z. B. true, 1, on, oder Zahl/Text)"
 }

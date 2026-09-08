@@ -30,5 +30,21 @@
   "Save the settings first, then test the connection to the device.": "Спочатку збережіть налаштування, потім перевірте з'єднання з пристроєм.",
   "Adapter Host/IP": "Хост/IP адаптера",
   "IP/host of this ioBroker that the device sends events to. Leave empty for auto-detection.": "IP/хост цього ioBroker, на який пристрій надсилає події. Залиште порожнім для автовизначення.",
-  "With FingerprintDoorbell firmware >= v0.9.1 the adapter provisions the device automatically (server mode). For firmware v0.9, paste the URLs below into the device settings manually.": "З прошивкою FingerprintDoorbell >= v0.9.1 адаптер налаштовує пристрій автоматично (режим сервера). Для прошивки v0.9 вставте URL нижче в налаштування пристрою вручну."
+  "With FingerprintDoorbell firmware >= v0.9.1 the adapter provisions the device automatically (server mode). For firmware v0.9, paste the URLs below into the device settings manually.": "З прошивкою FingerprintDoorbell >= v0.9.1 адаптер налаштовує пристрій автоматично (режим сервера). Для прошивки v0.9 вставте URL нижче в налаштування пристрою вручну.",
+  "Connection": "Підключення",
+  "Fingerprint Actions": "Дії за відбитками",
+  "Map each fingerprint to an ioBroker object. On a match the adapter sets/toggles the target. Load the fingerprints from the device, then choose an object and action per row.": "Зіставте кожен відбиток з об'єктом ioBroker. При збігу адаптер встановлює/перемикає ціль. Завантажте відбитки з пристрою, потім оберіть об'єкт і дію для кожного рядка.",
+  "Load fingerprints from device": "Завантажити відбитки з пристрою",
+  "Match actions": "Дії при збігу",
+  "Target object": "Цільовий об'єкт",
+  "Action": "Дія",
+  "Set value": "Встановити значення",
+  "Toggle": "Перемкнути",
+  "Value": "Значення",
+  "Min conf.": "Мін. впевн.",
+  "Ring action (unknown finger)": "Дія дзвінка (невідомий палець)",
+  "Ring target object": "Цільовий об'єкт дзвінка",
+  "Object to set when an unknown finger rings. Leave empty to disable.": "Об'єкт, що встановлюється, коли дзвонить невідомий палець. Залиште порожнім для вимкнення.",
+  "Ring value": "Значення дзвінка",
+  "Value written on ring (e.g. true, 1, on, or a number/text)": "Значення, що записується при дзвінку (напр. true, 1, on, або число/текст)"
 }

@@ -52,6 +52,21 @@ Communication is authenticated in both directions:
 With firmware < v0.9.1 the token must be pasted manually into the device URLs. From
 v0.9.1 (server mode), the adapter provisions the URLs and token automatically.
 
+## Fingerprint Actions (no scripting)
+
+The **Fingerprint Actions** tab lets you trigger ioBroker objects directly from a
+fingerprint — no JavaScript needed:
+
+1. Click **Load fingerprints from device** to fill the table with the enrolled fingers
+   (id + name). Existing rows are kept (merge).
+2. For each row choose a **Target object**, an **Action** (`Set value` or `Toggle`),
+   a **Value** and an optional **Min confidence** (leave empty to ignore).
+3. The **Value** is freely typed and coerced to the target object's type:
+   - boolean target: `true`, `1`, `on`, `yes`, `ja`, `да` → true; anything else → false
+   - number target: parsed as a number (`,` accepted as decimal separator)
+   - string target: used as-is
+4. **Ring action** sets a chosen object when an unknown finger rings (e.g. play a chime).
+
 ## States
 
 | State | Type | Description |
@@ -79,6 +94,13 @@ v0.9.1 (server mode), the adapter provisions the URLs and token automatically.
   (planned for **v0.9.1**). Until then, the switch has no effect.
 
 ## Changelog
+
+### 0.3.0
+
+- New "Fingerprint Actions" tab: map each finger to an ioBroker object (set/toggle, value, min confidence)
+- Ring action for the unknown-finger event
+- "Load fingerprints from device" button (merges with existing rules)
+- Value coercion to the target object's type (boolean/number/string)
 
 ### 0.2.3
 

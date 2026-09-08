@@ -30,5 +30,21 @@
   "Save the settings first, then test the connection to the device.": "请先保存设置，然后测试与设备的连接。",
   "Adapter Host/IP": "适配器主机/IP",
   "IP/host of this ioBroker that the device sends events to. Leave empty for auto-detection.": "此 ioBroker 的 IP/主机，设备将事件发送到此处。留空则自动检测。",
-  "With FingerprintDoorbell firmware >= v0.9.1 the adapter provisions the device automatically (server mode). For firmware v0.9, paste the URLs below into the device settings manually.": "使用 FingerprintDoorbell 固件 >= v0.9.1 时，适配器会自动配置设备（服务器模式）。对于固件 v0.9，请手动将下方 URL 粘贴到设备设置中。"
+  "With FingerprintDoorbell firmware >= v0.9.1 the adapter provisions the device automatically (server mode). For firmware v0.9, paste the URLs below into the device settings manually.": "使用 FingerprintDoorbell 固件 >= v0.9.1 时，适配器会自动配置设备（服务器模式）。对于固件 v0.9，请手动将下方 URL 粘贴到设备设置中。",
+  "Connection": "连接",
+  "Fingerprint Actions": "指纹动作",
+  "Map each fingerprint to an ioBroker object. On a match the adapter sets/toggles the target. Load the fingerprints from the device, then choose an object and action per row.": "将每个指纹映射到一个 ioBroker 对象。匹配时适配器会设置/切换目标。从设备加载指纹，然后为每行选择对象和动作。",
+  "Load fingerprints from device": "从设备加载指纹",
+  "Match actions": "匹配动作",
+  "Target object": "目标对象",
+  "Action": "动作",
+  "Set value": "设置值",
+  "Toggle": "切换",
+  "Value": "值",
+  "Min conf.": "最低置信度",
+  "Ring action (unknown finger)": "门铃动作（未知手指）",
+  "Ring target object": "门铃目标对象",
+  "Object to set when an unknown finger rings. Leave empty to disable.": "未知手指按铃时设置的对象。留空则禁用。",
+  "Ring value": "门铃值",
+  "Value written on ring (e.g. true, 1, on, or a number/text)": "按铃时写入的值（例如 true、1、on 或数字/文本）"
 }

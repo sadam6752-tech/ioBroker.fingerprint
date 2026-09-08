@@ -30,5 +30,21 @@
   "Save the settings first, then test the connection to the device.": "Salva prima le impostazioni, poi verifica la connessione al dispositivo.",
   "Adapter Host/IP": "Host/IP dell'adattatore",
   "IP/host of this ioBroker that the device sends events to. Leave empty for auto-detection.": "IP/host di questo ioBroker a cui il dispositivo invia gli eventi. Lasciare vuoto per il rilevamento automatico.",
-  "With FingerprintDoorbell firmware >= v0.9.1 the adapter provisions the device automatically (server mode). For firmware v0.9, paste the URLs below into the device settings manually.": "Con firmware FingerprintDoorbell >= v0.9.1 l'adattatore configura il dispositivo automaticamente (modalità server). Per il firmware v0.9, incolla manualmente gli URL sottostanti nelle impostazioni del dispositivo."
+  "With FingerprintDoorbell firmware >= v0.9.1 the adapter provisions the device automatically (server mode). For firmware v0.9, paste the URLs below into the device settings manually.": "Con firmware FingerprintDoorbell >= v0.9.1 l'adattatore configura il dispositivo automaticamente (modalità server). Per il firmware v0.9, incolla manualmente gli URL sottostanti nelle impostazioni del dispositivo.",
+  "Connection": "Connessione",
+  "Fingerprint Actions": "Azioni impronta",
+  "Map each fingerprint to an ioBroker object. On a match the adapter sets/toggles the target. Load the fingerprints from the device, then choose an object and action per row.": "Associa ogni impronta a un oggetto ioBroker. In caso di corrispondenza l'adattatore imposta/commuta il target. Carica le impronte dal dispositivo, poi scegli oggetto e azione per riga.",
+  "Load fingerprints from device": "Carica impronte dal dispositivo",
+  "Match actions": "Azioni di corrispondenza",
+  "Target object": "Oggetto target",
+  "Action": "Azione",
+  "Set value": "Imposta valore",
+  "Toggle": "Commuta",
+  "Value": "Valore",
+  "Min conf.": "Conf. min",
+  "Ring action (unknown finger)": "Azione campanello (dito sconosciuto)",
+  "Ring target object": "Oggetto target campanello",
+  "Object to set when an unknown finger rings. Leave empty to disable.": "Oggetto da impostare quando un dito sconosciuto suona. Lasciare vuoto per disattivare.",
+  "Ring value": "Valore campanello",
+  "Value written on ring (e.g. true, 1, on, or a number/text)": "Valore scritto al suono (es. true, 1, on, o un numero/testo)"
 }

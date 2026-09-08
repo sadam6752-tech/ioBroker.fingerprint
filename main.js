@@ -279,6 +279,56 @@ class Fingerprint extends utils.Adapter {
             this.sendTo(obj.from, obj.command, { native: { webhookToken: token }, port }, obj.callback);
             return;
         }
+
+        if (obj.command === 'loadFingerprints') {
+            const ip = (this.config.espIp || '').trim();
+            if (!ip) {
+                this.sendTo(
+                    obj.from,
+                    obj.command,
+                    { error: 'Device IP not configured (save settings first)' },
+                    obj.callback,
+                );
+                return;
+            }
+            const client = new EspClient({
+                ip,
+                port: this.config.espPort || 80,
+                timeout: Math.min(this.config.requestTimeout || 5000, 8000),
+                user: this.config.adminUser || '',
+                password: this.config.adminPassword || '',
+            });
+            const list = await client.getFingerprints();
+            if (!Array.isArray(list) || list.length === 0) {
+                this.sendTo(obj.from, obj.command, { error: `No fingerprints returned by ${ip}` }, obj.callback);
+                return;
+            }
+
+            // Merge: keep existing rules, add missing ids, refresh names
+            const existing = Array.isArray(this.config.actions) ? this.config.actions : [];
+            const byId = new Map(existing.map(a => [parseInt(a.id, 10), { ...a }]));
+            for (const fp of list) {
+                const id = parseInt(fp.id, 10);
+                if (!Number.isFinite(id)) {
+                    continue;
+                }
+                if (byId.has(id)) {
+                    byId.get(id).name = fp.name || byId.get(id).name || '';
+                } else {
+                    byId.set(id, {
+                        id,
+                        name: fp.name || '',
+                        objectId: '',
+                        action: 'set',
+                        value: '',
+                        minConfidence: '',
+                    });
+                }
+            }
+            const merged = [...byId.values()].sort((a, b) => parseInt(a.id, 10) - parseInt(b.id, 10));
+            this.sendTo(obj.from, obj.command, { native: { actions: merged } }, obj.callback);
+            return;
+        }
     }
 
     // ── Event handlers ────────────────────────────────────────────────────────
@@ -292,6 +342,9 @@ class Fingerprint extends utils.Adapter {
         // Fire the match trigger (auto-resets)
         await this.setStateAsync('lastMatch.matched', { val: true, ack: true });
         this.log.info(`Fingerprint match: id=${event.id} name="${event.name}" confidence=${event.confidence}`);
+
+        // Run the configured action for this finger, if any
+        await this._runMatchAction(event);
     }
 
     async _handleRingEvent() {
@@ -299,6 +352,10 @@ class Fingerprint extends utils.Adapter {
         await this.setStateAsync('ring.timestamp', { val: ts, ack: true });
         await this.setStateAsync('ring.ringing', { val: true, ack: true });
         this.log.info('Doorbell ring (unknown finger)');
+
+        // Run the configured ring action, if any
+        await this._runRingAction();
+
         // Auto-reset the ring trigger after 3s
         if (this._ringResetTimer) {
             this.clearTimeout(this._ringResetTimer);
@@ -307,6 +364,119 @@ class Fingerprint extends utils.Adapter {
             this.setState('ring.ringing', { val: false, ack: true });
             this._ringResetTimer = null;
         }, 3000);
+    }
+
+    // ── Action engine ─────────────────────────────────────────────────────────
+
+    /**
+     * Find and run the configured action for a matched finger.
+     *
+     * @param {object} event match event with id, name, confidence
+     * @returns {Promise<void>} resolves when the action completed (or was skipped)
+     */
+    async _runMatchAction(event) {
+        const actions = Array.isArray(this.config.actions) ? this.config.actions : [];
+        const rule = actions.find(a => parseInt(a.id, 10) === event.id);
+        if (!rule || !rule.objectId) {
+            return;
+        }
+
+        // Optional confidence threshold
+        const minConf =
+            rule.minConfidence !== undefined && rule.minConfidence !== '' ? parseInt(rule.minConfidence, 10) : null;
+        if (minConf !== null && Number.isFinite(minConf) && event.confidence < minConf) {
+            this.log.info(`Action for id=${event.id} skipped: confidence ${event.confidence} < min ${minConf}`);
+            return;
+        }
+
+        await this._applyAction(rule.objectId, rule.action || 'set', rule.value);
+    }
+
+    /**
+     * Run the configured ring action (unknown finger), if any.
+     *
+     * @returns {Promise<void>} resolves when the action completed (or was skipped)
+     */
+    async _runRingAction() {
+        const objectId = (this.config.ringActionObject || '').trim();
+        if (!objectId) {
+            return;
+        }
+        await this._applyAction(objectId, 'set', this.config.ringActionValue);
+    }
+
+    /**
+     * Apply an action to a foreign ioBroker state, coercing the value to the target type.
+     *
+     * @param {string} objectId target state id
+     * @param {string} action 'set' or 'toggle'
+     * @param {string} rawValue raw value string (for 'set')
+     * @returns {Promise<void>} resolves when the state was written
+     */
+    async _applyAction(objectId, action, rawValue) {
+        try {
+            const obj = await this.getForeignObjectAsync(objectId);
+            if (!obj) {
+                this.log.warn(`Action target "${objectId}" not found`);
+                return;
+            }
+            const type = (obj.common && obj.common.type) || 'mixed';
+
+            let value;
+            if (action === 'toggle') {
+                const cur = await this.getForeignStateAsync(objectId);
+                const curVal = cur ? cur.val : undefined;
+                if (type === 'number') {
+                    value = Number(curVal) ? 0 : 1;
+                } else {
+                    value = !this._toBool(curVal);
+                }
+            } else {
+                value = this._coerceValue(rawValue, type);
+            }
+
+            await this.setForeignStateAsync(objectId, { val: value, ack: false });
+            this.log.info(`Action: ${objectId} = ${JSON.stringify(value)} (${action})`);
+        } catch (err) {
+            this.log.error(`Action on "${objectId}" failed: ${err.message}`);
+        }
+    }
+
+    /**
+     * Interpret a value as boolean (true/1/on/yes/ja/да => true).
+     *
+     * @param {boolean|number|string} v value
+     * @returns {boolean} boolean interpretation
+     */
+    _toBool(v) {
+        if (typeof v === 'boolean') {
+            return v;
+        }
+        if (typeof v === 'number') {
+            return v !== 0;
+        }
+        const s = String(v).trim().toLowerCase();
+        return s === 'true' || s === '1' || s === 'on' || s === 'yes' || s === 'ja' || s === 'да';
+    }
+
+    /**
+     * Coerce a raw string value to the target state's type.
+     *
+     * @param {string} rawValue raw value (e.g. "true", "1", "on", "42", "text")
+     * @param {string} type target common.type ('boolean', 'number', 'string', ...)
+     * @returns {boolean|number|string} coerced value
+     */
+    _coerceValue(rawValue, type) {
+        const raw = rawValue === undefined || rawValue === null ? '' : String(rawValue);
+        if (type === 'boolean') {
+            return this._toBool(raw);
+        }
+        if (type === 'number') {
+            const n = parseFloat(raw.replace(',', '.'));
+            return Number.isFinite(n) ? n : 0;
+        }
+        // string / mixed: keep as-is
+        return raw;
     }
 
     // ── Control handler ───────────────────────────────────────────────────────

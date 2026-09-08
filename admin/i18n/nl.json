@@ -30,5 +30,21 @@
   "Save the settings first, then test the connection to the device.": "Sla eerst de instellingen op en test daarna de verbinding met het apparaat.",
   "Adapter Host/IP": "Adapter-host/IP",
   "IP/host of this ioBroker that the device sends events to. Leave empty for auto-detection.": "IP/host van deze ioBroker waar het apparaat events naartoe stuurt. Laat leeg voor autodetectie.",
-  "With FingerprintDoorbell firmware >= v0.9.1 the adapter provisions the device automatically (server mode). For firmware v0.9, paste the URLs below into the device settings manually.": "Met FingerprintDoorbell-firmware >= v0.9.1 configureert de adapter het apparaat automatisch (servermodus). Voor firmware v0.9 plak je de onderstaande URL's handmatig in de apparaatinstellingen."
+  "With FingerprintDoorbell firmware >= v0.9.1 the adapter provisions the device automatically (server mode). For firmware v0.9, paste the URLs below into the device settings manually.": "Met FingerprintDoorbell-firmware >= v0.9.1 configureert de adapter het apparaat automatisch (servermodus). Voor firmware v0.9 plak je de onderstaande URL's handmatig in de apparaatinstellingen.",
+  "Connection": "Verbinding",
+  "Fingerprint Actions": "Vingerafdrukacties",
+  "Map each fingerprint to an ioBroker object. On a match the adapter sets/toggles the target. Load the fingerprints from the device, then choose an object and action per row.": "Koppel elke vingerafdruk aan een ioBroker-object. Bij een match zet/schakelt de adapter het doel. Laad de vingerafdrukken van het apparaat en kies per rij een object en actie.",
+  "Load fingerprints from device": "Vingerafdrukken van apparaat laden",
+  "Match actions": "Match-acties",
+  "Target object": "Doelobject",
+  "Action": "Actie",
+  "Set value": "Waarde instellen",
+  "Toggle": "Schakelen",
+  "Value": "Waarde",
+  "Min conf.": "Min. betr.",
+  "Ring action (unknown finger)": "Belactie (onbekende vinger)",
+  "Ring target object": "Bel-doelobject",
+  "Object to set when an unknown finger rings. Leave empty to disable.": "Object dat wordt ingesteld wanneer een onbekende vinger belt. Laat leeg om uit te schakelen.",
+  "Ring value": "Belwaarde",
+  "Value written on ring (e.g. true, 1, on, or a number/text)": "Waarde die bij bellen wordt geschreven (bijv. true, 1, on, of een getal/tekst)"
 }

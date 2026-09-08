@@ -30,5 +30,21 @@
   "Save the settings first, then test the connection to the device.": "Guarde primero la configuración y luego pruebe la conexión con el dispositivo.",
   "Adapter Host/IP": "Host/IP del adaptador",
   "IP/host of this ioBroker that the device sends events to. Leave empty for auto-detection.": "IP/host de este ioBroker al que el dispositivo envía eventos. Déjelo vacío para autodetección.",
-  "With FingerprintDoorbell firmware >= v0.9.1 the adapter provisions the device automatically (server mode). For firmware v0.9, paste the URLs below into the device settings manually.": "Con firmware FingerprintDoorbell >= v0.9.1, el adaptador aprovisiona el dispositivo automáticamente (modo servidor). Para firmware v0.9, pegue las URL de abajo manualmente en la configuración del dispositivo."
+  "With FingerprintDoorbell firmware >= v0.9.1 the adapter provisions the device automatically (server mode). For firmware v0.9, paste the URLs below into the device settings manually.": "Con firmware FingerprintDoorbell >= v0.9.1, el adaptador aprovisiona el dispositivo automáticamente (modo servidor). Para firmware v0.9, pegue las URL de abajo manualmente en la configuración del dispositivo.",
+  "Connection": "Conexión",
+  "Fingerprint Actions": "Acciones de huella",
+  "Map each fingerprint to an ioBroker object. On a match the adapter sets/toggles the target. Load the fingerprints from the device, then choose an object and action per row.": "Asigne cada huella a un objeto de ioBroker. En una coincidencia, el adaptador establece/alterna el destino. Cargue las huellas desde el dispositivo y elija objeto y acción por fila.",
+  "Load fingerprints from device": "Cargar huellas desde el dispositivo",
+  "Match actions": "Acciones de coincidencia",
+  "Target object": "Objeto destino",
+  "Action": "Acción",
+  "Set value": "Establecer valor",
+  "Toggle": "Alternar",
+  "Value": "Valor",
+  "Min conf.": "Conf. mín",
+  "Ring action (unknown finger)": "Acción de timbre (dedo desconocido)",
+  "Ring target object": "Objeto destino del timbre",
+  "Object to set when an unknown finger rings. Leave empty to disable.": "Objeto a establecer cuando un dedo desconocido llama. Déjelo vacío para desactivar.",
+  "Ring value": "Valor de timbre",
+  "Value written on ring (e.g. true, 1, on, or a number/text)": "Valor escrito al llamar (p. ej. true, 1, on, o un número/texto)"
 }

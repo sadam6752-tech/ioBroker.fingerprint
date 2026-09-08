@@ -30,5 +30,21 @@
   "Save the settings first, then test the connection to the device.": "Najpierw zapisz ustawienia, a następnie przetestuj połączenie z urządzeniem.",
   "Adapter Host/IP": "Host/IP adaptera",
   "IP/host of this ioBroker that the device sends events to. Leave empty for auto-detection.": "IP/host tego ioBroker, do którego urządzenie wysyła zdarzenia. Pozostaw puste, aby wykryć automatycznie.",
-  "With FingerprintDoorbell firmware >= v0.9.1 the adapter provisions the device automatically (server mode). For firmware v0.9, paste the URLs below into the device settings manually.": "Z oprogramowaniem FingerprintDoorbell >= v0.9.1 adapter konfiguruje urządzenie automatycznie (tryb serwera). W przypadku firmware v0.9 wklej poniższe adresy URL ręcznie w ustawieniach urządzenia."
+  "With FingerprintDoorbell firmware >= v0.9.1 the adapter provisions the device automatically (server mode). For firmware v0.9, paste the URLs below into the device settings manually.": "Z oprogramowaniem FingerprintDoorbell >= v0.9.1 adapter konfiguruje urządzenie automatycznie (tryb serwera). W przypadku firmware v0.9 wklej poniższe adresy URL ręcznie w ustawieniach urządzenia.",
+  "Connection": "Połączenie",
+  "Fingerprint Actions": "Akcje odcisków",
+  "Map each fingerprint to an ioBroker object. On a match the adapter sets/toggles the target. Load the fingerprints from the device, then choose an object and action per row.": "Przypisz każdy odcisk do obiektu ioBroker. Przy dopasowaniu adapter ustawia/przełącza cel. Wczytaj odciski z urządzenia, a następnie wybierz obiekt i akcję dla każdego wiersza.",
+  "Load fingerprints from device": "Wczytaj odciski z urządzenia",
+  "Match actions": "Akcje dopasowania",
+  "Target object": "Obiekt docelowy",
+  "Action": "Akcja",
+  "Set value": "Ustaw wartość",
+  "Toggle": "Przełącz",
+  "Value": "Wartość",
+  "Min conf.": "Min. pewn.",
+  "Ring action (unknown finger)": "Akcja dzwonka (nieznany palec)",
+  "Ring target object": "Obiekt docelowy dzwonka",
+  "Object to set when an unknown finger rings. Leave empty to disable.": "Obiekt ustawiany, gdy zadzwoni nieznany palec. Pozostaw puste, aby wyłączyć.",
+  "Ring value": "Wartość dzwonka",
+  "Value written on ring (e.g. true, 1, on, or a number/text)": "Wartość zapisywana przy dzwonku (np. true, 1, on lub liczba/tekst)"
 }
