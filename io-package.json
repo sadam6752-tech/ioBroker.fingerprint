@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "fingerprint",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "news": {
+      "0.2.1": {
+        "en": "Diagnostics for Test Connection: log incoming messages, simplify the sendTo button",
+        "de": "Diagnose für Test Connection: eingehende Nachrichten protokollieren, sendTo-Button vereinfacht",
+        "ru": "Диагностика Test Connection: логирование входящих сообщений, упрощена кнопка sendTo",
+        "fr": "Diagnostics pour Test Connection : journalisation des messages entrants, bouton sendTo simplifié",
+        "it": "Diagnostica per Test Connection: log dei messaggi in arrivo, pulsante sendTo semplificato",
+        "es": "Diagnóstico para Test Connection: registro de mensajes entrantes, botón sendTo simplificado",
+        "pl": "Diagnostyka Test Connection: logowanie przychodzących wiadomości, uproszczony przycisk sendTo",
+        "pt": "Diagnóstico para Test Connection: registo de mensagens recebidas, botão sendTo simplificado",
+        "nl": "Diagnostiek voor Test Connection: inkomende berichten loggen, sendTo-knop vereenvoudigd",
+        "zh-cn": "Test Connection 诊断：记录传入消息，简化 sendTo 按钮"
+      },
       "0.2.0": {
         "en": "Server mode auto-provisioning (firmware v0.9.1): adapter registers itself on the device, JSON /api/status polling, working ignoreTouchRing, fingerprint list sync, firmwareVersion/serverMode states, Adapter Host/IP setting",
         "de": "Server-Modus Auto-Provisionierung (Firmware v0.9.1): Adapter registriert sich am Gerät, JSON /api/status-Abfrage, funktionierendes ignoreTouchRing, Fingerabdruck-Liste, firmwareVersion/serverMode States, Adapter-Host/IP-Einstellung",

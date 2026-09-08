@@ -218,6 +218,7 @@ class Fingerprint extends utils.Adapter {
     }
 
     async onMessage(obj) {
+        this.log.info(`onMessage received: command="${obj && obj.command}" hasCallback=${!!(obj && obj.callback)}`);
         if (!obj || !obj.command) {
             return;
         }

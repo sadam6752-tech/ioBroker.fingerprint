@@ -1,6 +1,6 @@
 {
   "name": "iobroker.fingerprint",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Control and monitor the ESP32-based FingerprintDoorbell via HTTP",
   "author": {
     "name": "sadam6752-tech",
