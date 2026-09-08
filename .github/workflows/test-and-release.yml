@@ -1,0 +1,55 @@
+name: Test and Release
+
+# Run this job on all pushes and pull requests
+# as well as tags with a semantic version
+on:
+  push:
+    branches:
+      - "main"
+    tags:
+      # normal versions
+      - "v[0-9]+.[0-9]+.[0-9]+"
+      # pre-releases
+      - "v[0-9]+.[0-9]+.[0-9]+-**"
+  pull_request: {}
+
+# Cancel previous PR/branch runs when a new commit is pushed
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # Performs quick checks before the expensive test runs
+  check-and-lint:
+    if: contains(github.event.head_commit.message, '[skip ci]') == false
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: ioBroker/testing-action-check@v2
+        with:
+          node-version: '24.x'
+          lint: true
+
+  # Runs adapter tests on all supported node versions and OSes
+  adapter-tests:
+    if: contains(github.event.head_commit.message, '[skip ci]') == false
+    needs: check-and-lint
+
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        node-version: [22.x, 24.x]
+        os: [ubuntu-latest, windows-latest, macos-latest]
+
+    steps:
+      - uses: ioBroker/testing-action-adapter@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+          os: ${{ matrix.os }}
+
+# NOTE: Automatic npm deployment is intentionally disabled.
+# Releases to npm are published manually (npm publish).
+# To re-enable automatic releases, create an npm token, add it as the
+# GitHub secret NPM_TOKEN and restore a deploy job that uses
+# ioBroker/testing-action-deploy@v1 with npm-token: ${{ secrets.NPM_TOKEN }}.

@@ -1,0 +1,112 @@
+{
+  "common": {
+    "name": "fingerprint",
+    "version": "0.1.0",
+    "news": {
+      "0.1.0": {
+        "en": "Initial release: receive match/ring events via HTTP webhook, ESP status polling, remote reboot and ignore-touch-ring control",
+        "de": "Erstveröffentlichung: Match/Ring-Events per HTTP-Webhook empfangen, ESP-Statusabfrage, Fernneustart und Touch-Ring-Steuerung",
+        "ru": "Первый выпуск: приём событий match/ring через HTTP-webhook, опрос статуса ESP, удалённая перезагрузка и управление touch-ring",
+        "fr": "Version initiale : réception des événements match/ring via webhook HTTP, interrogation du statut ESP, redémarrage à distance et contrôle touch-ring",
+        "it": "Versione iniziale: ricezione eventi match/ring tramite webhook HTTP, polling stato ESP, riavvio remoto e controllo touch-ring",
+        "es": "Versión inicial: recepción de eventos match/ring mediante webhook HTTP, sondeo de estado ESP, reinicio remoto y control touch-ring",
+        "pl": "Pierwsze wydanie: odbiór zdarzeń match/ring przez webhook HTTP, odpytywanie statusu ESP, zdalny restart i sterowanie touch-ring",
+        "pt": "Versão inicial: receção de eventos match/ring via webhook HTTP, sondagem de estado ESP, reinício remoto e controlo touch-ring",
+        "nl": "Eerste release: match/ring-events ontvangen via HTTP-webhook, ESP-statuspolling, herstart op afstand en touch-ring-besturing",
+        "zh-cn": "首次发布：通过 HTTP webhook 接收 match/ring 事件，ESP 状态轮询，远程重启和 touch-ring 控制"
+      }
+    },
+    "titleLang": {
+      "en": "FingerprintDoorbell",
+      "de": "FingerprintDoorbell",
+      "ru": "FingerprintDoorbell",
+      "fr": "FingerprintDoorbell",
+      "it": "FingerprintDoorbell",
+      "es": "FingerprintDoorbell",
+      "pl": "FingerprintDoorbell",
+      "pt": "FingerprintDoorbell",
+      "nl": "FingerprintDoorbell",
+      "zh-cn": "FingerprintDoorbell"
+    },
+    "desc": {
+      "en": "Integrate the ESP32-based FingerprintDoorbell over HTTP: fingerprint access and doorbell ring events",
+      "de": "ESP32-basierte FingerprintDoorbell über HTTP integrieren: Fingerabdruck-Zugang und Klingel-Events",
+      "ru": "Интеграция ESP32-звонка FingerprintDoorbell по HTTP: события доступа по отпечатку и звонка в дверь",
+      "fr": "Intégrer la FingerprintDoorbell basée sur ESP32 via HTTP : accès par empreinte et événements de sonnette",
+      "it": "Integra il FingerprintDoorbell basato su ESP32 via HTTP: accesso con impronta ed eventi campanello",
+      "es": "Integrar el FingerprintDoorbell basado en ESP32 vía HTTP: acceso por huella y eventos de timbre",
+      "pl": "Integracja opartego na ESP32 FingerprintDoorbell przez HTTP: dostęp odciskiem palca i zdarzenia dzwonka",
+      "pt": "Integrar o FingerprintDoorbell baseado em ESP32 via HTTP: acesso por impressão digital e eventos de campainha",
+      "nl": "Integreer de op ESP32 gebaseerde FingerprintDoorbell via HTTP: vingerafdruktoegang en belgebeurtenissen",
+      "zh-cn": "通过 HTTP 集成基于 ESP32 的 FingerprintDoorbell：指纹门禁和门铃事件"
+    },
+    "authors": ["sadam6752-tech <sadam6752@gmail.com>"],
+    "keywords": ["esp32", "fingerprint", "doorbell", "r503", "smart-home"],
+    "licenseInformation": {
+      "license": "MIT",
+      "type": "free"
+    },
+    "platform": "Javascript/Node.js",
+    "icon": "fingerprint.png",
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/sadam6752-tech/ioBroker.fingerprint/main/admin/fingerprint.png",
+    "readme": "https://github.com/sadam6752-tech/ioBroker.fingerprint/blob/main/README.md",
+    "loglevel": "info",
+    "mode": "daemon",
+    "type": "hardware",
+    "compact": true,
+    "connectionType": "local",
+    "dataSource": "push",
+    "adminUI": {
+      "config": "json"
+    },
+    "dependencies": [
+      {
+        "js-controller": ">=6.0.11"
+      }
+    ],
+    "globalDependencies": [
+      {
+        "admin": ">=7.6.20"
+      }
+    ],
+    "tier": 3
+  },
+  "native": {
+    "espIp": "",
+    "espPort": 80,
+    "webhookBind": "0.0.0.0",
+    "webhookPort": 8095,
+    "webhookToken": "",
+    "restrictToDeviceIp": false,
+    "adminUser": "",
+    "adminPassword": "",
+    "pollingEnabled": true,
+    "pollingInterval": 30,
+    "requestTimeout": 5000
+  },
+  "objects": [],
+  "instanceObjects": [
+    {
+      "_id": "info",
+      "type": "channel",
+      "common": {
+        "name": "Information"
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.connection",
+      "type": "state",
+      "common": {
+        "role": "indicator.connected",
+        "name": "Device or service connected",
+        "type": "boolean",
+        "read": true,
+        "write": false,
+        "def": false
+      },
+      "native": {}
+    }
+  ]
+}

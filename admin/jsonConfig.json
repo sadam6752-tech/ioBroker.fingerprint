@@ -1,0 +1,142 @@
+{
+  "i18n": true,
+  "type": "panel",
+  "items": {
+    "_espHeader": {
+      "type": "header",
+      "text": "FingerprintDoorbell Device",
+      "size": 3
+    },
+    "espIp": {
+      "type": "text",
+      "label": "Device IP Address",
+      "default": "",
+      "help": "IP address of the FingerprintDoorbell (ESP32)",
+      "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
+    },
+    "espPort": {
+      "type": "number",
+      "label": "Device Port",
+      "default": 80,
+      "min": 1,
+      "max": 65535,
+      "help": "HTTP port of the device WebUI (default: 80)",
+      "xs": 12, "sm": 6, "md": 3, "lg": 2, "xl": 2
+    },
+    "requestTimeout": {
+      "type": "number",
+      "label": "Request Timeout (ms)",
+      "default": 5000,
+      "min": 1000,
+      "max": 30000,
+      "xs": 12, "sm": 6, "md": 3, "lg": 2, "xl": 2
+    },
+    "_authHeader": {
+      "type": "header",
+      "text": "Device Authentication",
+      "size": 3
+    },
+    "adminUser": {
+      "type": "text",
+      "label": "Admin User",
+      "default": "",
+      "help": "HTTP Basic Auth user of the device WebUI (leave empty if not set)",
+      "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
+    },
+    "adminPassword": {
+      "type": "password",
+      "label": "Admin Password",
+      "default": "",
+      "help": "HTTP Basic Auth password of the device WebUI",
+      "visible": true,
+      "repeat": false,
+      "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
+    },
+    "testConnectionButton": {
+      "type": "sendTo",
+      "label": "Test Connection",
+      "command": "testConnection",
+      "jsonData": "{ \"espIp\": \"${data.espIp}\", \"espPort\": ${data.espPort}, \"adminUser\": \"${data.adminUser}\", \"adminPassword\": \"${data.adminPassword}\" }",
+      "variant": "contained",
+      "color": "primary",
+      "showProcessState": true,
+      "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
+    },
+    "_webhookHeader": {
+      "type": "header",
+      "text": "Webhook Receiver",
+      "size": 3
+    },
+    "_webhookInfo": {
+      "type": "staticText",
+      "text": "Set the device HTTP Match/Ring URLs to the values below. With FingerprintDoorbell firmware >= v0.9.1 in server mode, the adapter configures the device automatically.",
+      "xs": 12
+    },
+    "webhookBind": {
+      "type": "ip",
+      "listenOnAllPorts": true,
+      "label": "Webhook Bind IP Address",
+      "help": "IP address to bind the webhook receiver to. Select 0.0.0.0 for all interfaces.",
+      "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
+    },
+    "webhookPort": {
+      "type": "number",
+      "label": "Webhook Port",
+      "default": 8095,
+      "min": 1024,
+      "max": 65535,
+      "help": "Port the adapter listens on for events from the device (default: 8095)",
+      "xs": 12, "sm": 6, "md": 3, "lg": 2, "xl": 2
+    },
+    "restrictToDeviceIp": {
+      "type": "checkbox",
+      "label": "Accept webhooks only from the device IP",
+      "default": false,
+      "help": "Reject webhook events coming from any host other than the configured device IP",
+      "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
+    },
+    "webhookToken": {
+      "type": "text",
+      "label": "Webhook Token",
+      "help": "Shared secret required on incoming events. Auto-generated on first start. Regenerate by clearing this field and saving.",
+      "readOnly": true,
+      "copyToClipboard": true,
+      "xs": 12, "sm": 12, "md": 8, "lg": 6, "xl": 6
+    },
+    "_matchUrlHint": {
+      "type": "pattern",
+      "label": "HTTP Match URL (paste into device)",
+      "copyToClipboard": true,
+      "pattern": "http://<iobroker-ip>:${data.webhookPort}/match?id={id}&name={name}&confidence={confidence}&token=${data.webhookToken}",
+      "xs": 12, "sm": 12, "md": 12, "lg": 8, "xl": 8
+    },
+    "_ringUrlHint": {
+      "type": "pattern",
+      "label": "HTTP Ring URL (paste into device)",
+      "copyToClipboard": true,
+      "pattern": "http://<iobroker-ip>:${data.webhookPort}/ring?token=${data.webhookToken}",
+      "xs": 12, "sm": 12, "md": 12, "lg": 8, "xl": 8
+    },
+    "_pollingHeader": {
+      "type": "header",
+      "text": "Status Polling",
+      "size": 3
+    },
+    "pollingEnabled": {
+      "type": "checkbox",
+      "label": "Enable Status Polling",
+      "default": true,
+      "help": "Periodically check whether the device is reachable",
+      "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
+    },
+    "pollingInterval": {
+      "type": "number",
+      "label": "Polling Interval (seconds)",
+      "default": 30,
+      "min": 5,
+      "max": 600,
+      "disabled": "!data.pollingEnabled",
+      "xs": 12, "sm": 6, "md": 3, "lg": 2, "xl": 2
+    }
+  }
+}
