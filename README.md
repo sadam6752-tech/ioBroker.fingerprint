@@ -77,6 +77,10 @@ v0.9.1 (server mode), the adapter provisions the URLs and token automatically.
 
 ## Changelog
 
+### 0.1.1
+
+- Fix invalid jsonConfig: remove unsupported `showProcessState` from the Test Connection button
+
 ### 0.1.0
 
 - Initial release: match/ring webhook receiver, ESP status polling, remote reboot and ignore-touch-ring control

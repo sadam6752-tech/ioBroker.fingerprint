@@ -1,0 +1,5 @@
+# Normalize line endings to LF for text files (prettier expects LF)
+* text=auto eol=lf
+
+# Binary files
+*.png binary
