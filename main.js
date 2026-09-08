@@ -121,20 +121,44 @@ class Fingerprint extends utils.Adapter {
             return;
         }
 
+        try {
+            await this._processMessage(obj);
+        } catch (err) {
+            this.log.error(`onMessage(${obj.command}) failed: ${err.message}`);
+            if (obj.callback) {
+                this.sendTo(obj.from, obj.command, { error: err.message }, obj.callback);
+            }
+        }
+    }
+
+    async _processMessage(obj) {
         if (obj.command === 'testConnection') {
-            const ip = ((obj.message && obj.message.espIp) || this.config.espIp || '').trim();
+            const ip = (this.config.espIp || '').trim();
+            this.log.debug(`testConnection requested for ${ip}:${this.config.espPort}`);
             if (!ip) {
-                this.sendTo(obj.from, obj.command, { error: 'Device IP not configured' }, obj.callback);
+                this.sendTo(
+                    obj.from,
+                    obj.command,
+                    {
+                        error: {
+                            en: 'Device IP not configured (save settings first)',
+                            de: 'Geräte-IP nicht konfiguriert (zuerst speichern)',
+                            ru: 'IP устройства не задан (сначала сохраните настройки)',
+                        },
+                    },
+                    obj.callback,
+                );
                 return;
             }
             const client = new EspClient({
                 ip,
-                port: (obj.message && obj.message.espPort) || this.config.espPort || 80,
-                timeout: this.config.requestTimeout || 5000,
-                user: (obj.message && obj.message.adminUser) || this.config.adminUser || '',
-                password: (obj.message && obj.message.adminPassword) || this.config.adminPassword || '',
+                port: this.config.espPort || 80,
+                timeout: Math.min(this.config.requestTimeout || 5000, 8000),
+                user: this.config.adminUser || '',
+                password: this.config.adminPassword || '',
             });
             const { reachable, info } = await client.ping();
+            this.log.debug(`testConnection result: reachable=${reachable}`);
             if (reachable) {
                 const uptime = info['Uptime'] ? `, uptime ${info['Uptime']}` : '';
                 const text = `Connected to ${ip}${uptime}`;

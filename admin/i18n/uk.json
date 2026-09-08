@@ -26,5 +26,6 @@
   "Status Polling": "Опитування статусу",
   "Enable Status Polling": "Увімкнути опитування статусу",
   "Periodically check whether the device is reachable": "Періодично перевіряти доступність пристрою",
-  "Polling Interval (seconds)": "Інтервал опитування (секунди)"
+  "Polling Interval (seconds)": "Інтервал опитування (секунди)",
+  "Save the settings first, then test the connection to the device.": "Спочатку збережіть налаштування, потім перевірте з'єднання з пристроєм."
 }

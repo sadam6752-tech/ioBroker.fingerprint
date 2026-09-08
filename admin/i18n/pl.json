@@ -26,5 +26,6 @@
   "Status Polling": "Odpytywanie statusu",
   "Enable Status Polling": "Włącz odpytywanie statusu",
   "Periodically check whether the device is reachable": "Okresowo sprawdzaj, czy urządzenie jest osiągalne",
-  "Polling Interval (seconds)": "Interwał odpytywania (sekundy)"
+  "Polling Interval (seconds)": "Interwał odpytywania (sekundy)",
+  "Save the settings first, then test the connection to the device.": "Najpierw zapisz ustawienia, a następnie przetestuj połączenie z urządzeniem."
 }

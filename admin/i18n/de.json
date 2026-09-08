@@ -11,6 +11,7 @@
   "Admin Password": "Admin-Passwort",
   "HTTP Basic Auth password of the device WebUI": "HTTP-Basic-Auth-Passwort der Geräte-WebUI",
   "Test Connection": "Verbindung testen",
+  "Save the settings first, then test the connection to the device.": "Zuerst die Einstellungen speichern, dann die Verbindung zum Gerät testen.",
   "Webhook Receiver": "Webhook-Empfänger",
   "Set the device HTTP Match/Ring URLs to the values below. With FingerprintDoorbell firmware >= v0.9.1 in server mode, the adapter configures the device automatically.": "HTTP-Match/Ring-URLs des Geräts auf die untenstehenden Werte setzen. Mit FingerprintDoorbell-Firmware >= v0.9.1 im Server-Modus konfiguriert der Adapter das Gerät automatisch.",
   "Webhook Bind IP Address": "Webhook-Bind-IP-Adresse",

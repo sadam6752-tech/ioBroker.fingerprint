@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "fingerprint",
-    "version": "0.1.2",
+    "version": "0.1.3",
     "news": {
+      "0.1.3": {
+        "en": "Fix Test Connection timeout: read config directly (no jsonData), guard against hanging requests, add help hint to save first",
+        "de": "Test-Connection-Timeout behoben: Konfiguration direkt lesen (kein jsonData), Schutz vor hängenden Anfragen, Hinweis zum Speichern ergänzt",
+        "ru": "Исправлен таймаут Test Connection: чтение конфига напрямую (без jsonData), защита от зависания запросов, подсказка сначала сохранить",
+        "fr": "Correction du délai Test Connection : lecture directe de la config (sans jsonData), protection contre les requêtes bloquées, ajout d'un conseil pour enregistrer d'abord",
+        "it": "Corretto timeout Test Connection: lettura diretta della config (senza jsonData), protezione da richieste bloccate, aggiunto suggerimento a salvare prima",
+        "es": "Corregido el tiempo de espera de Test Connection: lectura directa de la config (sin jsonData), protección contra solicitudes colgadas, aviso para guardar primero",
+        "pl": "Naprawiono limit czasu Test Connection: bezpośredni odczyt konfiguracji (bez jsonData), zabezpieczenie przed zawieszonymi żądaniami, podpowiedź, aby najpierw zapisać",
+        "pt": "Corrigido o tempo limite do Test Connection: leitura direta da config (sem jsonData), proteção contra pedidos bloqueados, dica para guardar primeiro",
+        "nl": "Test Connection-time-out hersteld: config direct lezen (geen jsonData), bescherming tegen vastlopende verzoeken, hint om eerst op te slaan",
+        "zh-cn": "修复 Test Connection 超时：直接读取配置（不使用 jsonData），防止请求挂起，添加先保存的提示"
+      },
       "0.1.2": {
         "en": "Fix Test Connection button: return localized result/error and add spinner + request timeout",
         "de": "Test-Connection-Button behoben: lokalisiertes Ergebnis/Fehler zurückgeben, Spinner + Anfrage-Timeout ergänzt",

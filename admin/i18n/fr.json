@@ -26,5 +26,6 @@
   "Status Polling": "Interrogation du statut",
   "Enable Status Polling": "Activer l'interrogation du statut",
   "Periodically check whether the device is reachable": "Vérifier périodiquement si l'appareil est joignable",
-  "Polling Interval (seconds)": "Intervalle d'interrogation (secondes)"
+  "Polling Interval (seconds)": "Intervalle d'interrogation (secondes)",
+  "Save the settings first, then test the connection to the device.": "Enregistrez d'abord les paramètres, puis testez la connexion à l'appareil."
 }

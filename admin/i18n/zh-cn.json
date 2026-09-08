@@ -26,5 +26,6 @@
   "Status Polling": "状态轮询",
   "Enable Status Polling": "启用状态轮询",
   "Periodically check whether the device is reachable": "定期检查设备是否可达",
-  "Polling Interval (seconds)": "轮询间隔（秒）"
+  "Polling Interval (seconds)": "轮询间隔（秒）",
+  "Save the settings first, then test the connection to the device.": "请先保存设置，然后测试与设备的连接。"
 }

@@ -77,6 +77,10 @@ v0.9.1 (server mode), the adapter provisions the URLs and token automatically.
 
 ## Changelog
 
+### 0.1.3
+
+- Fix Test Connection timeout: read config directly (no jsonData), guard against hanging requests, add hint to save settings first
+
 ### 0.1.2
 
 - Fix Test Connection button: return localized result/error and add spinner + request timeout

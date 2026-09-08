@@ -26,5 +26,6 @@
   "Status Polling": "Polling stato",
   "Enable Status Polling": "Abilita polling stato",
   "Periodically check whether the device is reachable": "Verifica periodicamente se il dispositivo è raggiungibile",
-  "Polling Interval (seconds)": "Intervallo di polling (secondi)"
+  "Polling Interval (seconds)": "Intervallo di polling (secondi)",
+  "Save the settings first, then test the connection to the device.": "Salva prima le impostazioni, poi verifica la connessione al dispositivo."
 }

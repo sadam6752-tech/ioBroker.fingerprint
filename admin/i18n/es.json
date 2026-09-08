@@ -26,5 +26,6 @@
   "Status Polling": "Sondeo de estado",
   "Enable Status Polling": "Habilitar sondeo de estado",
   "Periodically check whether the device is reachable": "Comprobar periódicamente si el dispositivo es accesible",
-  "Polling Interval (seconds)": "Intervalo de sondeo (segundos)"
+  "Polling Interval (seconds)": "Intervalo de sondeo (segundos)",
+  "Save the settings first, then test the connection to the device.": "Guarde primero la configuración y luego pruebe la conexión con el dispositivo."
 }

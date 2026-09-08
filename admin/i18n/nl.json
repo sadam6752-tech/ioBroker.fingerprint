@@ -26,5 +26,6 @@
   "Status Polling": "Statuspolling",
   "Enable Status Polling": "Statuspolling inschakelen",
   "Periodically check whether the device is reachable": "Periodiek controleren of het apparaat bereikbaar is",
-  "Polling Interval (seconds)": "Pollinginterval (seconden)"
+  "Polling Interval (seconds)": "Pollinginterval (seconden)",
+  "Save the settings first, then test the connection to the device.": "Sla eerst de instellingen op en test daarna de verbinding met het apparaat."
 }
