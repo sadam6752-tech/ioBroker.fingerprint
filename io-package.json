@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "fingerprint",
-    "version": "0.3.3",
+    "version": "0.3.4",
     "news": {
+      "0.3.4": {
+        "en": "Docs: correct Web Flasher browser support - Firefox 151+ now supports Web Serial",
+        "de": "Doku: Browser-Unterstützung des Web-Flashers korrigiert - Firefox 151+ unterstützt jetzt Web Serial",
+        "ru": "Документация: исправлена поддержка браузеров Web Flasher - Firefox 151+ теперь поддерживает Web Serial",
+        "fr": "Docs : correction de la compatibilité navigateur du Web Flasher - Firefox 151+ prend désormais en charge Web Serial",
+        "it": "Docs: corretta la compatibilità browser del Web Flasher - Firefox 151+ ora supporta Web Serial",
+        "es": "Docs: corregida la compatibilidad de navegadores del Web Flasher - Firefox 151+ ya admite Web Serial",
+        "pl": "Dokumentacja: poprawiono obsługę przeglądarek Web Flashera - Firefox 151+ obsługuje teraz Web Serial",
+        "pt": "Docs: corrigida a compatibilidade de navegadores do Web Flasher - Firefox 151+ agora suporta Web Serial",
+        "nl": "Docs: browserondersteuning Web Flasher gecorrigeerd - Firefox 151+ ondersteunt nu Web Serial",
+        "zh-cn": "文档：更正 Web Flasher 浏览器支持 - Firefox 151+ 现已支持 Web Serial"
+      },
       "0.3.3": {
         "en": "Docs: add browser-based Web Flasher link (ESP Web Tools) for flashing a fresh ESP32",
         "de": "Doku: Link zum browserbasierten Web-Flasher (ESP Web Tools) für frische ESP32 ergänzt",
@@ -74,18 +86,6 @@
         "pt": "Corrigido Test Connection: ativado messagebox para o adaptador receber mensagens sendTo",
         "nl": "Test Connection hersteld: messagebox ingeschakeld zodat de adapter sendTo-berichten ontvangt",
         "zh-cn": "修复 Test Connection：启用 messagebox 使适配器接收 sendTo 消息"
-      },
-      "0.2.1": {
-        "en": "Diagnostics for Test Connection: log incoming messages, simplify the sendTo button",
-        "de": "Diagnose für Test Connection: eingehende Nachrichten protokollieren, sendTo-Button vereinfacht",
-        "ru": "Диагностика Test Connection: логирование входящих сообщений, упрощена кнопка sendTo",
-        "fr": "Diagnostics pour Test Connection : journalisation des messages entrants, bouton sendTo simplifié",
-        "it": "Diagnostica per Test Connection: log dei messaggi in arrivo, pulsante sendTo semplificato",
-        "es": "Diagnóstico para Test Connection: registro de mensajes entrantes, botón sendTo simplificado",
-        "pl": "Diagnostyka Test Connection: logowanie przychodzących wiadomości, uproszczony przycisk sendTo",
-        "pt": "Diagnóstico para Test Connection: registo de mensagens recebidas, botão sendTo simplificado",
-        "nl": "Diagnostiek voor Test Connection: inkomende berichten loggen, sendTo-knop vereenvoudigd",
-        "zh-cn": "Test Connection 诊断：记录传入消息，简化 sendTo 按钮"
       }
     },
     "titleLang": {

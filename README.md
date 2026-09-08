@@ -23,7 +23,7 @@ Get the firmware here:
 
 - **Easiest — flash from your browser (fresh ESP32):**
   [Web Flasher](https://sadam6752-tech.github.io/FingerprintDoorbell/) — connect the ESP32
-  via USB and click *Install* (Chrome/Edge/Opera only).
+  via USB and click *Install* (Chrome/Edge/Opera or Firefox 151+).
 - **Update later via OTA:** open `http://<device-ip>/update` → *Firmware* → upload
   `firmware.bin` from the [Releases](https://github.com/sadam6752-tech/FingerprintDoorbell/releases).
 - **Manual download:** [FingerprintDoorbell-v0.9.1.zip](https://github.com/sadam6752-tech/FingerprintDoorbell/releases/download/v0.9.1/FingerprintDoorbell-v0.9.1.zip)
@@ -116,6 +116,10 @@ fingerprint — no JavaScript needed:
   (planned for **v0.9.1**). Until then, the switch has no effect.
 
 ## Changelog
+
+### 0.3.4
+
+- Docs: correct Web Flasher browser support — Firefox 151+ now supports Web Serial
 
 ### 0.3.3
 
