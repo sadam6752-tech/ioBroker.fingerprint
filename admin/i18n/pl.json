@@ -73,5 +73,21 @@
   "So": "Nd",
   "Finger ID(s)": "ID palca/ów",
   "Time-based access windows. Enter one or more finger IDs (comma-separated, e.g. 1,2,4). A row allows those fingers only on the checked weekdays within the time range. Enable 'Conditions' for a finger in the Fingerprint Actions tab to enforce them. Multiple rows for the same finger are combined with OR. If a finger has 'Conditions' enabled but no matching row, access is denied. Time ranges may cross midnight (e.g. 22:00–06:00).": "Okna dostępu oparte na czasie. Wpisz jeden lub więcej identyfikatorów palców (oddzielonych przecinkami, np. 1,2,4). Wiersz zezwala na te palce tylko w zaznaczone dni tygodnia w zakresie czasu. Włącz 'Warunki' dla palca w karcie Akcje odcisków, aby je egzekwować. Wiele wierszy dla tego samego palca łączy się operatorem LUB. Jeśli palec ma włączone 'Warunki', ale brak pasującego wiersza, dostęp jest odmawiany. Zakresy czasu mogą przekraczać północ (np. 22:00–06:00).",
-  "One or more finger IDs, comma-separated (e.g. 1,2,4)": "Jeden lub więcej identyfikatorów palców, oddzielonych przecinkami (np. 1,2,4)"
+  "One or more finger IDs, comma-separated (e.g. 1,2,4)": "Jeden lub więcej identyfikatorów palców, oddzielonych przecinkami (np. 1,2,4)",
+  "Snapshot": "Zrzut",
+  "Snapshot target": "Cel zrzutu",
+  "For rows with the 'Snapshot' checkbox enabled, this object is set in addition to the normal action. Use it to trigger a script that captures a camera snapshot (e.g. ESP32-CAM) and sends it somewhere.": "Dla wierszy z włączonym polem 'Zrzut' ten obiekt jest ustawiany dodatkowo do normalnej akcji. Użyj go do wyzwolenia skryptu, który wykonuje zrzut z kamery (np. ESP32-CAM) i gdzieś go wysyła.",
+  "Snapshot target object": "Obiekt docelowy zrzutu",
+  "Object to set when a finger with the Snapshot flag matches. Leave empty to disable.": "Obiekt ustawiany, gdy dopasowany zostanie palec z flagą Zrzut. Pozostaw puste, aby wyłączyć.",
+  "Snapshot value": "Wartość zrzutu",
+  "Value written to the snapshot object (e.g. true, 1, on, or a number/text)": "Wartość zapisywana do obiektu zrzutu (np. true, 1, on lub liczba/tekst)",
+  "Manage Fingers": "Zarządzaj palcami",
+  "Rename finger": "Zmień nazwę palca",
+  "Finger ID": "ID palca",
+  "New name": "Nowa nazwa",
+  "Rename": "Zmień nazwę",
+  "Backup & Restore": "Kopia zapasowa i przywracanie",
+  "Backup stores all fingerprint templates (id, name, template) in a file on the ioBroker host that survives adapter updates. Restore writes them back to the sensor. Save the settings first so the device connection is available.": "Kopia zapasowa zapisuje wszystkie szablony odcisków (id, nazwa, szablon) w pliku na hoście ioBroker, który przetrwa aktualizacje adaptera. Przywracanie zapisuje je z powrotem do czujnika. Najpierw zapisz ustawienia, aby połączenie z urządzeniem było dostępne.",
+  "Create backup": "Utwórz kopię zapasową",
+  "Restore from backup": "Przywróć z kopii"
 }

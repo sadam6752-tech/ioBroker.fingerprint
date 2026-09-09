@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "fingerprint",
-    "version": "0.5.1",
+    "version": "0.6.0",
     "news": {
+      "0.6.0": {
+        "en": "Manage Fingers tab (rename, backup & restore via a file on the host) and Snapshot action (per-rule checkbox + target object, e.g. to trigger an ESP32-CAM capture)",
+        "de": "Tab Finger verwalten (umbenennen, sichern & wiederherstellen über eine Datei auf dem Host) und Snapshot-Aktion (Checkbox pro Regel + Zielobjekt, z. B. für eine ESP32-CAM-Aufnahme)",
+        "ru": "Вкладка «Управление пальцами» (переименование, резервная копия и восстановление через файл на хосте) и действие Snapshot (чекбокс на правило + целевой объект, напр. для снимка ESP32-CAM)",
+        "fr": "Onglet Gérer les doigts (renommer, sauvegarder et restaurer via un fichier sur l'hôte) et action Snapshot (case par règle + objet cible, p. ex. pour déclencher une capture ESP32-CAM)",
+        "it": "Scheda Gestisci dita (rinomina, backup e ripristino tramite un file sull'host) e azione Snapshot (casella per regola + oggetto target, es. per attivare una cattura ESP32-CAM)",
+        "es": "Pestaña Gestionar dedos (renombrar, copia de seguridad y restauración mediante un archivo en el host) y acción Snapshot (casilla por regla + objeto destino, p. ej. para una captura ESP32-CAM)",
+        "pl": "Karta Zarządzaj palcami (zmiana nazwy, kopia zapasowa i przywracanie przez plik na hoście) oraz akcja Snapshot (pole na regułę + obiekt docelowy, np. do zrzutu ESP32-CAM)",
+        "pt": "Separador Gerir dedos (renomear, cópia de segurança e restauro através de um ficheiro no host) e ação Snapshot (caixa por regra + objeto alvo, p. ex. para uma captura ESP32-CAM)",
+        "nl": "Tabblad Vingers beheren (hernoemen, back-up en herstel via een bestand op de host) en Snapshot-actie (vinkje per regel + doelobject, bijv. voor een ESP32-CAM-opname)",
+        "zh-cn": "管理手指选项卡（重命名、通过主机文件备份和恢复）以及快照动作（按规则复选框 + 目标对象，例如触发 ESP32-CAM 拍摄）"
+      },
       "0.5.1": {
         "en": "Conditions: the Finger field now accepts several IDs comma-separated (e.g. 1,2,4); added a hint/tooltip",
         "de": "Bedingungen: Das Finger-Feld akzeptiert jetzt mehrere IDs kommagetrennt (z. B. 1,2,4); Hinweis/Tooltip ergänzt",
@@ -74,18 +86,6 @@
         "pt": "Docs: adicionada ligação ao Web Flasher no navegador (ESP Web Tools) para gravar um ESP32 novo",
         "nl": "Docs: link naar browsergebaseerde Web Flasher (ESP Web Tools) toegevoegd voor een verse ESP32",
         "zh-cn": "文档：新增基于浏览器的 Web Flasher（ESP Web Tools）链接，用于刷写全新 ESP32"
-      },
-      "0.3.2": {
-        "en": "Docs: add direct download link to the FingerprintDoorbell v0.9.1 firmware release",
-        "de": "Doku: direkten Download-Link zur FingerprintDoorbell-v0.9.1-Firmware ergänzt",
-        "ru": "Документация: добавлена прямая ссылка на скачивание прошивки FingerprintDoorbell v0.9.1",
-        "fr": "Docs : ajout d'un lien de téléchargement direct vers le firmware FingerprintDoorbell v0.9.1",
-        "it": "Docs: aggiunto link di download diretto al firmware FingerprintDoorbell v0.9.1",
-        "es": "Docs: añadido enlace de descarga directa al firmware FingerprintDoorbell v0.9.1",
-        "pl": "Dokumentacja: dodano bezpośredni link do pobrania firmware FingerprintDoorbell v0.9.1",
-        "pt": "Docs: adicionada ligação de download direto para o firmware FingerprintDoorbell v0.9.1",
-        "nl": "Docs: directe downloadlink naar de FingerprintDoorbell v0.9.1-firmware toegevoegd",
-        "zh-cn": "文档：新增 FingerprintDoorbell v0.9.1 固件的直接下载链接"
       }
     },
     "titleLang": {
@@ -164,7 +164,9 @@
     "ringActionObject": "",
     "ringActionValue": "",
     "alarmActionObject": "",
-    "alarmActionValue": ""
+    "alarmActionValue": "",
+    "snapshotActionObject": "",
+    "snapshotActionValue": ""
   },
   "objects": [],
   "instanceObjects": [

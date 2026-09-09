@@ -2,6 +2,8 @@
 
 const utils = require('@iobroker/adapter-core');
 const crypto = require('node:crypto');
+const path = require('node:path');
+const fs = require('node:fs');
 const WebhookServer = require('./lib/webhook-server');
 const EspClient = require('./lib/esp-client');
 
@@ -360,6 +362,150 @@ class Fingerprint extends utils.Adapter {
             this.sendTo(obj.from, obj.command, { native: { actions: merged } }, obj.callback);
             return;
         }
+
+        if (obj.command === 'renameFinger') {
+            const id = parseInt(obj.message && obj.message.id, 10);
+            const name = (obj.message && obj.message.name ? String(obj.message.name) : '').trim();
+            if (!Number.isFinite(id) || id < 1 || id > 200 || !name) {
+                this.sendTo(
+                    obj.from,
+                    obj.command,
+                    { error: 'Enter a valid finger ID (1–200) and a name' },
+                    obj.callback,
+                );
+                return;
+            }
+            const client = this._makeEspClient();
+            if (!client) {
+                this.sendTo(
+                    obj.from,
+                    obj.command,
+                    { error: 'Device IP not configured (save settings first)' },
+                    obj.callback,
+                );
+                return;
+            }
+            const ok = await client.renameFinger(id, name);
+            if (ok) {
+                await this._ensureFingerObjects(id, name);
+                await this.setStateAsync(`fingerprints.${id}.name`, { val: name, ack: true });
+                this.sendTo(obj.from, obj.command, { result: `Renamed finger ${id} to "${name}"` }, obj.callback);
+            } else {
+                this.sendTo(obj.from, obj.command, { error: `Rename failed for finger ${id}` }, obj.callback);
+            }
+            return;
+        }
+
+        if (obj.command === 'backupFingerprints') {
+            const client = this._makeEspClient();
+            if (!client) {
+                this.sendTo(
+                    obj.from,
+                    obj.command,
+                    { error: 'Device IP not configured (save settings first)' },
+                    obj.callback,
+                );
+                return;
+            }
+            const { ok, json, count } = await client.getBackup();
+            if (!ok) {
+                this.sendTo(
+                    obj.from,
+                    obj.command,
+                    { error: 'Backup failed (device unreachable or empty)' },
+                    obj.callback,
+                );
+                return;
+            }
+            try {
+                const file = this._getBackupPath();
+                fs.mkdirSync(path.dirname(file), { recursive: true });
+                fs.writeFileSync(file, json, 'utf8');
+                this.log.info(`Fingerprint backup saved (${count} finger(s)) to ${file}`);
+                this.sendTo(obj.from, obj.command, { result: `Backup saved: ${count} finger(s)` }, obj.callback);
+            } catch (err) {
+                this.sendTo(
+                    obj.from,
+                    obj.command,
+                    { error: `Could not write backup file: ${err.message}` },
+                    obj.callback,
+                );
+            }
+            return;
+        }
+
+        if (obj.command === 'restoreFingerprints') {
+            const client = this._makeEspClient();
+            if (!client) {
+                this.sendTo(
+                    obj.from,
+                    obj.command,
+                    { error: 'Device IP not configured (save settings first)' },
+                    obj.callback,
+                );
+                return;
+            }
+            const file = this._getBackupPath();
+            let json;
+            try {
+                json = fs.readFileSync(file, 'utf8');
+            } catch {
+                this.sendTo(
+                    obj.from,
+                    obj.command,
+                    { error: 'No backup file found. Create a backup first.' },
+                    obj.callback,
+                );
+                return;
+            }
+            let count = 0;
+            try {
+                const arr = JSON.parse(json);
+                count = Array.isArray(arr) ? arr.length : 0;
+            } catch {
+                this.sendTo(obj.from, obj.command, { error: 'Backup file is not valid JSON' }, obj.callback);
+                return;
+            }
+            const ok = await client.restore(json);
+            if (ok) {
+                await this._syncFingerprints();
+                this.log.info(`Fingerprint restore sent (${count} finger(s))`);
+                this.sendTo(obj.from, obj.command, { result: `Restore sent: ${count} finger(s)` }, obj.callback);
+            } else {
+                this.sendTo(obj.from, obj.command, { error: 'Restore failed (device unreachable)' }, obj.callback);
+            }
+            return;
+        }
+    }
+
+    /**
+     * Create an EspClient from the current config, or null if no device IP is set.
+     *
+     * @returns {EspClient|null} configured client or null
+     */
+    _makeEspClient() {
+        const ip = (this.config.espIp || '').trim();
+        if (!ip) {
+            return null;
+        }
+        return new EspClient({
+            ip,
+            port: this.config.espPort || 80,
+            timeout: Math.min(this.config.requestTimeout || 5000, 8000),
+            user: this.config.adminUser || '',
+            password: this.config.adminPassword || '',
+        });
+    }
+
+    /**
+     * Absolute path of the fingerprint backup file (outside the adapter folder,
+     * so it survives adapter updates).
+     *
+     * @returns {string} backup file path
+     */
+    _getBackupPath() {
+        const dataDir = utils.getAbsoluteDefaultDataDir();
+        return path.join(dataDir, this.namespace, 'fingerprints-backup.json');
     }
 
     // ── Event handlers ────────────────────────────────────────────────────────
@@ -482,6 +628,17 @@ class Fingerprint extends utils.Adapter {
                 await this._applyAction(alarmObj, 'set', this.config.alarmActionValue);
             } else {
                 this.log.warn(`Alarm flag set for id=${event.id} but no alarm target object configured`);
+            }
+        }
+
+        // 6) Snapshot: additionally set the snapshot object (e.g. to trigger a camera capture)
+        if (rule.snapshot) {
+            const snapObj = (this.config.snapshotActionObject || '').trim();
+            if (snapObj) {
+                this.log.info(`Snapshot triggered by id=${event.id} (${event.name || ''})`);
+                await this._applyAction(snapObj, 'set', this.config.snapshotActionValue);
+            } else {
+                this.log.warn(`Snapshot flag set for id=${event.id} but no snapshot target object configured`);
             }
         }
     }

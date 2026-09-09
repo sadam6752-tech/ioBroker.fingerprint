@@ -73,5 +73,21 @@
   "So": "Su",
   "Finger ID(s)": "Finger ID(s)",
   "Time-based access windows. Enter one or more finger IDs (comma-separated, e.g. 1,2,4). A row allows those fingers only on the checked weekdays within the time range. Enable 'Conditions' for a finger in the Fingerprint Actions tab to enforce them. Multiple rows for the same finger are combined with OR. If a finger has 'Conditions' enabled but no matching row, access is denied. Time ranges may cross midnight (e.g. 22:00–06:00).": "Time-based access windows. Enter one or more finger IDs (comma-separated, e.g. 1,2,4). A row allows those fingers only on the checked weekdays within the time range. Enable 'Conditions' for a finger in the Fingerprint Actions tab to enforce them. Multiple rows for the same finger are combined with OR. If a finger has 'Conditions' enabled but no matching row, access is denied. Time ranges may cross midnight (e.g. 22:00–06:00).",
-  "One or more finger IDs, comma-separated (e.g. 1,2,4)": "One or more finger IDs, comma-separated (e.g. 1,2,4)"
+  "One or more finger IDs, comma-separated (e.g. 1,2,4)": "One or more finger IDs, comma-separated (e.g. 1,2,4)",
+  "Snapshot": "Snapshot",
+  "Snapshot target": "Snapshot target",
+  "For rows with the 'Snapshot' checkbox enabled, this object is set in addition to the normal action. Use it to trigger a script that captures a camera snapshot (e.g. ESP32-CAM) and sends it somewhere.": "For rows with the 'Snapshot' checkbox enabled, this object is set in addition to the normal action. Use it to trigger a script that captures a camera snapshot (e.g. ESP32-CAM) and sends it somewhere.",
+  "Snapshot target object": "Snapshot target object",
+  "Object to set when a finger with the Snapshot flag matches. Leave empty to disable.": "Object to set when a finger with the Snapshot flag matches. Leave empty to disable.",
+  "Snapshot value": "Snapshot value",
+  "Value written to the snapshot object (e.g. true, 1, on, or a number/text)": "Value written to the snapshot object (e.g. true, 1, on, or a number/text)",
+  "Manage Fingers": "Manage Fingers",
+  "Rename finger": "Rename finger",
+  "Finger ID": "Finger ID",
+  "New name": "New name",
+  "Rename": "Rename",
+  "Backup & Restore": "Backup & Restore",
+  "Backup stores all fingerprint templates (id, name, template) in a file on the ioBroker host that survives adapter updates. Restore writes them back to the sensor. Save the settings first so the device connection is available.": "Backup stores all fingerprint templates (id, name, template) in a file on the ioBroker host that survives adapter updates. Restore writes them back to the sensor. Save the settings first so the device connection is available.",
+  "Create backup": "Create backup",
+  "Restore from backup": "Restore from backup"
 }

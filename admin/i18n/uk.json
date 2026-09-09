@@ -73,5 +73,21 @@
   "So": "Нд",
   "Finger ID(s)": "ID пальця(ів)",
   "Time-based access windows. Enter one or more finger IDs (comma-separated, e.g. 1,2,4). A row allows those fingers only on the checked weekdays within the time range. Enable 'Conditions' for a finger in the Fingerprint Actions tab to enforce them. Multiple rows for the same finger are combined with OR. If a finger has 'Conditions' enabled but no matching row, access is denied. Time ranges may cross midnight (e.g. 22:00–06:00).": "Часові вікна доступу. Вкажіть один або кілька ID пальців (через кому, напр. 1,2,4). Рядок дозволяє ці пальці лише у відмічені дні тижня в межах діапазону часу. Увімкніть «Умови» для пальця на вкладці «Дії за відбитками», щоб застосувати їх. Кілька рядків для одного пальця об'єднуються за АБО. Якщо у пальця ввімкнено «Умови», але немає відповідного рядка, доступ заборонено. Діапазони часу можуть перетинати північ (напр. 22:00–06:00).",
-  "One or more finger IDs, comma-separated (e.g. 1,2,4)": "Один або кілька ID пальців через кому (напр. 1,2,4)"
+  "One or more finger IDs, comma-separated (e.g. 1,2,4)": "Один або кілька ID пальців через кому (напр. 1,2,4)",
+  "Snapshot": "Знімок",
+  "Snapshot target": "Ціль знімка",
+  "For rows with the 'Snapshot' checkbox enabled, this object is set in addition to the normal action. Use it to trigger a script that captures a camera snapshot (e.g. ESP32-CAM) and sends it somewhere.": "Для рядків з увімкненим прапорцем «Знімок» цей об'єкт встановлюється додатково до звичайної дії. Використовуйте його для запуску скрипта, який робить знімок з камери (напр. ESP32-CAM) і кудись його надсилає.",
+  "Snapshot target object": "Цільовий об'єкт знімка",
+  "Object to set when a finger with the Snapshot flag matches. Leave empty to disable.": "Об'єкт, що встановлюється при збігу пальця з прапорцем Знімок. Залиште порожнім для вимкнення.",
+  "Snapshot value": "Значення знімка",
+  "Value written to the snapshot object (e.g. true, 1, on, or a number/text)": "Значення, що записується в об'єкт знімка (напр. true, 1, on, або число/текст)",
+  "Manage Fingers": "Керування пальцями",
+  "Rename finger": "Перейменувати палець",
+  "Finger ID": "ID пальця",
+  "New name": "Нове ім'я",
+  "Rename": "Перейменувати",
+  "Backup & Restore": "Резервна копія та відновлення",
+  "Backup stores all fingerprint templates (id, name, template) in a file on the ioBroker host that survives adapter updates. Restore writes them back to the sensor. Save the settings first so the device connection is available.": "Резервна копія зберігає всі шаблони відбитків (id, ім'я, шаблон) у файл на хості ioBroker, який переживає оновлення адаптера. Відновлення записує їх назад у сенсор. Спочатку збережіть налаштування, щоб з'єднання з пристроєм було доступне.",
+  "Create backup": "Створити резервну копію",
+  "Restore from backup": "Відновити з копії"
 }

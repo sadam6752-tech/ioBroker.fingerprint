@@ -73,5 +73,21 @@
   "So": "Вс",
   "Finger ID(s)": "ID пальца(ев)",
   "Time-based access windows. Enter one or more finger IDs (comma-separated, e.g. 1,2,4). A row allows those fingers only on the checked weekdays within the time range. Enable 'Conditions' for a finger in the Fingerprint Actions tab to enforce them. Multiple rows for the same finger are combined with OR. If a finger has 'Conditions' enabled but no matching row, access is denied. Time ranges may cross midnight (e.g. 22:00–06:00).": "Временные окна доступа. Укажите один или несколько ID пальцев (через запятую, напр. 1,2,4). Строка разрешает эти пальцы только в отмеченные дни недели в пределах диапазона времени. Включите «Условия» для пальца на вкладке «Действия по отпечаткам», чтобы применять их. Несколько строк для одного пальца объединяются по ИЛИ. Если у пальца включены «Условия», но нет подходящей строки, доступ запрещён. Диапазоны времени могут пересекать полночь (например 22:00–06:00).",
-  "One or more finger IDs, comma-separated (e.g. 1,2,4)": "Один или несколько ID пальцев через запятую (например 1,2,4)"
+  "One or more finger IDs, comma-separated (e.g. 1,2,4)": "Один или несколько ID пальцев через запятую (например 1,2,4)",
+  "Snapshot": "Снимок",
+  "Snapshot target": "Цель снимка",
+  "For rows with the 'Snapshot' checkbox enabled, this object is set in addition to the normal action. Use it to trigger a script that captures a camera snapshot (e.g. ESP32-CAM) and sends it somewhere.": "Для строк с включённым флажком «Снимок» этот объект устанавливается дополнительно к обычному действию. Используйте его для запуска скрипта, который делает снимок с камеры (например ESP32-CAM) и куда-то его отправляет.",
+  "Snapshot target object": "Целевой объект снимка",
+  "Object to set when a finger with the Snapshot flag matches. Leave empty to disable.": "Объект, устанавливаемый при совпадении пальца с флагом снимка. Оставьте пустым для отключения.",
+  "Snapshot value": "Значение снимка",
+  "Value written to the snapshot object (e.g. true, 1, on, or a number/text)": "Значение, записываемое в объект снимка (например true, 1, on, или число/текст)",
+  "Manage Fingers": "Управление пальцами",
+  "Rename finger": "Переименовать палец",
+  "Finger ID": "ID пальца",
+  "New name": "Новое имя",
+  "Rename": "Переименовать",
+  "Backup & Restore": "Резервная копия и восстановление",
+  "Backup stores all fingerprint templates (id, name, template) in a file on the ioBroker host that survives adapter updates. Restore writes them back to the sensor. Save the settings first so the device connection is available.": "Резервная копия сохраняет все шаблоны отпечатков (id, имя, template) в файл на хосте ioBroker, который переживает обновления адаптера. Восстановление записывает их обратно в сенсор. Сначала сохраните настройки, чтобы соединение с устройством было доступно.",
+  "Create backup": "Создать резервную копию",
+  "Restore from backup": "Восстановить из копии"
 }

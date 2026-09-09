@@ -73,5 +73,21 @@
   "So": "Do",
   "Finger ID(s)": "ID dito/i",
   "Time-based access windows. Enter one or more finger IDs (comma-separated, e.g. 1,2,4). A row allows those fingers only on the checked weekdays within the time range. Enable 'Conditions' for a finger in the Fingerprint Actions tab to enforce them. Multiple rows for the same finger are combined with OR. If a finger has 'Conditions' enabled but no matching row, access is denied. Time ranges may cross midnight (e.g. 22:00–06:00).": "Finestre di accesso basate sul tempo. Inserisci uno o più ID dito (separati da virgola, es. 1,2,4). Una riga consente quei diti solo nei giorni della settimana selezionati entro l'intervallo orario. Abilita 'Condizioni' per un dito nella scheda Azioni impronta per applicarle. Più righe per lo stesso dito sono combinate con OR. Se un dito ha 'Condizioni' abilitate ma nessuna riga corrispondente, l'accesso è negato. Gli intervalli orari possono attraversare la mezzanotte (es. 22:00–06:00).",
-  "One or more finger IDs, comma-separated (e.g. 1,2,4)": "Uno o più ID dito, separati da virgola (es. 1,2,4)"
+  "One or more finger IDs, comma-separated (e.g. 1,2,4)": "Uno o più ID dito, separati da virgola (es. 1,2,4)",
+  "Snapshot": "Snapshot",
+  "Snapshot target": "Target snapshot",
+  "For rows with the 'Snapshot' checkbox enabled, this object is set in addition to the normal action. Use it to trigger a script that captures a camera snapshot (e.g. ESP32-CAM) and sends it somewhere.": "Per le righe con la casella 'Snapshot' attivata, questo oggetto viene impostato oltre all'azione normale. Usalo per attivare uno script che cattura un'immagine dalla telecamera (es. ESP32-CAM) e la invia da qualche parte.",
+  "Snapshot target object": "Oggetto target snapshot",
+  "Object to set when a finger with the Snapshot flag matches. Leave empty to disable.": "Oggetto da impostare quando un dito con flag Snapshot corrisponde. Lasciare vuoto per disattivare.",
+  "Snapshot value": "Valore snapshot",
+  "Value written to the snapshot object (e.g. true, 1, on, or a number/text)": "Valore scritto nell'oggetto snapshot (es. true, 1, on, o un numero/testo)",
+  "Manage Fingers": "Gestisci dita",
+  "Rename finger": "Rinomina dito",
+  "Finger ID": "ID dito",
+  "New name": "Nuovo nome",
+  "Rename": "Rinomina",
+  "Backup & Restore": "Backup e ripristino",
+  "Backup stores all fingerprint templates (id, name, template) in a file on the ioBroker host that survives adapter updates. Restore writes them back to the sensor. Save the settings first so the device connection is available.": "Il backup salva tutti i template delle impronte (id, nome, template) in un file sull'host ioBroker che sopravvive agli aggiornamenti dell'adattatore. Il ripristino li riscrive sul sensore. Salva prima le impostazioni così la connessione al dispositivo è disponibile.",
+  "Create backup": "Crea backup",
+  "Restore from backup": "Ripristina dal backup"
 }

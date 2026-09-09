@@ -73,5 +73,21 @@
   "So": "Do",
   "Finger ID(s)": "ID de dedo(s)",
   "Time-based access windows. Enter one or more finger IDs (comma-separated, e.g. 1,2,4). A row allows those fingers only on the checked weekdays within the time range. Enable 'Conditions' for a finger in the Fingerprint Actions tab to enforce them. Multiple rows for the same finger are combined with OR. If a finger has 'Conditions' enabled but no matching row, access is denied. Time ranges may cross midnight (e.g. 22:00–06:00).": "Ventanas de acceso basadas en tiempo. Introduzca uno o varios ID de dedo (separados por comas, p. ej. 1,2,4). Una fila permite esos dedos solo en los días de la semana marcados dentro del rango horario. Active 'Condiciones' para un dedo en la pestaña Acciones de huella para aplicarlas. Varias filas para el mismo dedo se combinan con OR. Si un dedo tiene 'Condiciones' activadas pero ninguna fila coincidente, se deniega el acceso. Los rangos horarios pueden cruzar la medianoche (p. ej. 22:00–06:00).",
-  "One or more finger IDs, comma-separated (e.g. 1,2,4)": "Uno o varios ID de dedo, separados por comas (p. ej. 1,2,4)"
+  "One or more finger IDs, comma-separated (e.g. 1,2,4)": "Uno o varios ID de dedo, separados por comas (p. ej. 1,2,4)",
+  "Snapshot": "Snapshot",
+  "Snapshot target": "Destino del snapshot",
+  "For rows with the 'Snapshot' checkbox enabled, this object is set in addition to the normal action. Use it to trigger a script that captures a camera snapshot (e.g. ESP32-CAM) and sends it somewhere.": "Para las filas con la casilla 'Snapshot' activada, este objeto se establece además de la acción normal. Úselo para activar un script que capture una imagen de cámara (p. ej. ESP32-CAM) y la envíe a algún lugar.",
+  "Snapshot target object": "Objeto destino del snapshot",
+  "Object to set when a finger with the Snapshot flag matches. Leave empty to disable.": "Objeto a establecer cuando coincide un dedo con la marca Snapshot. Déjelo vacío para desactivar.",
+  "Snapshot value": "Valor del snapshot",
+  "Value written to the snapshot object (e.g. true, 1, on, or a number/text)": "Valor escrito en el objeto snapshot (p. ej. true, 1, on, o un número/texto)",
+  "Manage Fingers": "Gestionar dedos",
+  "Rename finger": "Renombrar dedo",
+  "Finger ID": "ID de dedo",
+  "New name": "Nuevo nombre",
+  "Rename": "Renombrar",
+  "Backup & Restore": "Copia de seguridad y restauración",
+  "Backup stores all fingerprint templates (id, name, template) in a file on the ioBroker host that survives adapter updates. Restore writes them back to the sensor. Save the settings first so the device connection is available.": "La copia de seguridad guarda todas las plantillas de huellas (id, nombre, plantilla) en un archivo del host de ioBroker que sobrevive a las actualizaciones del adaptador. La restauración las vuelve a escribir en el sensor. Guarde primero la configuración para que la conexión con el dispositivo esté disponible.",
+  "Create backup": "Crear copia de seguridad",
+  "Restore from backup": "Restaurar desde copia"
 }

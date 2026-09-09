@@ -99,6 +99,20 @@ fingerprint — no JavaScript needed:
 - **Alarm** checkbox (panic finger) — in addition to the normal action, sets the object
   configured under **Alarm target**. Example: a special finger opens the door as usual and
   also triggers an alarm state.
+- **Snapshot** checkbox — in addition to the normal action, sets the object configured under
+  **Snapshot target**. Example: trigger a script that captures an ESP32-CAM snapshot and sends it.
+
+## Manage Fingers (v0.6.0)
+
+The **Manage Fingers** tab lets you administer fingers without opening the device WebUI:
+
+- **Rename** — enter a finger ID and a new name, then click *Rename*.
+- **Create backup** — downloads all fingerprint templates from the sensor and stores them in
+  a file on the ioBroker host (`<iobroker-data>/fingerprint.0/fingerprints-backup.json`),
+  which survives adapter updates.
+- **Restore from backup** — writes the fingerprints from that file back to the sensor.
+
+Save the instance settings first so the device connection is available.
 
 ## States
 
@@ -135,6 +149,13 @@ fingerprint — no JavaScript needed:
   (planned for **v0.9.1**). Until then, the switch has no effect.
 
 ## Changelog
+
+### 0.6.0
+
+- **Manage Fingers** tab: rename a finger, and backup / restore all fingerprints
+  (stored in a file on the ioBroker host that survives adapter updates)
+- **Snapshot** action: per-rule checkbox + a *Snapshot target* object — set in addition
+  to the normal action, e.g. to trigger a script that captures an ESP32-CAM snapshot
 
 ### 0.5.1
 

@@ -73,5 +73,21 @@
   "So": "日",
   "Finger ID(s)": "手指 ID",
   "Time-based access windows. Enter one or more finger IDs (comma-separated, e.g. 1,2,4). A row allows those fingers only on the checked weekdays within the time range. Enable 'Conditions' for a finger in the Fingerprint Actions tab to enforce them. Multiple rows for the same finger are combined with OR. If a finger has 'Conditions' enabled but no matching row, access is denied. Time ranges may cross midnight (e.g. 22:00–06:00).": "基于时间的访问窗口。输入一个或多个手指 ID（用逗号分隔，例如 1,2,4）。某行仅在勾选的工作日、时间范围内允许这些手指。在“指纹动作”选项卡为某手指启用“条件”以生效。同一手指的多行以“或”组合。如果手指启用了“条件”但没有匹配的行，则拒绝访问。时间范围可跨越午夜（例如 22:00–06:00）。",
-  "One or more finger IDs, comma-separated (e.g. 1,2,4)": "一个或多个手指 ID，用逗号分隔（例如 1,2,4）"
+  "One or more finger IDs, comma-separated (e.g. 1,2,4)": "一个或多个手指 ID，用逗号分隔（例如 1,2,4）",
+  "Snapshot": "快照",
+  "Snapshot target": "快照目标",
+  "For rows with the 'Snapshot' checkbox enabled, this object is set in addition to the normal action. Use it to trigger a script that captures a camera snapshot (e.g. ESP32-CAM) and sends it somewhere.": "对于启用了“快照”复选框的行，除正常动作外还会设置此对象。用它触发一个脚本来捕获摄像头快照（例如 ESP32-CAM）并发送到某处。",
+  "Snapshot target object": "快照目标对象",
+  "Object to set when a finger with the Snapshot flag matches. Leave empty to disable.": "当带有快照标记的手指匹配时设置的对象。留空则禁用。",
+  "Snapshot value": "快照值",
+  "Value written to the snapshot object (e.g. true, 1, on, or a number/text)": "写入快照对象的值（例如 true、1、on 或数字/文本）",
+  "Manage Fingers": "管理手指",
+  "Rename finger": "重命名手指",
+  "Finger ID": "手指 ID",
+  "New name": "新名称",
+  "Rename": "重命名",
+  "Backup & Restore": "备份与恢复",
+  "Backup stores all fingerprint templates (id, name, template) in a file on the ioBroker host that survives adapter updates. Restore writes them back to the sensor. Save the settings first so the device connection is available.": "备份将所有指纹模板（id、名称、模板）保存到 ioBroker 主机上的文件中，可在适配器更新后保留。恢复会将它们写回传感器。请先保存设置以便设备连接可用。",
+  "Create backup": "创建备份",
+  "Restore from backup": "从备份恢复"
 }

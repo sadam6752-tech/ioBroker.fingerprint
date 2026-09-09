@@ -241,6 +241,12 @@
               "attr": "alarm",
               "title": "Alarm",
               "width": "8%"
+            },
+            {
+              "type": "checkbox",
+              "attr": "snapshot",
+              "title": "Snapshot",
+              "width": "8%"
             }
           ],
           "xs": 12
@@ -283,6 +289,28 @@
           "label": "Alarm value",
           "help": "Value written to the alarm object (e.g. true, 1, on, or a number/text)",
           "xs": 12, "sm": 4, "md": 3, "lg": 2, "xl": 2
+        },
+        "_snapshotHeader": {
+          "type": "header",
+          "text": "Snapshot target",
+          "size": 3
+        },
+        "_snapshotInfo": {
+          "type": "staticText",
+          "text": "For rows with the 'Snapshot' checkbox enabled, this object is set in addition to the normal action. Use it to trigger a script that captures a camera snapshot (e.g. ESP32-CAM) and sends it somewhere.",
+          "xs": 12
+        },
+        "snapshotActionObject": {
+          "type": "objectId",
+          "label": "Snapshot target object",
+          "help": "Object to set when a finger with the Snapshot flag matches. Leave empty to disable.",
+          "xs": 12, "sm": 8, "md": 6, "lg": 5, "xl": 5
+        },
+        "snapshotActionValue": {
+          "type": "text",
+          "label": "Snapshot value",
+          "help": "Value written to the snapshot object (e.g. true, 1, on, or a number/text)",
+          "xs": 12, "sm": 4, "md": 3, "lg": 2, "xl": 2
         }
       }
     },
@@ -311,6 +339,68 @@
             { "type": "text", "attr": "timeTo", "title": "To (HH:MM)", "width": "17%" }
           ],
           "xs": 12
+        }
+      }
+    },
+    "_tabManage": {
+      "type": "panel",
+      "label": "Manage Fingers",
+      "items": {
+        "_renameHeader": {
+          "type": "header",
+          "text": "Rename finger",
+          "size": 3
+        },
+        "_renameId": {
+          "type": "number",
+          "attr": "_renameId",
+          "label": "Finger ID",
+          "min": 1,
+          "max": 200,
+          "doNotSave": true,
+          "xs": 6, "sm": 3, "md": 2, "lg": 2, "xl": 2
+        },
+        "_renameName": {
+          "type": "text",
+          "attr": "_renameName",
+          "label": "New name",
+          "doNotSave": true,
+          "xs": 12, "sm": 5, "md": 4, "lg": 3, "xl": 3
+        },
+        "renameButton": {
+          "type": "sendTo",
+          "label": "Rename",
+          "command": "renameFinger",
+          "jsonData": "{ \"id\": ${data._renameId}, \"name\": \"${data._renameName}\" }",
+          "variant": "contained",
+          "color": "primary",
+          "xs": 12, "sm": 4, "md": 3, "lg": 2, "xl": 2
+        },
+        "_backupHeader": {
+          "type": "header",
+          "text": "Backup & Restore",
+          "size": 3
+        },
+        "_backupInfo": {
+          "type": "staticText",
+          "text": "Backup stores all fingerprint templates (id, name, template) in a file on the ioBroker host that survives adapter updates. Restore writes them back to the sensor. Save the settings first so the device connection is available.",
+          "xs": 12
+        },
+        "backupButton": {
+          "type": "sendTo",
+          "label": "Create backup",
+          "command": "backupFingerprints",
+          "variant": "contained",
+          "color": "primary",
+          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
+        },
+        "restoreButton": {
+          "type": "sendTo",
+          "label": "Restore from backup",
+          "command": "restoreFingerprints",
+          "variant": "outlined",
+          "color": "secondary",
+          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
         }
       }
     }

@@ -73,5 +73,21 @@
   "So": "Zo",
   "Finger ID(s)": "Vinger-ID('s)",
   "Time-based access windows. Enter one or more finger IDs (comma-separated, e.g. 1,2,4). A row allows those fingers only on the checked weekdays within the time range. Enable 'Conditions' for a finger in the Fingerprint Actions tab to enforce them. Multiple rows for the same finger are combined with OR. If a finger has 'Conditions' enabled but no matching row, access is denied. Time ranges may cross midnight (e.g. 22:00–06:00).": "Tijdgebaseerde toegangsvensters. Voer een of meer vinger-ID's in (komma-gescheiden, bijv. 1,2,4). Een rij staat die vingers alleen toe op de aangevinkte weekdagen binnen het tijdbereik. Schakel 'Voorwaarden' in voor een vinger op het tabblad Vingerafdrukacties om ze af te dwingen. Meerdere rijen voor dezelfde vinger worden met OF gecombineerd. Als een vinger 'Voorwaarden' aan heeft maar geen passende rij, wordt toegang geweigerd. Tijdbereiken mogen middernacht overschrijden (bijv. 22:00–06:00).",
-  "One or more finger IDs, comma-separated (e.g. 1,2,4)": "Een of meer vinger-ID's, komma-gescheiden (bijv. 1,2,4)"
+  "One or more finger IDs, comma-separated (e.g. 1,2,4)": "Een of meer vinger-ID's, komma-gescheiden (bijv. 1,2,4)",
+  "Snapshot": "Snapshot",
+  "Snapshot target": "Snapshot-doel",
+  "For rows with the 'Snapshot' checkbox enabled, this object is set in addition to the normal action. Use it to trigger a script that captures a camera snapshot (e.g. ESP32-CAM) and sends it somewhere.": "Voor rijen met het 'Snapshot'-vinkje aan wordt dit object naast de normale actie ingesteld. Gebruik het om een script te triggeren dat een camerabeeld (bijv. ESP32-CAM) maakt en ergens naartoe stuurt.",
+  "Snapshot target object": "Snapshot-doelobject",
+  "Object to set when a finger with the Snapshot flag matches. Leave empty to disable.": "Object dat wordt ingesteld wanneer een vinger met de Snapshot-vlag overeenkomt. Laat leeg om uit te schakelen.",
+  "Snapshot value": "Snapshot-waarde",
+  "Value written to the snapshot object (e.g. true, 1, on, or a number/text)": "Waarde die naar het snapshot-object wordt geschreven (bijv. true, 1, on, of een getal/tekst)",
+  "Manage Fingers": "Vingers beheren",
+  "Rename finger": "Vinger hernoemen",
+  "Finger ID": "Vinger-ID",
+  "New name": "Nieuwe naam",
+  "Rename": "Hernoemen",
+  "Backup & Restore": "Back-up en herstel",
+  "Backup stores all fingerprint templates (id, name, template) in a file on the ioBroker host that survives adapter updates. Restore writes them back to the sensor. Save the settings first so the device connection is available.": "De back-up slaat alle vingerafdruksjablonen (id, naam, sjabloon) op in een bestand op de ioBroker-host dat adapterupdates overleeft. Herstel schrijft ze terug naar de sensor. Sla eerst de instellingen op zodat de apparaatverbinding beschikbaar is.",
+  "Create backup": "Back-up maken",
+  "Restore from backup": "Herstellen uit back-up"
 }
