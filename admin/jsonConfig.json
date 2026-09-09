@@ -353,7 +353,6 @@
         },
         "_renameId": {
           "type": "number",
-          "attr": "_renameId",
           "label": "Finger ID",
           "min": 1,
           "max": 200,
@@ -362,7 +361,6 @@
         },
         "_renameName": {
           "type": "text",
-          "attr": "_renameName",
           "label": "New name",
           "doNotSave": true,
           "xs": 12, "sm": 5, "md": 4, "lg": 3, "xl": 3

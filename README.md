@@ -150,6 +150,10 @@ Save the instance settings first so the device connection is available.
 
 ## Changelog
 
+### 0.6.1
+
+- Fix invalid jsonConfig: remove unsupported `attr` from the Manage Fingers rename fields (settings page failed to load)
+
 ### 0.6.0
 
 - **Manage Fingers** tab: rename a finger, and backup / restore all fingerprints

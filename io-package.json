@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "fingerprint",
-    "version": "0.6.0",
+    "version": "0.6.1",
     "news": {
+      "0.6.1": {
+        "en": "Fix invalid jsonConfig: remove unsupported 'attr' from the Manage Fingers rename fields (settings page failed to load)",
+        "de": "Ungültige jsonConfig behoben: nicht unterstütztes 'attr' aus den Umbenennen-Feldern (Manage Fingers) entfernt (Einstellungsseite lud nicht)",
+        "ru": "Исправлен некорректный jsonConfig: убрано неподдерживаемое 'attr' из полей переименования (Manage Fingers) — страница настроек не открывалась",
+        "fr": "Correction du jsonConfig invalide : suppression de 'attr' non pris en charge des champs de renommage (Manage Fingers) (la page de réglages ne se chargeait pas)",
+        "it": "Corretto jsonConfig non valido: rimosso 'attr' non supportato dai campi di rinomina (Manage Fingers) (la pagina impostazioni non si caricava)",
+        "es": "Corregido jsonConfig no válido: eliminado 'attr' no compatible de los campos de renombrado (Manage Fingers) (la página de ajustes no cargaba)",
+        "pl": "Naprawiono nieprawidłowy jsonConfig: usunięto nieobsługiwane 'attr' z pól zmiany nazwy (Manage Fingers) (strona ustawień się nie ładowała)",
+        "pt": "Corrigido jsonConfig inválido: removido 'attr' não suportado dos campos de renomear (Manage Fingers) (a página de definições não carregava)",
+        "nl": "Ongeldige jsonConfig hersteld: niet-ondersteunde 'attr' verwijderd uit de hernoem-velden (Manage Fingers) (instellingenpagina laadde niet)",
+        "zh-cn": "修复无效的 jsonConfig：从 Manage Fingers 重命名字段中移除不支持的 'attr'（设置页面无法加载）"
+      },
       "0.6.0": {
         "en": "Manage Fingers tab (rename, backup & restore via a file on the host) and Snapshot action (per-rule checkbox + target object, e.g. to trigger an ESP32-CAM capture)",
         "de": "Tab Finger verwalten (umbenennen, sichern & wiederherstellen über eine Datei auf dem Host) und Snapshot-Aktion (Checkbox pro Regel + Zielobjekt, z. B. für eine ESP32-CAM-Aufnahme)",
@@ -74,18 +86,6 @@
         "pt": "Docs: corrigida a compatibilidade de navegadores do Web Flasher - Firefox 151+ agora suporta Web Serial",
         "nl": "Docs: browserondersteuning Web Flasher gecorrigeerd - Firefox 151+ ondersteunt nu Web Serial",
         "zh-cn": "文档：更正 Web Flasher 浏览器支持 - Firefox 151+ 现已支持 Web Serial"
-      },
-      "0.3.3": {
-        "en": "Docs: add browser-based Web Flasher link (ESP Web Tools) for flashing a fresh ESP32",
-        "de": "Doku: Link zum browserbasierten Web-Flasher (ESP Web Tools) für frische ESP32 ergänzt",
-        "ru": "Документация: добавлена ссылка на браузерный Web Flasher (ESP Web Tools) для прошивки чистого ESP32",
-        "fr": "Docs : ajout du lien vers le Web Flasher basé navigateur (ESP Web Tools) pour flasher un ESP32 vierge",
-        "it": "Docs: aggiunto link al Web Flasher da browser (ESP Web Tools) per flashare un ESP32 nuovo",
-        "es": "Docs: añadido enlace al Web Flasher desde el navegador (ESP Web Tools) para flashear un ESP32 nuevo",
-        "pl": "Dokumentacja: dodano link do przeglądarkowego Web Flashera (ESP Web Tools) do wgrywania na czysty ESP32",
-        "pt": "Docs: adicionada ligação ao Web Flasher no navegador (ESP Web Tools) para gravar um ESP32 novo",
-        "nl": "Docs: link naar browsergebaseerde Web Flasher (ESP Web Tools) toegevoegd voor een verse ESP32",
-        "zh-cn": "文档：新增基于浏览器的 Web Flasher（ESP Web Tools）链接，用于刷写全新 ESP32"
       }
     },
     "titleLang": {
