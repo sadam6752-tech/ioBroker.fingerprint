@@ -70,5 +70,8 @@
   "Do": "Чт",
   "Fr": "Пт",
   "Sa": "Сб",
-  "So": "Нд"
+  "So": "Нд",
+  "Finger ID(s)": "ID пальця(ів)",
+  "Time-based access windows. Enter one or more finger IDs (comma-separated, e.g. 1,2,4). A row allows those fingers only on the checked weekdays within the time range. Enable 'Conditions' for a finger in the Fingerprint Actions tab to enforce them. Multiple rows for the same finger are combined with OR. If a finger has 'Conditions' enabled but no matching row, access is denied. Time ranges may cross midnight (e.g. 22:00–06:00).": "Часові вікна доступу. Вкажіть один або кілька ID пальців (через кому, напр. 1,2,4). Рядок дозволяє ці пальці лише у відмічені дні тижня в межах діапазону часу. Увімкніть «Умови» для пальця на вкладці «Дії за відбитками», щоб застосувати їх. Кілька рядків для одного пальця об'єднуються за АБО. Якщо у пальця ввімкнено «Умови», але немає відповідного рядка, доступ заборонено. Діапазони часу можуть перетинати північ (напр. 22:00–06:00).",
+  "One or more finger IDs, comma-separated (e.g. 1,2,4)": "Один або кілька ID пальців через кому (напр. 1,2,4)"
 }

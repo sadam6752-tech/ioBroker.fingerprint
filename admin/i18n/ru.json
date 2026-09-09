@@ -70,5 +70,8 @@
   "Do": "Чт",
   "Fr": "Пт",
   "Sa": "Сб",
-  "So": "Вс"
+  "So": "Вс",
+  "Finger ID(s)": "ID пальца(ев)",
+  "Time-based access windows. Enter one or more finger IDs (comma-separated, e.g. 1,2,4). A row allows those fingers only on the checked weekdays within the time range. Enable 'Conditions' for a finger in the Fingerprint Actions tab to enforce them. Multiple rows for the same finger are combined with OR. If a finger has 'Conditions' enabled but no matching row, access is denied. Time ranges may cross midnight (e.g. 22:00–06:00).": "Временные окна доступа. Укажите один или несколько ID пальцев (через запятую, напр. 1,2,4). Строка разрешает эти пальцы только в отмеченные дни недели в пределах диапазона времени. Включите «Условия» для пальца на вкладке «Действия по отпечаткам», чтобы применять их. Несколько строк для одного пальца объединяются по ИЛИ. Если у пальца включены «Условия», но нет подходящей строки, доступ запрещён. Диапазоны времени могут пересекать полночь (например 22:00–06:00).",
+  "One or more finger IDs, comma-separated (e.g. 1,2,4)": "Один или несколько ID пальцев через запятую (например 1,2,4)"
 }

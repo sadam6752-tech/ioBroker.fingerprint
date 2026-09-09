@@ -70,5 +70,8 @@
   "Do": "四",
   "Fr": "五",
   "Sa": "六",
-  "So": "日"
+  "So": "日",
+  "Finger ID(s)": "手指 ID",
+  "Time-based access windows. Enter one or more finger IDs (comma-separated, e.g. 1,2,4). A row allows those fingers only on the checked weekdays within the time range. Enable 'Conditions' for a finger in the Fingerprint Actions tab to enforce them. Multiple rows for the same finger are combined with OR. If a finger has 'Conditions' enabled but no matching row, access is denied. Time ranges may cross midnight (e.g. 22:00–06:00).": "基于时间的访问窗口。输入一个或多个手指 ID（用逗号分隔，例如 1,2,4）。某行仅在勾选的工作日、时间范围内允许这些手指。在“指纹动作”选项卡为某手指启用“条件”以生效。同一手指的多行以“或”组合。如果手指启用了“条件”但没有匹配的行，则拒绝访问。时间范围可跨越午夜（例如 22:00–06:00）。",
+  "One or more finger IDs, comma-separated (e.g. 1,2,4)": "一个或多个手指 ID，用逗号分隔（例如 1,2,4）"
 }

@@ -70,5 +70,8 @@
   "Do": "Ju",
   "Fr": "Vi",
   "Sa": "Sa",
-  "So": "Do"
+  "So": "Do",
+  "Finger ID(s)": "ID de dedo(s)",
+  "Time-based access windows. Enter one or more finger IDs (comma-separated, e.g. 1,2,4). A row allows those fingers only on the checked weekdays within the time range. Enable 'Conditions' for a finger in the Fingerprint Actions tab to enforce them. Multiple rows for the same finger are combined with OR. If a finger has 'Conditions' enabled but no matching row, access is denied. Time ranges may cross midnight (e.g. 22:00–06:00).": "Ventanas de acceso basadas en tiempo. Introduzca uno o varios ID de dedo (separados por comas, p. ej. 1,2,4). Una fila permite esos dedos solo en los días de la semana marcados dentro del rango horario. Active 'Condiciones' para un dedo en la pestaña Acciones de huella para aplicarlas. Varias filas para el mismo dedo se combinan con OR. Si un dedo tiene 'Condiciones' activadas pero ninguna fila coincidente, se deniega el acceso. Los rangos horarios pueden cruzar la medianoche (p. ej. 22:00–06:00).",
+  "One or more finger IDs, comma-separated (e.g. 1,2,4)": "Uno o varios ID de dedo, separados por comas (p. ej. 1,2,4)"
 }

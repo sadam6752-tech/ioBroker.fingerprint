@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "fingerprint",
-    "version": "0.5.0",
+    "version": "0.5.1",
     "news": {
+      "0.5.1": {
+        "en": "Conditions: the Finger field now accepts several IDs comma-separated (e.g. 1,2,4); added a hint/tooltip",
+        "de": "Bedingungen: Das Finger-Feld akzeptiert jetzt mehrere IDs kommagetrennt (z. B. 1,2,4); Hinweis/Tooltip ergänzt",
+        "ru": "Условия: поле Finger теперь принимает несколько ID через запятую (например 1,2,4); добавлена подсказка",
+        "fr": "Conditions : le champ Finger accepte désormais plusieurs ID séparés par des virgules (p. ex. 1,2,4) ; info-bulle ajoutée",
+        "it": "Condizioni: il campo Finger ora accetta più ID separati da virgola (es. 1,2,4); aggiunto suggerimento",
+        "es": "Condiciones: el campo Finger ahora acepta varios ID separados por comas (p. ej. 1,2,4); añadido aviso",
+        "pl": "Warunki: pole Finger akceptuje teraz kilka ID oddzielonych przecinkami (np. 1,2,4); dodano podpowiedź",
+        "pt": "Condições: o campo Finger aceita agora vários IDs separados por vírgulas (p. ex. 1,2,4); dica adicionada",
+        "nl": "Voorwaarden: het Finger-veld accepteert nu meerdere ID's komma-gescheiden (bijv. 1,2,4); tooltip toegevoegd",
+        "zh-cn": "条件：Finger 字段现在接受用逗号分隔的多个 ID（例如 1,2,4）；已添加提示"
+      },
       "0.5.0": {
         "en": "Smart rules: per-rule debounce, time-based access conditions (Conditions tab: weekdays + time, OR-combined, crosses midnight), and alarm/panic finger (extra alarm object in addition to the normal action)",
         "de": "Smarte Regeln: Entprellung pro Regel, zeitbasierte Zugangsbedingungen (Tab Bedingungen: Wochentage + Zeit, ODER-verknüpft, über Mitternacht) und Alarm-/Panik-Finger (zusätzliches Alarm-Objekt zur normalen Aktion)",
@@ -74,18 +86,6 @@
         "pt": "Docs: adicionada ligação de download direto para o firmware FingerprintDoorbell v0.9.1",
         "nl": "Docs: directe downloadlink naar de FingerprintDoorbell v0.9.1-firmware toegevoegd",
         "zh-cn": "文档：新增 FingerprintDoorbell v0.9.1 固件的直接下载链接"
-      },
-      "0.3.1": {
-        "en": "Docs: add firmware requirement section with download/flash instructions (link to FingerprintDoorbell v0.9.1 release)",
-        "de": "Doku: Abschnitt zur Firmware-Voraussetzung mit Download-/Flash-Anleitung ergänzt (Link zum FingerprintDoorbell-v0.9.1-Release)",
-        "ru": "Документация: добавлен раздел о требуемой прошивке с инструкцией по загрузке/прошивке (ссылка на релиз FingerprintDoorbell v0.9.1)",
-        "fr": "Docs : ajout d'une section sur le firmware requis avec instructions de téléchargement/flash (lien vers la version FingerprintDoorbell v0.9.1)",
-        "it": "Docs: aggiunta sezione sul firmware richiesto con istruzioni di download/flash (link alla release FingerprintDoorbell v0.9.1)",
-        "es": "Docs: añadida sección de firmware requerido con instrucciones de descarga/flasheo (enlace a la versión FingerprintDoorbell v0.9.1)",
-        "pl": "Dokumentacja: dodano sekcję o wymaganym firmware z instrukcją pobrania/wgrania (link do wydania FingerprintDoorbell v0.9.1)",
-        "pt": "Docs: adicionada secção de firmware necessário com instruções de download/flash (ligação para a versão FingerprintDoorbell v0.9.1)",
-        "nl": "Docs: sectie firmwarevereiste toegevoegd met download-/flash-instructies (link naar FingerprintDoorbell v0.9.1-release)",
-        "zh-cn": "文档：新增固件要求章节，含下载/刷写说明（链接到 FingerprintDoorbell v0.9.1 发行版）"
       }
     },
     "titleLang": {

@@ -70,5 +70,8 @@
   "Do": "Do",
   "Fr": "Fr",
   "Sa": "Sa",
-  "So": "So"
+  "So": "So",
+  "Finger ID(s)": "Finger-ID(s)",
+  "Time-based access windows. Enter one or more finger IDs (comma-separated, e.g. 1,2,4). A row allows those fingers only on the checked weekdays within the time range. Enable 'Conditions' for a finger in the Fingerprint Actions tab to enforce them. Multiple rows for the same finger are combined with OR. If a finger has 'Conditions' enabled but no matching row, access is denied. Time ranges may cross midnight (e.g. 22:00–06:00).": "Zeitbasierte Zugangsfenster. Eine oder mehrere Finger-IDs eingeben (kommagetrennt, z. B. 1,2,4). Eine Zeile erlaubt diese Finger nur an den angehakten Wochentagen innerhalb des Zeitbereichs. Aktiviere 'Bedingungen' für einen Finger im Tab Fingerabdruck-Aktionen, um sie zu erzwingen. Mehrere Zeilen für denselben Finger werden mit ODER verknüpft. Hat ein Finger 'Bedingungen' aktiv, aber keine passende Zeile, wird der Zugang verweigert. Zeitbereiche dürfen Mitternacht überschreiten (z. B. 22:00–06:00).",
+  "One or more finger IDs, comma-separated (e.g. 1,2,4)": "Eine oder mehrere Finger-IDs, kommagetrennt (z. B. 1,2,4)"
 }

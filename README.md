@@ -93,8 +93,8 @@ fingerprint — no JavaScript needed:
 
 - **Debounce (s)** — ignore repeated triggers of the same finger within N seconds.
 - **Conditions** checkbox — enforce time-based access windows for that finger. Define the
-  windows on the **Conditions** tab: pick the finger, tick the weekdays and set a `From`/`To`
-  time (`HH:MM`). Multiple rows for the same finger are OR-combined; time ranges may cross
+  windows on the **Conditions** tab: enter one or more finger IDs (comma-separated, e.g.
+  `1,2,4`), tick the weekdays and set a `From`/`To` time (`HH:MM`). Multiple rows for the same finger are OR-combined; time ranges may cross
   midnight (e.g. `22:00`–`06:00`). If Conditions is on but no row matches, the action is skipped.
 - **Alarm** checkbox (panic finger) — in addition to the normal action, sets the object
   configured under **Alarm target**. Example: a special finger opens the door as usual and
@@ -135,6 +135,10 @@ fingerprint — no JavaScript needed:
   (planned for **v0.9.1**). Until then, the switch has no effect.
 
 ## Changelog
+
+### 0.5.1
+
+- Conditions: the Finger field accepts several IDs comma-separated (e.g. `1,2,4`); added a hint/tooltip
 
 ### 0.5.0
 

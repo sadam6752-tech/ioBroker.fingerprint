@@ -70,5 +70,8 @@
   "Do": "Do",
   "Fr": "Vr",
   "Sa": "Za",
-  "So": "Zo"
+  "So": "Zo",
+  "Finger ID(s)": "Vinger-ID('s)",
+  "Time-based access windows. Enter one or more finger IDs (comma-separated, e.g. 1,2,4). A row allows those fingers only on the checked weekdays within the time range. Enable 'Conditions' for a finger in the Fingerprint Actions tab to enforce them. Multiple rows for the same finger are combined with OR. If a finger has 'Conditions' enabled but no matching row, access is denied. Time ranges may cross midnight (e.g. 22:00–06:00).": "Tijdgebaseerde toegangsvensters. Voer een of meer vinger-ID's in (komma-gescheiden, bijv. 1,2,4). Een rij staat die vingers alleen toe op de aangevinkte weekdagen binnen het tijdbereik. Schakel 'Voorwaarden' in voor een vinger op het tabblad Vingerafdrukacties om ze af te dwingen. Meerdere rijen voor dezelfde vinger worden met OF gecombineerd. Als een vinger 'Voorwaarden' aan heeft maar geen passende rij, wordt toegang geweigerd. Tijdbereiken mogen middernacht overschrijden (bijv. 22:00–06:00).",
+  "One or more finger IDs, comma-separated (e.g. 1,2,4)": "Een of meer vinger-ID's, komma-gescheiden (bijv. 1,2,4)"
 }

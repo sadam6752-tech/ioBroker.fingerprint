@@ -70,5 +70,8 @@
   "Do": "Qui",
   "Fr": "Sex",
   "Sa": "Sáb",
-  "So": "Dom"
+  "So": "Dom",
+  "Finger ID(s)": "ID de dedo(s)",
+  "Time-based access windows. Enter one or more finger IDs (comma-separated, e.g. 1,2,4). A row allows those fingers only on the checked weekdays within the time range. Enable 'Conditions' for a finger in the Fingerprint Actions tab to enforce them. Multiple rows for the same finger are combined with OR. If a finger has 'Conditions' enabled but no matching row, access is denied. Time ranges may cross midnight (e.g. 22:00–06:00).": "Janelas de acesso baseadas no tempo. Introduza um ou mais IDs de dedo (separados por vírgulas, p. ex. 1,2,4). Uma linha permite esses dedos apenas nos dias da semana marcados dentro do intervalo de tempo. Ative 'Condições' para um dedo no separador Ações de impressão para aplicá-las. Várias linhas para o mesmo dedo são combinadas com OU. Se um dedo tem 'Condições' ativadas mas nenhuma linha correspondente, o acesso é negado. Os intervalos de tempo podem cruzar a meia-noite (p. ex. 22:00–06:00).",
+  "One or more finger IDs, comma-separated (e.g. 1,2,4)": "Um ou mais IDs de dedo, separados por vírgulas (p. ex. 1,2,4)"
 }

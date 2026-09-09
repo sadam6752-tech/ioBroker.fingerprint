@@ -292,14 +292,14 @@
       "items": {
         "_conditionsInfo": {
           "type": "staticText",
-          "text": "Time-based access windows. A row allows a finger only on the checked weekdays within the time range. Enable 'Conditions' for a finger in the Fingerprint Actions tab to enforce them. Multiple rows for the same finger are combined with OR. If a finger has 'Conditions' enabled but no matching row, access is denied. Time ranges may cross midnight (e.g. 22:00–06:00).",
+          "text": "Time-based access windows. Enter one or more finger IDs (comma-separated, e.g. 1,2,4). A row allows those fingers only on the checked weekdays within the time range. Enable 'Conditions' for a finger in the Fingerprint Actions tab to enforce them. Multiple rows for the same finger are combined with OR. If a finger has 'Conditions' enabled but no matching row, access is denied. Time ranges may cross midnight (e.g. 22:00–06:00).",
           "xs": 12
         },
         "conditions": {
           "type": "table",
           "label": "Access conditions",
           "items": [
-            { "type": "number", "attr": "fingerId", "title": "Finger", "width": "10%" },
+            { "type": "text", "attr": "fingerId", "title": "Finger ID(s)", "tooltip": "One or more finger IDs, comma-separated (e.g. 1,2,4)", "width": "12%" },
             { "type": "checkbox", "attr": "mon", "title": "Mo", "width": "7%" },
             { "type": "checkbox", "attr": "tue", "title": "Di", "width": "7%" },
             { "type": "checkbox", "attr": "wed", "title": "Mi", "width": "7%" },

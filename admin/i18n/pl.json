@@ -70,5 +70,8 @@
   "Do": "Cz",
   "Fr": "Pt",
   "Sa": "So",
-  "So": "Nd"
+  "So": "Nd",
+  "Finger ID(s)": "ID palca/ów",
+  "Time-based access windows. Enter one or more finger IDs (comma-separated, e.g. 1,2,4). A row allows those fingers only on the checked weekdays within the time range. Enable 'Conditions' for a finger in the Fingerprint Actions tab to enforce them. Multiple rows for the same finger are combined with OR. If a finger has 'Conditions' enabled but no matching row, access is denied. Time ranges may cross midnight (e.g. 22:00–06:00).": "Okna dostępu oparte na czasie. Wpisz jeden lub więcej identyfikatorów palców (oddzielonych przecinkami, np. 1,2,4). Wiersz zezwala na te palce tylko w zaznaczone dni tygodnia w zakresie czasu. Włącz 'Warunki' dla palca w karcie Akcje odcisków, aby je egzekwować. Wiele wierszy dla tego samego palca łączy się operatorem LUB. Jeśli palec ma włączone 'Warunki', ale brak pasującego wiersza, dostęp jest odmawiany. Zakresy czasu mogą przekraczać północ (np. 22:00–06:00).",
+  "One or more finger IDs, comma-separated (e.g. 1,2,4)": "Jeden lub więcej identyfikatorów palców, oddzielonych przecinkami (np. 1,2,4)"
 }

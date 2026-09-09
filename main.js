@@ -495,7 +495,8 @@ class Fingerprint extends utils.Adapter {
      */
     _isWithinConditions(fingerId) {
         const conditions = Array.isArray(this.config.conditions) ? this.config.conditions : [];
-        const forFinger = conditions.filter(c => parseInt(c.fingerId, 10) === fingerId);
+        // A condition row may list one or several finger IDs (e.g. "1,2,4")
+        const forFinger = conditions.filter(c => this._parseIdList(c.fingerId).includes(fingerId));
         if (forFinger.length === 0) {
             return false; // conditions enforced but none defined → deny
         }
@@ -530,6 +531,22 @@ class Fingerprint extends utils.Adapter {
             }
         }
         return false;
+    }
+
+    /**
+     * Parse a finger id list like "1,2,4" (or a single number) into an array of numbers.
+     *
+     * @param {string|number} value raw fingerId cell value
+     * @returns {number[]} list of finger ids
+     */
+    _parseIdList(value) {
+        if (value === undefined || value === null || value === '') {
+            return [];
+        }
+        return String(value)
+            .split(',')
+            .map(s => parseInt(s.trim(), 10))
+            .filter(n => Number.isFinite(n));
     }
 
     /**

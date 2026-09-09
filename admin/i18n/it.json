@@ -70,5 +70,8 @@
   "Do": "Gi",
   "Fr": "Ve",
   "Sa": "Sa",
-  "So": "Do"
+  "So": "Do",
+  "Finger ID(s)": "ID dito/i",
+  "Time-based access windows. Enter one or more finger IDs (comma-separated, e.g. 1,2,4). A row allows those fingers only on the checked weekdays within the time range. Enable 'Conditions' for a finger in the Fingerprint Actions tab to enforce them. Multiple rows for the same finger are combined with OR. If a finger has 'Conditions' enabled but no matching row, access is denied. Time ranges may cross midnight (e.g. 22:00–06:00).": "Finestre di accesso basate sul tempo. Inserisci uno o più ID dito (separati da virgola, es. 1,2,4). Una riga consente quei diti solo nei giorni della settimana selezionati entro l'intervallo orario. Abilita 'Condizioni' per un dito nella scheda Azioni impronta per applicarle. Più righe per lo stesso dito sono combinate con OR. Se un dito ha 'Condizioni' abilitate ma nessuna riga corrispondente, l'accesso è negato. Gli intervalli orari possono attraversare la mezzanotte (es. 22:00–06:00).",
+  "One or more finger IDs, comma-separated (e.g. 1,2,4)": "Uno o più ID dito, separati da virgola (es. 1,2,4)"
 }
