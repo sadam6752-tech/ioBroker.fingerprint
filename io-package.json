@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "fingerprint",
-    "version": "0.4.1",
+    "version": "0.5.0",
     "news": {
+      "0.5.0": {
+        "en": "Smart rules: per-rule debounce, time-based access conditions (Conditions tab: weekdays + time, OR-combined, crosses midnight), and alarm/panic finger (extra alarm object in addition to the normal action)",
+        "de": "Smarte Regeln: Entprellung pro Regel, zeitbasierte Zugangsbedingungen (Tab Bedingungen: Wochentage + Zeit, ODER-verknüpft, über Mitternacht) und Alarm-/Panik-Finger (zusätzliches Alarm-Objekt zur normalen Aktion)",
+        "ru": "Умные правила: антидребезг на правило, временные условия доступа (вкладка «Условия»: дни недели + время, объединение по ИЛИ, переход через полночь) и палец-паника/тревога (доп. объект тревоги вдобавок к обычному действию)",
+        "fr": "Règles intelligentes : anti-rebond par règle, conditions d'accès temporelles (onglet Conditions : jours + heure, combinées par OU, franchit minuit) et doigt panique/alarme (objet d'alarme en plus de l'action normale)",
+        "it": "Regole smart: debounce per regola, condizioni di accesso temporali (scheda Condizioni: giorni + ora, combinate con OR, attraversa la mezzanotte) e dito panico/allarme (oggetto allarme in aggiunta all'azione normale)",
+        "es": "Reglas inteligentes: antirrebote por regla, condiciones de acceso por tiempo (pestaña Condiciones: días + hora, combinadas con OR, cruza medianoche) y dedo de pánico/alarma (objeto de alarma además de la acción normal)",
+        "pl": "Inteligentne reguły: debounce na regułę, warunki dostępu oparte na czasie (karta Warunki: dni + godzina, łączone LUB, przez północ) oraz palec paniki/alarmu (dodatkowy obiekt alarmu obok normalnej akcji)",
+        "pt": "Regras inteligentes: debounce por regra, condições de acesso baseadas no tempo (separador Condições: dias + hora, combinadas por OU, cruza a meia-noite) e dedo de pânico/alarme (objeto de alarme além da ação normal)",
+        "nl": "Slimme regels: debounce per regel, tijdgebaseerde toegangsvoorwaarden (tabblad Voorwaarden: weekdagen + tijd, met OF gecombineerd, over middernacht) en paniek-/alarmvinger (extra alarmobject naast de normale actie)",
+        "zh-cn": "智能规则：按规则去抖、基于时间的访问条件（条件选项卡：星期 + 时间，以“或”组合，可跨午夜）以及紧急/报警手指（在正常动作之外附加报警对象）"
+      },
       "0.4.1": {
         "en": "Docs: use an absolute logo URL in README so it shows on the npm package page",
         "de": "Doku: absolute Logo-URL im README, damit es auf der npm-Paketseite angezeigt wird",
@@ -74,18 +86,6 @@
         "pt": "Docs: adicionada secção de firmware necessário com instruções de download/flash (ligação para a versão FingerprintDoorbell v0.9.1)",
         "nl": "Docs: sectie firmwarevereiste toegevoegd met download-/flash-instructies (link naar FingerprintDoorbell v0.9.1-release)",
         "zh-cn": "文档：新增固件要求章节，含下载/刷写说明（链接到 FingerprintDoorbell v0.9.1 发行版）"
-      },
-      "0.3.0": {
-        "en": "Fingerprint Actions tab: map each finger to an ioBroker object (set/toggle, value, min confidence), ring action, load fingerprints from device (merge)",
-        "de": "Tab Fingerabdruck-Aktionen: jeden Finger einem ioBroker-Objekt zuordnen (setzen/umschalten, Wert, Mindest-Konfidenz), Klingel-Aktion, Fingerabdrücke vom Gerät laden (Merge)",
-        "ru": "Вкладка «Действия по отпечаткам»: сопоставление каждого пальца с объектом ioBroker (set/toggle, значение, мин. уверенность), действие звонка, загрузка отпечатков с устройства (merge)",
-        "fr": "Onglet Actions d'empreinte : associer chaque doigt à un objet ioBroker (set/toggle, valeur, confiance min), action de sonnette, chargement des empreintes depuis l'appareil (fusion)",
-        "it": "Scheda Azioni impronta: associa ogni dito a un oggetto ioBroker (set/toggle, valore, confidenza min), azione campanello, caricamento impronte dal dispositivo (merge)",
-        "es": "Pestaña Acciones de huella: asignar cada dedo a un objeto ioBroker (set/toggle, valor, confianza mín), acción de timbre, cargar huellas del dispositivo (fusión)",
-        "pl": "Karta Akcje odcisków: przypisanie każdego palca do obiektu ioBroker (set/toggle, wartość, min pewność), akcja dzwonka, wczytanie odcisków z urządzenia (scalanie)",
-        "pt": "Separador Ações de impressão: associar cada dedo a um objeto ioBroker (set/toggle, valor, confiança mín), ação de campainha, carregar impressões do dispositivo (fusão)",
-        "nl": "Tabblad Vingerafdrukacties: koppel elke vinger aan een ioBroker-object (set/toggle, waarde, min. betrouwbaarheid), belactie, vingerafdrukken van apparaat laden (samenvoegen)",
-        "zh-cn": "指纹动作选项卡：将每个手指映射到 ioBroker 对象（设置/切换、值、最低置信度）、门铃动作、从设备加载指纹（合并）"
       }
     },
     "titleLang": {
@@ -160,8 +160,11 @@
     "requestTimeout": 5000,
     "accessLogging": false,
     "actions": [],
+    "conditions": [],
     "ringActionObject": "",
-    "ringActionValue": ""
+    "ringActionValue": "",
+    "alarmActionObject": "",
+    "alarmActionValue": ""
   },
   "objects": [],
   "instanceObjects": [

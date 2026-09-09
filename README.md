@@ -89,6 +89,17 @@ fingerprint — no JavaScript needed:
    - string target: used as-is
 4. **Ring action** sets a chosen object when an unknown finger rings (e.g. play a chime).
 
+### Smart rules (v0.5.0)
+
+- **Debounce (s)** — ignore repeated triggers of the same finger within N seconds.
+- **Conditions** checkbox — enforce time-based access windows for that finger. Define the
+  windows on the **Conditions** tab: pick the finger, tick the weekdays and set a `From`/`To`
+  time (`HH:MM`). Multiple rows for the same finger are OR-combined; time ranges may cross
+  midnight (e.g. `22:00`–`06:00`). If Conditions is on but no row matches, the action is skipped.
+- **Alarm** checkbox (panic finger) — in addition to the normal action, sets the object
+  configured under **Alarm target**. Example: a special finger opens the door as usual and
+  also triggers an alarm state.
+
 ## States
 
 | State | Type | Description |
@@ -124,6 +135,16 @@ fingerprint — no JavaScript needed:
   (planned for **v0.9.1**). Until then, the switch has no effect.
 
 ## Changelog
+
+### 0.5.0
+
+- Smart rules for Fingerprint Actions:
+  - **Debounce** (seconds) per rule — ignore repeated triggers of the same finger
+  - **Time-based conditions** (new *Conditions* tab): allow a finger only on selected
+    weekdays within a time range (OR-combined, may cross midnight); enable via the
+    *Conditions* checkbox per rule
+  - **Alarm / panic finger**: extra *Alarm* checkbox per rule sets an additional alarm
+    object (configured under *Alarm target*) on top of the normal action
 
 ### 0.4.1
 

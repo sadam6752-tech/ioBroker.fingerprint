@@ -222,7 +222,25 @@
               "type": "number",
               "attr": "minConfidence",
               "title": "Min conf.",
-              "width": "10%"
+              "width": "9%"
+            },
+            {
+              "type": "number",
+              "attr": "debounce",
+              "title": "Debounce (s)",
+              "width": "9%"
+            },
+            {
+              "type": "checkbox",
+              "attr": "checkConditions",
+              "title": "Conditions",
+              "width": "8%"
+            },
+            {
+              "type": "checkbox",
+              "attr": "alarm",
+              "title": "Alarm",
+              "width": "8%"
             }
           ],
           "xs": 12
@@ -243,6 +261,56 @@
           "label": "Ring value",
           "help": "Value written on ring (e.g. true, 1, on, or a number/text)",
           "xs": 12, "sm": 4, "md": 3, "lg": 2, "xl": 2
+        },
+        "_alarmHeader": {
+          "type": "header",
+          "text": "Alarm target (panic finger)",
+          "size": 3
+        },
+        "_alarmInfo": {
+          "type": "staticText",
+          "text": "For rows with the 'Alarm' checkbox enabled, this object is set in addition to the normal action (panic finger: opens the door as usual and triggers an alarm state).",
+          "xs": 12
+        },
+        "alarmActionObject": {
+          "type": "objectId",
+          "label": "Alarm target object",
+          "help": "Object to set when a finger with the Alarm flag matches. Leave empty to disable.",
+          "xs": 12, "sm": 8, "md": 6, "lg": 5, "xl": 5
+        },
+        "alarmActionValue": {
+          "type": "text",
+          "label": "Alarm value",
+          "help": "Value written to the alarm object (e.g. true, 1, on, or a number/text)",
+          "xs": 12, "sm": 4, "md": 3, "lg": 2, "xl": 2
+        }
+      }
+    },
+    "_tabConditions": {
+      "type": "panel",
+      "label": "Conditions",
+      "items": {
+        "_conditionsInfo": {
+          "type": "staticText",
+          "text": "Time-based access windows. A row allows a finger only on the checked weekdays within the time range. Enable 'Conditions' for a finger in the Fingerprint Actions tab to enforce them. Multiple rows for the same finger are combined with OR. If a finger has 'Conditions' enabled but no matching row, access is denied. Time ranges may cross midnight (e.g. 22:00–06:00).",
+          "xs": 12
+        },
+        "conditions": {
+          "type": "table",
+          "label": "Access conditions",
+          "items": [
+            { "type": "number", "attr": "fingerId", "title": "Finger", "width": "10%" },
+            { "type": "checkbox", "attr": "mon", "title": "Mo", "width": "7%" },
+            { "type": "checkbox", "attr": "tue", "title": "Di", "width": "7%" },
+            { "type": "checkbox", "attr": "wed", "title": "Mi", "width": "7%" },
+            { "type": "checkbox", "attr": "thu", "title": "Do", "width": "7%" },
+            { "type": "checkbox", "attr": "fri", "title": "Fr", "width": "7%" },
+            { "type": "checkbox", "attr": "sat", "title": "Sa", "width": "7%" },
+            { "type": "checkbox", "attr": "sun", "title": "So", "width": "7%" },
+            { "type": "text", "attr": "timeFrom", "title": "From (HH:MM)", "width": "17%" },
+            { "type": "text", "attr": "timeTo", "title": "To (HH:MM)", "width": "17%" }
+          ],
+          "xs": 12
         }
       }
     }

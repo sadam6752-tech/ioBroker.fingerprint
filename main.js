@@ -13,6 +13,7 @@ class Fingerprint extends utils.Adapter {
         this.webhook = null;
         this._pollingTimer = null;
         this._ringResetTimer = null;
+        this._lastActionTime = {};
 
         this.on('ready', this.onReady.bind(this));
         this.on('stateChange', this.onStateChange.bind(this));
@@ -449,7 +450,7 @@ class Fingerprint extends utils.Adapter {
             return;
         }
 
-        // Optional confidence threshold
+        // 1) Optional confidence threshold
         const minConf =
             rule.minConfidence !== undefined && rule.minConfidence !== '' ? parseInt(rule.minConfidence, 10) : null;
         if (minConf !== null && Number.isFinite(minConf) && event.confidence < minConf) {
@@ -457,7 +458,121 @@ class Fingerprint extends utils.Adapter {
             return;
         }
 
+        // 2) Optional time-based conditions
+        if (rule.checkConditions && !this._isWithinConditions(event.id)) {
+            this.log.info(`Action for id=${event.id} skipped: outside allowed time window`);
+            return;
+        }
+
+        // 3) Optional debounce (per rule/finger)
+        const debounce = rule.debounce !== undefined && rule.debounce !== '' ? parseInt(rule.debounce, 10) : 0;
+        if (debounce > 0 && !this._checkDebounce(event.id, debounce)) {
+            this.log.info(`Action for id=${event.id} skipped: debounce (${debounce}s)`);
+            return;
+        }
+
+        // 4) Main action
         await this._applyAction(rule.objectId, rule.action || 'set', rule.value);
+
+        // 5) Alarm (panic finger): additionally set the alarm object
+        if (rule.alarm) {
+            const alarmObj = (this.config.alarmActionObject || '').trim();
+            if (alarmObj) {
+                this.log.info(`Alarm triggered by id=${event.id} (${event.name || ''})`);
+                await this._applyAction(alarmObj, 'set', this.config.alarmActionValue);
+            } else {
+                this.log.warn(`Alarm flag set for id=${event.id} but no alarm target object configured`);
+            }
+        }
+    }
+
+    /**
+     * Check whether the current local time falls into any allowed condition for a finger.
+     * Multiple conditions for the same finger are OR-combined. Time ranges may cross midnight.
+     *
+     * @param {number} fingerId fingerprint id
+     * @returns {boolean} true if access is currently allowed
+     */
+    _isWithinConditions(fingerId) {
+        const conditions = Array.isArray(this.config.conditions) ? this.config.conditions : [];
+        const forFinger = conditions.filter(c => parseInt(c.fingerId, 10) === fingerId);
+        if (forFinger.length === 0) {
+            return false; // conditions enforced but none defined → deny
+        }
+
+        const now = new Date();
+        // JS: 0=Sun..6=Sat → map to our attr names
+        const dayAttr = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'][now.getDay()];
+        const nowMin = now.getHours() * 60 + now.getMinutes();
+
+        for (const c of forFinger) {
+            if (!c[dayAttr]) {
+                continue; // today not enabled in this row
+            }
+            const from = this._parseTime(c.timeFrom);
+            const to = this._parseTime(c.timeTo);
+            if (from === null || to === null) {
+                // no/invalid time range → treat as whole day
+                return true;
+            }
+            if (from === to) {
+                return true; // full day
+            }
+            if (from < to) {
+                if (nowMin >= from && nowMin < to) {
+                    return true;
+                }
+            } else {
+                // crosses midnight (e.g. 22:00–06:00)
+                if (nowMin >= from || nowMin < to) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Parse "HH:MM" into minutes since midnight, or null if empty/invalid.
+     *
+     * @param {string} str time string
+     * @returns {number|null} minutes since midnight or null
+     */
+    _parseTime(str) {
+        if (!str || typeof str !== 'string') {
+            return null;
+        }
+        const m = str.trim().match(/^(\d{1,2}):(\d{2})$/);
+        if (!m) {
+            return null;
+        }
+        const h = parseInt(m[1], 10);
+        const min = parseInt(m[2], 10);
+        if (h > 23 || min > 59) {
+            return null;
+        }
+        return h * 60 + min;
+    }
+
+    /**
+     * Debounce check per finger. Returns true if enough time has passed since the last
+     * accepted action for this finger, and records the current time.
+     *
+     * @param {number} fingerId fingerprint id
+     * @param {number} seconds debounce window in seconds
+     * @returns {boolean} true if the action may run
+     */
+    _checkDebounce(fingerId, seconds) {
+        if (!this._lastActionTime) {
+            this._lastActionTime = {};
+        }
+        const now = Date.now();
+        const last = this._lastActionTime[fingerId] || 0;
+        if (now - last < seconds * 1000) {
+            return false;
+        }
+        this._lastActionTime[fingerId] = now;
+        return true;
     }
 
     /**
