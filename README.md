@@ -209,6 +209,11 @@ Writing either state applies the ring immediately.
 
 ## Changelog
 
+### 0.7.1
+
+- The *Enroll a new finger* section (Manage Fingers) now also shows the
+  *Available fingers* reference dropdown, so you can pick a free slot ID
+
 ### 0.7.0
 
 - **Enroll from the adapter** (firmware ≥ v0.9.4): start enrollment from the *Manage Fingers*

@@ -420,6 +420,16 @@
           "text": "Start enrollment directly from ioBroker (firmware >= v0.9.4). Enter a free slot ID (1–200) and a name, then press Start. Place the finger on the sensor 5 times. Watch the progress under the states enroll.status / enroll.step (channel 'enroll'). Save the settings first so the device connection is available.",
           "xs": 12
         },
+        "_enrollLookup": {
+          "type": "selectSendTo",
+          "label": "Available fingers (reference)",
+          "command": "getFingerOptions",
+          "jsonData": "{}",
+          "doNotSave": true,
+          "manipulateData": false,
+          "tooltip": "Loads id → name from the device so you can see which slots are already used and pick a free ID. Selection is not saved.",
+          "xs": 12, "sm": 6, "md": 5, "lg": 4, "xl": 4
+        },
         "_enrollId": {
           "type": "number",
           "label": "Finger ID",

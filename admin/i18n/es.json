@@ -95,5 +95,6 @@
   "New finger name": "Nombre del nuevo dedo",
   "Start enrollment": "Iniciar registro",
   "Available fingers (reference)": "Dedos disponibles (referencia)",
-  "Loads id → name from the device so you know which IDs to type into 'Finger ID(s)'. Selection is not saved.": "Carga id → nombre desde el dispositivo para saber qué ID escribir en 'Finger ID(s)'. La selección no se guarda."
+  "Loads id → name from the device so you know which IDs to type into 'Finger ID(s)'. Selection is not saved.": "Carga id → nombre desde el dispositivo para saber qué ID escribir en 'Finger ID(s)'. La selección no se guarda.",
+  "Loads id → name from the device so you can see which slots are already used and pick a free ID. Selection is not saved.": "Carga id → nombre desde el dispositivo para ver qué ranuras ya están en uso y elegir un ID libre. La selección no se guarda."
 }

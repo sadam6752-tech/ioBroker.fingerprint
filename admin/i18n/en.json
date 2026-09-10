@@ -95,5 +95,6 @@
   "New finger name": "New finger name",
   "Start enrollment": "Start enrollment",
   "Available fingers (reference)": "Available fingers (reference)",
-  "Loads id → name from the device so you know which IDs to type into 'Finger ID(s)'. Selection is not saved.": "Loads id → name from the device so you know which IDs to type into 'Finger ID(s)'. Selection is not saved."
+  "Loads id → name from the device so you know which IDs to type into 'Finger ID(s)'. Selection is not saved.": "Loads id → name from the device so you know which IDs to type into 'Finger ID(s)'. Selection is not saved.",
+  "Loads id → name from the device so you can see which slots are already used and pick a free ID. Selection is not saved.": "Loads id → name from the device so you can see which slots are already used and pick a free ID. Selection is not saved."
 }

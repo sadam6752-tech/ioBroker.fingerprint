@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "fingerprint",
-    "version": "0.7.0",
+    "version": "0.7.1",
     "news": {
+      "0.7.1": {
+        "en": "Enroll section (Manage Fingers) now also shows the 'Available fingers' reference dropdown, so you can pick a free slot ID.",
+        "de": "Die Anlernen-Sektion (Finger verwalten) zeigt jetzt ebenfalls das Referenz-Dropdown 'Verfügbare Finger', damit du eine freie Slot-ID wählen kannst.",
+        "ru": "В разделе регистрации (Управление пальцами) теперь тоже есть справочный список 'Доступные отпечатки', чтобы выбрать свободный ID слота.",
+        "fr": "La section d'enregistrement (Gérer les doigts) affiche désormais aussi la liste de référence 'Doigts disponibles' pour choisir un ID d'emplacement libre.",
+        "it": "La sezione di registrazione (Gestisci dita) ora mostra anche l'elenco di riferimento 'Dita disponibili' per scegliere un ID di slot libero.",
+        "es": "La sección de registro (Gestionar dedos) ahora también muestra la lista de referencia 'Dedos disponibles' para elegir un ID de ranura libre.",
+        "pl": "Sekcja rejestracji (Zarządzaj palcami) pokazuje teraz również listę referencyjną 'Dostępne palce', aby wybrać wolny ID slotu.",
+        "pt": "A secção de registo (Gerir dedos) mostra agora também a lista de referência 'Dedos disponíveis' para escolher um ID de slot livre.",
+        "nl": "De registratiesectie (Vingers beheren) toont nu ook de referentielijst 'Beschikbare vingers' om een vrije slot-ID te kiezen.",
+        "zh-cn": "录入区（管理手指）现在也显示“可用指纹”参考下拉列表，便于选择空闲的槽位 ID。"
+      },
       "0.7.0": {
         "en": "Enroll a new finger from the adapter, LED ring control and WiFi signal (info.wifiRssi) — all need FingerprintDoorbell firmware v0.9.4. Conditions: added an 'Available fingers' reference dropdown.",
         "de": "Neuen Finger direkt aus dem Adapter anlernen, LED-Ring-Steuerung und WLAN-Signal (info.wifiRssi) — benötigt FingerprintDoorbell-Firmware v0.9.4. Bedingungen: Referenz-Dropdown 'Verfügbare Finger' ergänzt.",
@@ -74,18 +86,6 @@
         "pt": "Docs: URL absoluto do logótipo no README para aparecer na página do pacote npm",
         "nl": "Docs: absolute logo-URL in README zodat het op de npm-pakketpagina verschijnt",
         "zh-cn": "文档：在 README 中使用绝对 logo URL，使其显示在 npm 包页面上"
-      },
-      "0.4.0": {
-        "en": "Access log & history: optional access logging, lastAccess.* and stats.* states, per-finger lastSeen/count (fingerprints.<id> is now a channel)",
-        "de": "Zugriffsprotokoll & Verlauf: optionales Access-Logging, lastAccess.*- und stats.*-States, pro Finger lastSeen/count (fingerprints.<id> ist jetzt ein Kanal)",
-        "ru": "Журнал доступа и история: опциональное логирование доступа, состояния lastAccess.* и stats.*, по пальцу lastSeen/count (fingerprints.<id> теперь канал)",
-        "fr": "Journal d'accès & historique : journalisation d'accès optionnelle, états lastAccess.* et stats.*, par doigt lastSeen/count (fingerprints.<id> est désormais un canal)",
-        "it": "Registro accessi e cronologia: logging accessi opzionale, stati lastAccess.* e stats.*, per dito lastSeen/count (fingerprints.<id> ora è un canale)",
-        "es": "Registro de accesos e historial: registro de accesos opcional, estados lastAccess.* y stats.*, por dedo lastSeen/count (fingerprints.<id> ahora es un canal)",
-        "pl": "Dziennik dostępu i historia: opcjonalne logowanie dostępu, stany lastAccess.* i stats.*, na palec lastSeen/count (fingerprints.<id> jest teraz kanałem)",
-        "pt": "Registo de acessos e histórico: registo de acessos opcional, estados lastAccess.* e stats.*, por dedo lastSeen/count (fingerprints.<id> agora é um canal)",
-        "nl": "Toegangslog & geschiedenis: optionele toegangslogging, lastAccess.*- en stats.*-states, per vinger lastSeen/count (fingerprints.<id> is nu een kanaal)",
-        "zh-cn": "访问日志与历史：可选的访问日志、lastAccess.* 和 stats.* 状态、每个手指的 lastSeen/count（fingerprints.<id> 现为通道）"
       }
     },
     "titleLang": {

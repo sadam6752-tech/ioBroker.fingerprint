@@ -95,5 +95,6 @@
   "New finger name": "新指纹名称",
   "Start enrollment": "开始录入",
   "Available fingers (reference)": "可用指纹（参考）",
-  "Loads id → name from the device so you know which IDs to type into 'Finger ID(s)'. Selection is not saved.": "从设备加载 ID → 名称，便于知道在 'Finger ID(s)' 中填写哪些 ID。所选内容不会被保存。"
+  "Loads id → name from the device so you know which IDs to type into 'Finger ID(s)'. Selection is not saved.": "从设备加载 ID → 名称，便于知道在 'Finger ID(s)' 中填写哪些 ID。所选内容不会被保存。",
+  "Loads id → name from the device so you can see which slots are already used and pick a free ID. Selection is not saved.": "从设备加载 ID → 名称，便于查看哪些槽位已被占用并选择空闲 ID。所选内容不会被保存。"
 }

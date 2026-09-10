@@ -95,5 +95,6 @@
   "New finger name": "Імʼя нового відбитка",
   "Start enrollment": "Почати реєстрацію",
   "Available fingers (reference)": "Доступні відбитки (довідково)",
-  "Loads id → name from the device so you know which IDs to type into 'Finger ID(s)'. Selection is not saved.": "Завантажує ID → імʼя з пристрою, щоб знати, які ID вписувати в поле 'Finger ID(s)'. Вибір не зберігається."
+  "Loads id → name from the device so you know which IDs to type into 'Finger ID(s)'. Selection is not saved.": "Завантажує ID → імʼя з пристрою, щоб знати, які ID вписувати в поле 'Finger ID(s)'. Вибір не зберігається.",
+  "Loads id → name from the device so you can see which slots are already used and pick a free ID. Selection is not saved.": "Завантажує ID → імʼя з пристрою, щоб бачити, які слоти вже зайняті, і вибрати вільний ID. Вибір не зберігається."
 }

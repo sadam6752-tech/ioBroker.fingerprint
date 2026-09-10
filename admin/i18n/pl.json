@@ -95,5 +95,6 @@
   "New finger name": "Nazwa nowego palca",
   "Start enrollment": "Rozpocznij rejestrację",
   "Available fingers (reference)": "Dostępne palce (referencja)",
-  "Loads id → name from the device so you know which IDs to type into 'Finger ID(s)'. Selection is not saved.": "Ładuje id → nazwę z urządzenia, aby wiedzieć, które ID wpisać w polu 'Finger ID(s)'. Wybór nie jest zapisywany."
+  "Loads id → name from the device so you know which IDs to type into 'Finger ID(s)'. Selection is not saved.": "Ładuje id → nazwę z urządzenia, aby wiedzieć, które ID wpisać w polu 'Finger ID(s)'. Wybór nie jest zapisywany.",
+  "Loads id → name from the device so you can see which slots are already used and pick a free ID. Selection is not saved.": "Ładuje id → nazwę z urządzenia, aby zobaczyć, które sloty są już zajęte, i wybrać wolne ID. Wybór nie jest zapisywany."
 }

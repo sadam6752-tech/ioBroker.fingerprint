@@ -95,5 +95,6 @@
   "New finger name": "Nom du nouveau doigt",
   "Start enrollment": "Démarrer l'enregistrement",
   "Available fingers (reference)": "Doigts disponibles (référence)",
-  "Loads id → name from the device so you know which IDs to type into 'Finger ID(s)'. Selection is not saved.": "Charge id → nom depuis l'appareil pour savoir quels ID saisir dans « Finger ID(s) ». La sélection n'est pas enregistrée."
+  "Loads id → name from the device so you know which IDs to type into 'Finger ID(s)'. Selection is not saved.": "Charge id → nom depuis l'appareil pour savoir quels ID saisir dans « Finger ID(s) ». La sélection n'est pas enregistrée.",
+  "Loads id → name from the device so you can see which slots are already used and pick a free ID. Selection is not saved.": "Charge id → nom depuis l'appareil pour voir quels emplacements sont déjà utilisés et choisir un ID libre. La sélection n'est pas enregistrée."
 }
