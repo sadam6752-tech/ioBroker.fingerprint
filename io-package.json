@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "fingerprint",
-    "version": "0.7.2",
+    "version": "0.7.3",
     "news": {
+      "0.7.3": {
+        "en": "Automated npm publishing via Trusted Publishing (OIDC) with provenance; removed the npm token from the deploy workflow.",
+        "de": "Automatisiertes npm-Publishing über Trusted Publishing (OIDC) mit Provenance; npm-Token aus dem Deploy-Workflow entfernt.",
+        "ru": "Автоматическая публикация в npm через Trusted Publishing (OIDC) с provenance; npm-токен убран из deploy-workflow.",
+        "fr": "Publication npm automatisée via Trusted Publishing (OIDC) avec provenance ; jeton npm retiré du workflow de déploiement.",
+        "it": "Pubblicazione npm automatizzata tramite Trusted Publishing (OIDC) con provenance; rimosso il token npm dal workflow di deploy.",
+        "es": "Publicación npm automatizada mediante Trusted Publishing (OIDC) con provenance; eliminado el token npm del flujo de despliegue.",
+        "pl": "Automatyczna publikacja npm przez Trusted Publishing (OIDC) z provenance; usunięto token npm z workflow wdrożenia.",
+        "pt": "Publicação npm automatizada via Trusted Publishing (OIDC) com provenance; removido o token npm do workflow de implantação.",
+        "nl": "Geautomatiseerd npm-publiceren via Trusted Publishing (OIDC) met provenance; npm-token verwijderd uit de deploy-workflow.",
+        "zh-cn": "通过 Trusted Publishing（OIDC）自动发布 npm 并附带 provenance；已从部署工作流中移除 npm 令牌。",
+        "uk": "Автоматична публікація в npm через Trusted Publishing (OIDC) з provenance; npm-токен прибрано з deploy-workflow."
+      },
       "0.7.2": {
         "en": "Repository compliance: responsive size attributes in the admin UI, license copyright line, uk translations, deploy workflow, and internal cleanups.",
         "de": "Repository-Konformität: responsive Größenattribute in der Admin-UI, Lizenz-Copyright-Zeile, uk-Übersetzungen, Deploy-Workflow und interne Aufräumarbeiten.",
@@ -80,19 +93,6 @@
         "nl": "Voorwaarden: het Finger-veld accepteert nu meerdere ID's komma-gescheiden (bijv. 1,2,4); tooltip toegevoegd",
         "zh-cn": "条件：Finger 字段现在接受用逗号分隔的多个 ID（例如 1,2,4）；已添加提示",
         "uk": "Умови: поле Finger тепер приймає кілька ID через кому (наприклад 1,2,4); додано підказку"
-      },
-      "0.5.0": {
-        "en": "Smart rules: per-rule debounce, time-based access conditions (Conditions tab: weekdays + time, OR-combined, crosses midnight), and alarm/panic finger (extra alarm object in addition to the normal action)",
-        "de": "Smarte Regeln: Entprellung pro Regel, zeitbasierte Zugangsbedingungen (Tab Bedingungen: Wochentage + Zeit, ODER-verknüpft, über Mitternacht) und Alarm-/Panik-Finger (zusätzliches Alarm-Objekt zur normalen Aktion)",
-        "ru": "Умные правила: антидребезг на правило, временные условия доступа (вкладка «Условия»: дни недели + время, объединение по ИЛИ, переход через полночь) и палец-паника/тревога (доп. объект тревоги вдобавок к обычному действию)",
-        "fr": "Règles intelligentes : anti-rebond par règle, conditions d'accès temporelles (onglet Conditions : jours + heure, combinées par OU, franchit minuit) et doigt panique/alarme (objet d'alarme en plus de l'action normale)",
-        "it": "Regole smart: debounce per regola, condizioni di accesso temporali (scheda Condizioni: giorni + ora, combinate con OR, attraversa la mezzanotte) e dito panico/allarme (oggetto allarme in aggiunta all'azione normale)",
-        "es": "Reglas inteligentes: antirrebote por regla, condiciones de acceso por tiempo (pestaña Condiciones: días + hora, combinadas con OR, cruza medianoche) y dedo de pánico/alarma (objeto de alarma además de la acción normal)",
-        "pl": "Inteligentne reguły: debounce na regułę, warunki dostępu oparte na czasie (karta Warunki: dni + godzina, łączone LUB, przez północ) oraz palec paniki/alarmu (dodatkowy obiekt alarmu obok normalnej akcji)",
-        "pt": "Regras inteligentes: debounce por regra, condições de acesso baseadas no tempo (separador Condições: dias + hora, combinadas por OU, cruza a meia-noite) e dedo de pânico/alarme (objeto de alarme além da ação normal)",
-        "nl": "Slimme regels: debounce per regel, tijdgebaseerde toegangsvoorwaarden (tabblad Voorwaarden: weekdagen + tijd, met OF gecombineerd, over middernacht) en paniek-/alarmvinger (extra alarmobject naast de normale actie)",
-        "zh-cn": "智能规则：按规则去抖、基于时间的访问条件（条件选项卡：星期 + 时间，以“或”组合，可跨午夜）以及紧急/报警手指（在正常动作之外附加报警对象）",
-        "uk": "Розумні правила: антидребезг на правило, часові умови доступу (вкладка «Умови»: дні тижня + час, обʼєднання за АБО, перехід через північ) і палець-паніка/тривога (додатковий обʼєкт тривоги на додачу до звичайної дії)"
       }
     },
     "titleLang": {

@@ -209,6 +209,11 @@ Writing either state applies the ring immediately.
 
 ## Changelog
 
+### 0.7.3
+
+- Automated npm publishing via npm Trusted Publishing (OIDC) with provenance;
+  removed the npm token from the deploy workflow
+
 ### 0.7.2
 
 - Repository compliance for the ioBroker adapter repo: responsive size attributes
