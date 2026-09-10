@@ -323,6 +323,16 @@
           "text": "Time-based access windows. Enter one or more finger IDs (comma-separated, e.g. 1,2,4). A row allows those fingers only on the checked weekdays within the time range. Enable 'Conditions' for a finger in the Fingerprint Actions tab to enforce them. Multiple rows for the same finger are combined with OR. If a finger has 'Conditions' enabled but no matching row, access is denied. Time ranges may cross midnight (e.g. 22:00–06:00).",
           "xs": 12
         },
+        "_fingerLookup": {
+          "type": "selectSendTo",
+          "label": "Available fingers (reference)",
+          "command": "getFingerOptions",
+          "jsonData": "{}",
+          "doNotSave": true,
+          "manipulateData": false,
+          "tooltip": "Loads id → name from the device so you know which IDs to type into 'Finger ID(s)'. Selection is not saved.",
+          "xs": 12, "sm": 6, "md": 5, "lg": 4, "xl": 4
+        },
         "conditions": {
           "type": "table",
           "label": "Access conditions",
@@ -399,6 +409,39 @@
           "variant": "outlined",
           "color": "secondary",
           "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
+        },
+        "_enrollHeader": {
+          "type": "header",
+          "text": "Enroll a new finger",
+          "size": 3
+        },
+        "_enrollInfo": {
+          "type": "staticText",
+          "text": "Start enrollment directly from ioBroker (firmware >= v0.9.4). Enter a free slot ID (1–200) and a name, then press Start. Place the finger on the sensor 5 times. Watch the progress under the states enroll.status / enroll.step (channel 'enroll'). Save the settings first so the device connection is available.",
+          "xs": 12
+        },
+        "_enrollId": {
+          "type": "number",
+          "label": "Finger ID",
+          "min": 1,
+          "max": 200,
+          "doNotSave": true,
+          "xs": 6, "sm": 3, "md": 2, "lg": 2, "xl": 2
+        },
+        "_enrollName": {
+          "type": "text",
+          "label": "New finger name",
+          "doNotSave": true,
+          "xs": 12, "sm": 5, "md": 4, "lg": 3, "xl": 3
+        },
+        "enrollButton": {
+          "type": "sendTo",
+          "label": "Start enrollment",
+          "command": "enrollFinger",
+          "jsonData": "{ \"id\": ${data._enrollId}, \"name\": \"${data._enrollName}\" }",
+          "variant": "contained",
+          "color": "primary",
+          "xs": 12, "sm": 4, "md": 3, "lg": 2, "xl": 2
         }
       }
     }

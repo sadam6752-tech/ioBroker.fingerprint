@@ -89,5 +89,11 @@
   "Backup & Restore": "Back-up en herstel",
   "Backup stores all fingerprint templates (id, name, template) in a file on the ioBroker host that survives adapter updates. Restore writes them back to the sensor. Save the settings first so the device connection is available.": "De back-up slaat alle vingerafdruksjablonen (id, naam, sjabloon) op in een bestand op de ioBroker-host dat adapterupdates overleeft. Herstel schrijft ze terug naar de sensor. Sla eerst de instellingen op zodat de apparaatverbinding beschikbaar is.",
   "Create backup": "Back-up maken",
-  "Restore from backup": "Herstellen uit back-up"
+  "Restore from backup": "Herstellen uit back-up",
+  "Enroll a new finger": "Een nieuwe vinger registreren",
+  "Start enrollment directly from ioBroker (firmware >= v0.9.4). Enter a free slot ID (1–200) and a name, then press Start. Place the finger on the sensor 5 times. Watch the progress under the states enroll.status / enroll.step (channel 'enroll'). Save the settings first so the device connection is available.": "Start het registreren rechtstreeks vanuit ioBroker (firmware >= v0.9.4). Voer een vrij slot-ID (1–200) en een naam in en druk op Start. Plaats de vinger 5 keer op de sensor. Volg de voortgang via de states enroll.status / enroll.step (kanaal 'enroll'). Sla eerst de instellingen op zodat de apparaatverbinding beschikbaar is.",
+  "New finger name": "Naam van nieuwe vinger",
+  "Start enrollment": "Registreren starten",
+  "Available fingers (reference)": "Beschikbare vingers (referentie)",
+  "Loads id → name from the device so you know which IDs to type into 'Finger ID(s)'. Selection is not saved.": "Laadt id → naam van het apparaat zodat je weet welke ID's je in 'Finger ID(s)' moet invoeren. De selectie wordt niet opgeslagen."
 }

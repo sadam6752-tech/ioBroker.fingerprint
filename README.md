@@ -13,11 +13,23 @@ to report its online/offline status and can reboot it or toggle the touch ring.
 
 This adapter talks to the **FingerprintDoorbell** firmware running on your ESP32.
 
-- **Recommended: firmware v0.9.1 or newer** — enables *server mode* (the adapter
-  provisions the device automatically, no manual URLs) plus `control.ignoreTouchRing`
-  and the fingerprint list.
-- **Firmware v0.9** also works in a basic mode (paste the match/ring URLs manually);
-  `ignoreTouchRing` and the fingerprint list require v0.9.1.
+- **Recommended: firmware v0.9.4 or newer** — everything below works, including
+  enroll from the adapter, LED-ring control, WiFi signal and reliable
+  multi-finger backup/restore.
+- **firmware v0.9.3** — reliable backup/restore of all fingers (full 1536-byte
+  templates).
+- **firmware v0.9.1** — enables *server mode* (the adapter provisions the device
+  automatically, no manual URLs) plus `control.ignoreTouchRing` and the fingerprint list.
+- **firmware v0.9** also works in a basic mode (paste the match/ring URLs manually).
+
+Feature-by-firmware overview:
+
+| Feature | Firmware |
+| --- | --- |
+| Match / Ring / Status / Reboot | v0.9 |
+| Server mode, ignore touch ring, fingerprint list | v0.9.1 |
+| Backup / Restore (all fingers) | v0.9.3 |
+| Enroll from adapter, LED ring, WiFi RSSI | v0.9.4 |
 
 Get the firmware here:
 
@@ -26,7 +38,8 @@ Get the firmware here:
   via USB and click *Install* (Chrome/Edge/Opera or Firefox 151+).
 - **Update later via OTA:** open `http://<device-ip>/update` → *Firmware* → upload
   `firmware.bin` from the [Releases](https://github.com/sadam6752-tech/FingerprintDoorbell/releases).
-- **Manual download:** [FingerprintDoorbell-v0.9.1.zip](https://github.com/sadam6752-tech/FingerprintDoorbell/releases/download/v0.9.1/FingerprintDoorbell-v0.9.1.zip)
+- **Manual download:** the latest ZIP from the
+  [Releases](https://github.com/sadam6752-tech/FingerprintDoorbell/releases)
   (contains `firmware.bin`, `spiffs.bin` and flash instructions).
 
 Check the running version at `http://<device-ip>/api/status` (field `version`).
@@ -114,6 +127,41 @@ The **Manage Fingers** tab lets you administer fingers without opening the devic
 
 Save the instance settings first so the device connection is available.
 
+> **Note:** reliable backup/restore of *all* fingers needs firmware **v0.9.4**
+> (full 1536-byte templates). Backups made with older firmware are incomplete —
+> re-create them after updating.
+
+## Enroll a new finger (v0.7.0, firmware ≥ v0.9.4)
+
+You can enroll a new fingerprint directly from ioBroker — no need to open the
+device WebUI:
+
+- **Admin UI:** *Manage Fingers* tab → *Enroll a new finger* → enter a free ID
+  (1–200) and a name → **Start enrollment**.
+- **States:** write `control.enrollId` and `control.enrollName`, then set
+  `control.enrollStart` = `true`.
+
+Enrollment runs on the device and needs the user to place the finger on the
+sensor **5 times**. Progress is reported live in the `enroll` channel:
+
+| State | Type | Description |
+| --- | --- | --- |
+| `enroll.active` | boolean | `true` while an enrollment is running |
+| `enroll.step` | number | Current scan step (0–5) |
+| `enroll.status` | string | `idle` / `scanning` / `success` / `error` |
+| `enroll.message` | string | Last human-readable status line |
+
+On success the fingerprint list is refreshed automatically.
+
+## LED ring control (v0.7.0, firmware ≥ v0.9.4)
+
+Control the sensor's RGB ring from ioBroker:
+
+- `control.ledMode` — `0` off, `1` on, `2` breathing, `3` flashing
+- `control.ledColor` — `1` red, `2` blue, `3` purple, `4` green, `5` yellow, `6` cyan, `7` white
+
+Writing either state applies the ring immediately.
+
 ## States
 
 | State | Type | Description |
@@ -123,6 +171,7 @@ Save the instance settings first so the device connection is available.
 | `info.freeHeap` | number | Free heap in bytes |
 | `info.firmwareVersion` | string | Device firmware version |
 | `info.serverMode` | boolean | Device sends events directly to this adapter |
+| `info.wifiRssi` | number | WiFi signal strength in dBm (firmware ≥ v0.9.4) |
 | `fingerprints.<id>.name` | string | Name of the enrolled finger with that ID |
 | `fingerprints.<id>.lastSeen` | number | Timestamp the finger was last matched |
 | `fingerprints.<id>.count` | number | How often the finger was matched |
@@ -141,14 +190,34 @@ Save the instance settings first so the device connection is available.
 | `ring.timestamp` | number | Timestamp of the last ring |
 | `control.reboot` | boolean (button) | Reboot the device |
 | `control.ignoreTouchRing` | boolean (switch) | Ignore the touch ring (firmware ≥ v0.9.1) |
+| `control.enrollId` | number | Slot id (1–200) for the next enrollment (firmware ≥ v0.9.4) |
+| `control.enrollName` | string | Name for the next enrollment (firmware ≥ v0.9.4) |
+| `control.enrollStart` | boolean (button) | Start enrollment (firmware ≥ v0.9.4) |
+| `control.ledMode` | number | LED ring mode 0–3 (firmware ≥ v0.9.4) |
+| `control.ledColor` | number | LED ring color 1–7 (firmware ≥ v0.9.4) |
+| `enroll.active` | boolean | Enrollment running (firmware ≥ v0.9.4) |
+| `enroll.step` | number | Current enrollment scan step 0–5 |
+| `enroll.status` | string | `idle` / `scanning` / `success` / `error` |
+| `enroll.message` | string | Last enrollment status line |
 
 ## Firmware note
 
 - **Match / Ring / Status / Reboot** work with FingerprintDoorbell **v0.9** as-is.
-- **`control.ignoreTouchRing`** requires the firmware endpoint `GET /set-touch-ring?state=on|off`
-  (planned for **v0.9.1**). Until then, the switch has no effect.
+- **`control.ignoreTouchRing`**, server mode and the fingerprint list require **v0.9.1**.
+- **Backup / Restore** of all fingers requires **v0.9.3** (full 1536-byte templates).
+- **Enroll from adapter, LED ring, `info.wifiRssi`** require **v0.9.4**.
 
 ## Changelog
+
+### 0.7.0
+
+- **Enroll from the adapter** (firmware ≥ v0.9.4): start enrollment from the *Manage Fingers*
+  tab or via `control.enrollStart`; live progress in the `enroll` channel
+  (`active` / `step` / `status` / `message`)
+- **LED ring control** (firmware ≥ v0.9.4): `control.ledMode` + `control.ledColor`
+- **WiFi signal**: new `info.wifiRssi` state (firmware ≥ v0.9.4)
+- **Conditions**: added an *Available fingers* reference dropdown (id → name) so you know
+  which IDs to enter
 
 ### 0.6.1
 

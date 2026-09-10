@@ -89,5 +89,11 @@
   "Backup & Restore": "Резервная копия и восстановление",
   "Backup stores all fingerprint templates (id, name, template) in a file on the ioBroker host that survives adapter updates. Restore writes them back to the sensor. Save the settings first so the device connection is available.": "Резервная копия сохраняет все шаблоны отпечатков (id, имя, template) в файл на хосте ioBroker, который переживает обновления адаптера. Восстановление записывает их обратно в сенсор. Сначала сохраните настройки, чтобы соединение с устройством было доступно.",
   "Create backup": "Создать резервную копию",
-  "Restore from backup": "Восстановить из копии"
+  "Restore from backup": "Восстановить из копии",
+  "Enroll a new finger": "Добавить новый отпечаток",
+  "Start enrollment directly from ioBroker (firmware >= v0.9.4). Enter a free slot ID (1–200) and a name, then press Start. Place the finger on the sensor 5 times. Watch the progress under the states enroll.status / enroll.step (channel 'enroll'). Save the settings first so the device connection is available.": "Запуск регистрации прямо из ioBroker (прошивка >= v0.9.4). Укажите свободный ID (1–200) и имя, затем нажмите «Старт». Приложите палец к сенсору 5 раз. Следите за прогрессом в состояниях enroll.status / enroll.step (канал 'enroll'). Сначала сохраните настройки, чтобы было доступно подключение к устройству.",
+  "New finger name": "Имя нового отпечатка",
+  "Start enrollment": "Начать регистрацию",
+  "Available fingers (reference)": "Доступные отпечатки (справочно)",
+  "Loads id → name from the device so you know which IDs to type into 'Finger ID(s)'. Selection is not saved.": "Загружает ID → имя с устройства, чтобы знать, какие ID вписывать в поле «Finger ID(s)». Выбор не сохраняется."
 }

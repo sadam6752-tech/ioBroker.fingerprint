@@ -14,6 +14,7 @@ class Fingerprint extends utils.Adapter {
         this.esp = null;
         this.webhook = null;
         this._pollingTimer = null;
+        this._enrollTimer = null;
         this._ringResetTimer = null;
         this._lastActionTime = {};
 
@@ -219,6 +220,10 @@ class Fingerprint extends utils.Adapter {
                 this.clearTimeout(this._ringResetTimer);
                 this._ringResetTimer = null;
             }
+            if (this._enrollTimer) {
+                this.clearTimeout(this._enrollTimer);
+                this._enrollTimer = null;
+            }
             if (this.webhook) {
                 await this.webhook.stop();
                 this.webhook = null;
@@ -363,6 +368,29 @@ class Fingerprint extends utils.Adapter {
             return;
         }
 
+        if (obj.command === 'getFingerOptions') {
+            // Return the enrolled fingers as select options [{value,label}] for
+            // the "Available fingers" reference dropdown in the Conditions tab.
+            const client = this._makeEspClient();
+            if (!client) {
+                this.sendTo(obj.from, obj.command, [{ value: '', label: 'Device IP not configured' }], obj.callback);
+                return;
+            }
+            try {
+                const list = await client.getFingerprints();
+                const options = Array.isArray(list)
+                    ? list.map(fp => ({ value: String(fp.id), label: `${fp.id} — ${fp.name || `Finger ${fp.id}`}` }))
+                    : [];
+                if (options.length === 0) {
+                    options.push({ value: '', label: 'No fingerprints on device' });
+                }
+                this.sendTo(obj.from, obj.command, options, obj.callback);
+            } catch (err) {
+                this.sendTo(obj.from, obj.command, [{ value: '', label: `Error: ${err.message}` }], obj.callback);
+            }
+            return;
+        }
+
         if (obj.command === 'renameFinger') {
             const id = parseInt(obj.message && obj.message.id, 10);
             const name = (obj.message && obj.message.name ? String(obj.message.name) : '').trim();
@@ -392,6 +420,57 @@ class Fingerprint extends utils.Adapter {
                 this.sendTo(obj.from, obj.command, { result: `Renamed finger ${id} to "${name}"` }, obj.callback);
             } else {
                 this.sendTo(obj.from, obj.command, { error: `Rename failed for finger ${id}` }, obj.callback);
+            }
+            return;
+        }
+
+        if (obj.command === 'enrollFinger') {
+            const id = parseInt(obj.message && obj.message.id, 10);
+            const name = (obj.message && obj.message.name ? String(obj.message.name) : '').trim() || `Finger ${id}`;
+            if (!Number.isFinite(id) || id < 1 || id > 200) {
+                this.sendTo(obj.from, obj.command, { error: 'Enter a valid finger ID (1–200)' }, obj.callback);
+                return;
+            }
+            const client = this._makeEspClient();
+            if (!client) {
+                this.sendTo(
+                    obj.from,
+                    obj.command,
+                    { error: 'Device IP not configured (save settings first)' },
+                    obj.callback,
+                );
+                return;
+            }
+            try {
+                const res = await client.startEnroll(id, name);
+                if (res.ok) {
+                    // reflect the request in the control states + start progress polling
+                    await this.setStateAsync('control.enrollId', { val: id, ack: true });
+                    await this.setStateAsync('control.enrollName', { val: name, ack: true });
+                    await this.setStateAsync('enroll.active', { val: true, ack: true });
+                    await this.setStateAsync('enroll.status', { val: 'scanning', ack: true });
+                    await this.setStateAsync('enroll.step', { val: 0, ack: true });
+                    this._startEnrollPolling();
+                    this.sendTo(
+                        obj.from,
+                        obj.command,
+                        {
+                            result: `Enrollment started for #${id} (${name}). Place the finger on the sensor 5 times. Watch enroll.status.`,
+                        },
+                        obj.callback,
+                    );
+                } else if (res.status === 409) {
+                    this.sendTo(obj.from, obj.command, { error: 'An enrollment is already running' }, obj.callback);
+                } else {
+                    this.sendTo(
+                        obj.from,
+                        obj.command,
+                        { error: `Enroll failed (HTTP ${res.status}). Requires firmware >= v0.9.4.` },
+                        obj.callback,
+                    );
+                }
+            } catch (err) {
+                this.sendTo(obj.from, obj.command, { error: `Enroll failed: ${err.message}` }, obj.callback);
             }
             return;
         }
@@ -872,9 +951,138 @@ class Fingerprint extends utils.Adapter {
                 }
                 break;
 
+            case 'enrollStart':
+                if (value) {
+                    await this.setStateAsync(id, { val: false, ack: true });
+                    await this._startEnroll();
+                }
+                break;
+
+            case 'enrollId':
+            case 'enrollName':
+                // Just remember the value (ack it); used when enrollStart fires
+                await this.setStateAsync(id, { val: value, ack: true });
+                break;
+
+            case 'ledMode':
+            case 'ledColor':
+                await this.setStateAsync(id, { val: value, ack: true });
+                await this._applyLed();
+                break;
+
             default:
                 this.log.debug(`Unknown control command: ${command}`);
         }
+    }
+
+    /**
+     * Start enrollment using control.enrollId / control.enrollName.
+     *
+     * @returns {Promise<void>} resolves when the start request has been sent
+     */
+    async _startEnroll() {
+        const idState = await this.getStateAsync('control.enrollId');
+        const nameState = await this.getStateAsync('control.enrollName');
+        const id = idState && Number.isFinite(idState.val) ? Number(idState.val) : 0;
+        const name = nameState && nameState.val ? String(nameState.val) : `Finger ${id}`;
+        if (id < 1 || id > 200) {
+            this.log.warn(`Enroll ignored: invalid id ${id} (must be 1..200)`);
+            await this.setStateAsync('enroll.status', { val: 'error', ack: true });
+            await this.setStateAsync('enroll.message', { val: 'Invalid finger ID', ack: true });
+            return;
+        }
+        try {
+            const res = await this.esp.startEnroll(id, name);
+            if (res.ok) {
+                this.log.info(`Enrollment started for #${id} (${name}). Ask the user to place the finger 5 times.`);
+                await this.setStateAsync('enroll.active', { val: true, ack: true });
+                await this.setStateAsync('enroll.status', { val: 'scanning', ack: true });
+                await this.setStateAsync('enroll.step', { val: 0, ack: true });
+                await this.setStateAsync('enroll.message', { val: `Enrollment started for #${id}`, ack: true });
+                // Poll faster while the enrollment is running
+                this._startEnrollPolling();
+            } else if (res.status === 409) {
+                this.log.warn('Enroll rejected: an enrollment is already running');
+            } else {
+                this.log.warn(`Enroll failed (HTTP ${res.status}). Requires firmware >= v0.9.4.`);
+            }
+        } catch (err) {
+            this.log.error(`Enroll start failed: ${err.message}`);
+        }
+    }
+
+    /**
+     * Apply control.ledMode + control.ledColor to the device LED ring.
+     *
+     * @returns {Promise<void>} resolves when the LED command has been sent
+     */
+    async _applyLed() {
+        const modeState = await this.getStateAsync('control.ledMode');
+        const colorState = await this.getStateAsync('control.ledColor');
+        const mode = modeState && Number.isFinite(modeState.val) ? Number(modeState.val) : 1;
+        const color = colorState && Number.isFinite(colorState.val) ? Number(colorState.val) : 2;
+        // breathing/flashing need a non-zero speed to be visible
+        const speed = mode >= 2 ? 128 : 0;
+        try {
+            const ok = await this.esp.setLed(mode, color, speed, 0);
+            if (ok) {
+                this.log.debug(`LED ring set: mode=${mode} color=${color}`);
+            } else {
+                this.log.warn('LED ring command failed (requires firmware >= v0.9.4)');
+            }
+        } catch (err) {
+            this.log.error(`LED ring command failed: ${err.message}`);
+        }
+    }
+
+    /**
+     * Poll /api/status quickly while an enrollment is in progress, then stop.
+     */
+    _startEnrollPolling() {
+        if (this._enrollTimer) {
+            this.clearTimeout(this._enrollTimer);
+        }
+        this._enrollPollCount = 0;
+        const tick = async () => {
+            this._enrollPollCount++;
+            const stillRunning = await this._pollEnrollStatus();
+            // Stop after it finishes or after ~60s (30 * 2s) safety cap
+            if (stillRunning && this._enrollPollCount < 30) {
+                this._enrollTimer = this.setTimeout(tick, 2000);
+            } else {
+                this._enrollTimer = null;
+            }
+        };
+        this._enrollTimer = this.setTimeout(tick, 2000);
+    }
+
+    /**
+     * Read enroll progress from /api/status and update the enroll.* states.
+     *
+     * @returns {Promise<boolean>} true while enrollment is still running
+     */
+    async _pollEnrollStatus() {
+        if (!this.esp) {
+            return false;
+        }
+        const { reachable, status } = await this.esp.getStatus();
+        if (!reachable) {
+            return true; // device busy during enroll; keep trying
+        }
+        const map = { 0: 'idle', 1: 'scanning', 2: 'success', 3: 'error' };
+        const st = map[status.enrollState] || 'idle';
+        if (typeof status.enrollStep === 'number') {
+            await this.setStateAsync('enroll.step', { val: status.enrollStep, ack: true });
+        }
+        await this.setStateAsync('enroll.status', { val: st, ack: true });
+        await this.setStateAsync('enroll.active', { val: status.enrollState === 1, ack: true });
+        if (status.enrollMessage !== undefined) {
+            await this.setStateAsync('enroll.message', { val: String(status.enrollMessage), ack: true });
+        }
+        if (st === 'success') {
+            await this._syncFingerprints();
+        }
+        return status.enrollState === 1;
     }
 
     // ── Status polling ──────────────────────────────────────────────────────
@@ -917,6 +1125,20 @@ class Fingerprint extends utils.Adapter {
             }
             if (typeof status.ignoreTouchRing === 'boolean') {
                 await this.setStateAsync('control.ignoreTouchRing', { val: status.ignoreTouchRing, ack: true });
+            }
+            if (typeof status.wifiRssi === 'number') {
+                await this.setStateAsync('info.wifiRssi', { val: status.wifiRssi, ack: true });
+            }
+            if (typeof status.enrollState === 'number') {
+                const map = { 0: 'idle', 1: 'scanning', 2: 'success', 3: 'error' };
+                await this.setStateAsync('enroll.status', { val: map[status.enrollState] || 'idle', ack: true });
+                await this.setStateAsync('enroll.active', { val: status.enrollState === 1, ack: true });
+                if (typeof status.enrollStep === 'number') {
+                    await this.setStateAsync('enroll.step', { val: status.enrollStep, ack: true });
+                }
+                if (status.enrollMessage !== undefined) {
+                    await this.setStateAsync('enroll.message', { val: String(status.enrollMessage), ack: true });
+                }
             }
             return;
         }
@@ -1154,6 +1376,149 @@ class Fingerprint extends utils.Adapter {
                 write: true,
                 def: false,
                 desc: 'Ignore the capacitive touch ring (firmware >= v0.9.1)',
+            },
+            native: {},
+        });
+
+        // Enroll control (firmware >= v0.9.4)
+        await this.extendObjectAsync('control.enrollId', {
+            type: 'state',
+            common: {
+                name: 'Enroll: finger ID',
+                type: 'number',
+                role: 'value',
+                read: true,
+                write: true,
+                min: 1,
+                max: 200,
+                def: 1,
+                desc: 'Slot id (1..200) for the next enrollment',
+            },
+            native: {},
+        });
+        await this.extendObjectAsync('control.enrollName', {
+            type: 'state',
+            common: {
+                name: 'Enroll: finger name',
+                type: 'string',
+                role: 'text',
+                read: true,
+                write: true,
+                def: '',
+                desc: 'Name for the next enrollment',
+            },
+            native: {},
+        });
+        await this.extendObjectAsync('control.enrollStart', {
+            type: 'state',
+            common: {
+                name: 'Enroll: start',
+                type: 'boolean',
+                role: 'button',
+                read: false,
+                write: true,
+                def: false,
+                desc: 'Start enrollment for control.enrollId / control.enrollName (firmware >= v0.9.4)',
+            },
+            native: {},
+        });
+        await this.extendObjectAsync('control.ledMode', {
+            type: 'state',
+            common: {
+                name: 'LED ring mode',
+                type: 'number',
+                role: 'level',
+                read: true,
+                write: true,
+                min: 0,
+                max: 3,
+                def: 1,
+                states: { 0: 'off', 1: 'on', 2: 'breathing', 3: 'flashing' },
+                desc: 'LED ring mode (firmware >= v0.9.4). Writing this applies control.ledColor.',
+            },
+            native: {},
+        });
+        await this.extendObjectAsync('control.ledColor', {
+            type: 'state',
+            common: {
+                name: 'LED ring color',
+                type: 'number',
+                role: 'level.color',
+                read: true,
+                write: true,
+                min: 1,
+                max: 7,
+                def: 2,
+                states: { 1: 'red', 2: 'blue', 3: 'purple', 4: 'green', 5: 'yellow', 6: 'cyan', 7: 'white' },
+                desc: 'LED ring color (firmware >= v0.9.4)',
+            },
+            native: {},
+        });
+
+        // enroll status channel (read-only, updated by polling)
+        await this.extendObjectAsync('enroll', {
+            type: 'channel',
+            common: { name: 'Enrollment status' },
+            native: {},
+        });
+        await this.extendObjectAsync('enroll.active', {
+            type: 'state',
+            common: {
+                name: 'Enrollment active',
+                type: 'boolean',
+                role: 'indicator',
+                read: true,
+                write: false,
+                def: false,
+            },
+            native: {},
+        });
+        await this.extendObjectAsync('enroll.step', {
+            type: 'state',
+            common: {
+                name: 'Enrollment step',
+                type: 'number',
+                role: 'value',
+                read: true,
+                write: false,
+                min: 0,
+                max: 5,
+                def: 0,
+                desc: 'Current scan step (0..5)',
+            },
+            native: {},
+        });
+        await this.extendObjectAsync('enroll.status', {
+            type: 'state',
+            common: {
+                name: 'Enrollment status',
+                type: 'string',
+                role: 'text',
+                read: true,
+                write: false,
+                def: 'idle',
+                states: { idle: 'idle', scanning: 'scanning', success: 'success', error: 'error' },
+                desc: 'idle / scanning / success / error',
+            },
+            native: {},
+        });
+        await this.extendObjectAsync('enroll.message', {
+            type: 'state',
+            common: { name: 'Enrollment message', type: 'string', role: 'text', read: true, write: false, def: '' },
+            native: {},
+        });
+
+        // WiFi signal strength (firmware >= v0.9.4)
+        await this.extendObjectAsync('info.wifiRssi', {
+            type: 'state',
+            common: {
+                name: 'WiFi signal (RSSI)',
+                type: 'number',
+                role: 'value',
+                unit: 'dBm',
+                read: true,
+                write: false,
+                def: 0,
             },
             native: {},
         });

@@ -89,5 +89,11 @@
   "Backup & Restore": "Резервна копія та відновлення",
   "Backup stores all fingerprint templates (id, name, template) in a file on the ioBroker host that survives adapter updates. Restore writes them back to the sensor. Save the settings first so the device connection is available.": "Резервна копія зберігає всі шаблони відбитків (id, ім'я, шаблон) у файл на хості ioBroker, який переживає оновлення адаптера. Відновлення записує їх назад у сенсор. Спочатку збережіть налаштування, щоб з'єднання з пристроєм було доступне.",
   "Create backup": "Створити резервну копію",
-  "Restore from backup": "Відновити з копії"
+  "Restore from backup": "Відновити з копії",
+  "Enroll a new finger": "Додати новий відбиток",
+  "Start enrollment directly from ioBroker (firmware >= v0.9.4). Enter a free slot ID (1–200) and a name, then press Start. Place the finger on the sensor 5 times. Watch the progress under the states enroll.status / enroll.step (channel 'enroll'). Save the settings first so the device connection is available.": "Запустіть реєстрацію прямо з ioBroker (прошивка >= v0.9.4). Введіть вільний ID (1–200) та ім'я, потім натисніть «Старт». Прикладіть палець до сенсора 5 разів. Стежте за прогресом у станах enroll.status / enroll.step (канал 'enroll'). Спочатку збережіть налаштування, щоб зʼєднання з пристроєм було доступне.",
+  "New finger name": "Імʼя нового відбитка",
+  "Start enrollment": "Почати реєстрацію",
+  "Available fingers (reference)": "Доступні відбитки (довідково)",
+  "Loads id → name from the device so you know which IDs to type into 'Finger ID(s)'. Selection is not saved.": "Завантажує ID → імʼя з пристрою, щоб знати, які ID вписувати в поле 'Finger ID(s)'. Вибір не зберігається."
 }

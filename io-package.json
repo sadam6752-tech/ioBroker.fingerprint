@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "fingerprint",
-    "version": "0.6.1",
+    "version": "0.7.0",
     "news": {
+      "0.7.0": {
+        "en": "Enroll a new finger from the adapter, LED ring control and WiFi signal (info.wifiRssi) — all need FingerprintDoorbell firmware v0.9.4. Conditions: added an 'Available fingers' reference dropdown.",
+        "de": "Neuen Finger direkt aus dem Adapter anlernen, LED-Ring-Steuerung und WLAN-Signal (info.wifiRssi) — benötigt FingerprintDoorbell-Firmware v0.9.4. Bedingungen: Referenz-Dropdown 'Verfügbare Finger' ergänzt.",
+        "ru": "Регистрация нового отпечатка из адаптера, управление LED-кольцом и уровень WiFi (info.wifiRssi) — требуется прошивка FingerprintDoorbell v0.9.4. Условия: добавлен справочный список 'Доступные отпечатки'.",
+        "fr": "Enregistrer un nouveau doigt depuis l'adaptateur, contrôle de l'anneau LED et signal WiFi (info.wifiRssi) — nécessite le firmware FingerprintDoorbell v0.9.4. Conditions : ajout d'une liste de référence 'Doigts disponibles'.",
+        "it": "Registra un nuovo dito dall'adattatore, controllo dell'anello LED e segnale WiFi (info.wifiRssi) — richiede il firmware FingerprintDoorbell v0.9.4. Condizioni: aggiunto un elenco di riferimento 'Dita disponibili'.",
+        "es": "Registrar un nuevo dedo desde el adaptador, control del anillo LED y señal WiFi (info.wifiRssi) — requiere el firmware FingerprintDoorbell v0.9.4. Condiciones: añadida una lista de referencia 'Dedos disponibles'.",
+        "pl": "Rejestracja nowego palca z adaptera, sterowanie pierścieniem LED i sygnał WiFi (info.wifiRssi) — wymaga firmware FingerprintDoorbell v0.9.4. Warunki: dodano listę referencyjną 'Dostępne palce'.",
+        "pt": "Registar um novo dedo a partir do adaptador, controlo do anel LED e sinal WiFi (info.wifiRssi) — requer o firmware FingerprintDoorbell v0.9.4. Condições: adicionada uma lista de referência 'Dedos disponíveis'.",
+        "nl": "Een nieuwe vinger registreren vanuit de adapter, LED-ring-bediening en WiFi-signaal (info.wifiRssi) — vereist FingerprintDoorbell-firmware v0.9.4. Voorwaarden: referentielijst 'Beschikbare vingers' toegevoegd.",
+        "zh-cn": "从适配器录入新指纹、LED 灯环控制和 WiFi 信号（info.wifiRssi）— 需要 FingerprintDoorbell 固件 v0.9.4。条件页：新增“可用指纹”参考下拉列表。"
+      },
       "0.6.1": {
         "en": "Fix invalid jsonConfig: remove unsupported 'attr' from the Manage Fingers rename fields (settings page failed to load)",
         "de": "Ungültige jsonConfig behoben: nicht unterstütztes 'attr' aus den Umbenennen-Feldern (Manage Fingers) entfernt (Einstellungsseite lud nicht)",
@@ -74,18 +86,6 @@
         "pt": "Registo de acessos e histórico: registo de acessos opcional, estados lastAccess.* e stats.*, por dedo lastSeen/count (fingerprints.<id> agora é um canal)",
         "nl": "Toegangslog & geschiedenis: optionele toegangslogging, lastAccess.*- en stats.*-states, per vinger lastSeen/count (fingerprints.<id> is nu een kanaal)",
         "zh-cn": "访问日志与历史：可选的访问日志、lastAccess.* 和 stats.* 状态、每个手指的 lastSeen/count（fingerprints.<id> 现为通道）"
-      },
-      "0.3.4": {
-        "en": "Docs: correct Web Flasher browser support - Firefox 151+ now supports Web Serial",
-        "de": "Doku: Browser-Unterstützung des Web-Flashers korrigiert - Firefox 151+ unterstützt jetzt Web Serial",
-        "ru": "Документация: исправлена поддержка браузеров Web Flasher - Firefox 151+ теперь поддерживает Web Serial",
-        "fr": "Docs : correction de la compatibilité navigateur du Web Flasher - Firefox 151+ prend désormais en charge Web Serial",
-        "it": "Docs: corretta la compatibilità browser del Web Flasher - Firefox 151+ ora supporta Web Serial",
-        "es": "Docs: corregida la compatibilidad de navegadores del Web Flasher - Firefox 151+ ya admite Web Serial",
-        "pl": "Dokumentacja: poprawiono obsługę przeglądarek Web Flashera - Firefox 151+ obsługuje teraz Web Serial",
-        "pt": "Docs: corrigida a compatibilidade de navegadores do Web Flasher - Firefox 151+ agora suporta Web Serial",
-        "nl": "Docs: browserondersteuning Web Flasher gecorrigeerd - Firefox 151+ ondersteunt nu Web Serial",
-        "zh-cn": "文档：更正 Web Flasher 浏览器支持 - Firefox 151+ 现已支持 Web Serial"
       }
     },
     "titleLang": {

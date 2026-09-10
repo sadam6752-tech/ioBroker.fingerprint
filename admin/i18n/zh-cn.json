@@ -89,5 +89,11 @@
   "Backup & Restore": "备份与恢复",
   "Backup stores all fingerprint templates (id, name, template) in a file on the ioBroker host that survives adapter updates. Restore writes them back to the sensor. Save the settings first so the device connection is available.": "备份将所有指纹模板（id、名称、模板）保存到 ioBroker 主机上的文件中，可在适配器更新后保留。恢复会将它们写回传感器。请先保存设置以便设备连接可用。",
   "Create backup": "创建备份",
-  "Restore from backup": "从备份恢复"
+  "Restore from backup": "从备份恢复",
+  "Enroll a new finger": "录入新指纹",
+  "Start enrollment directly from ioBroker (firmware >= v0.9.4). Enter a free slot ID (1–200) and a name, then press Start. Place the finger on the sensor 5 times. Watch the progress under the states enroll.status / enroll.step (channel 'enroll'). Save the settings first so the device connection is available.": "直接从 ioBroker 启动录入（固件 >= v0.9.4）。输入空闲的槽位 ID（1–200）和名称，然后点击开始。将手指在传感器上放置 5 次。可在状态 enroll.status / enroll.step（通道 'enroll'）中查看进度。请先保存设置，以便设备连接可用。",
+  "New finger name": "新指纹名称",
+  "Start enrollment": "开始录入",
+  "Available fingers (reference)": "可用指纹（参考）",
+  "Loads id → name from the device so you know which IDs to type into 'Finger ID(s)'. Selection is not saved.": "从设备加载 ID → 名称，便于知道在 'Finger ID(s)' 中填写哪些 ID。所选内容不会被保存。"
 }

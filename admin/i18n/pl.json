@@ -89,5 +89,11 @@
   "Backup & Restore": "Kopia zapasowa i przywracanie",
   "Backup stores all fingerprint templates (id, name, template) in a file on the ioBroker host that survives adapter updates. Restore writes them back to the sensor. Save the settings first so the device connection is available.": "Kopia zapasowa zapisuje wszystkie szablony odcisków (id, nazwa, szablon) w pliku na hoście ioBroker, który przetrwa aktualizacje adaptera. Przywracanie zapisuje je z powrotem do czujnika. Najpierw zapisz ustawienia, aby połączenie z urządzeniem było dostępne.",
   "Create backup": "Utwórz kopię zapasową",
-  "Restore from backup": "Przywróć z kopii"
+  "Restore from backup": "Przywróć z kopii",
+  "Enroll a new finger": "Zarejestruj nowy palec",
+  "Start enrollment directly from ioBroker (firmware >= v0.9.4). Enter a free slot ID (1–200) and a name, then press Start. Place the finger on the sensor 5 times. Watch the progress under the states enroll.status / enroll.step (channel 'enroll'). Save the settings first so the device connection is available.": "Rozpocznij rejestrację bezpośrednio z ioBroker (firmware >= v0.9.4). Podaj wolny ID (1–200) i nazwę, następnie naciśnij Start. Przyłóż palec do czytnika 5 razy. Śledź postęp w stanach enroll.status / enroll.step (kanał 'enroll'). Najpierw zapisz ustawienia, aby połączenie z urządzeniem było dostępne.",
+  "New finger name": "Nazwa nowego palca",
+  "Start enrollment": "Rozpocznij rejestrację",
+  "Available fingers (reference)": "Dostępne palce (referencja)",
+  "Loads id → name from the device so you know which IDs to type into 'Finger ID(s)'. Selection is not saved.": "Ładuje id → nazwę z urządzenia, aby wiedzieć, które ID wpisać w polu 'Finger ID(s)'. Wybór nie jest zapisywany."
 }
