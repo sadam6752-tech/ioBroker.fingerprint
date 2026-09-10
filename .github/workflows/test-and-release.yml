@@ -70,5 +70,9 @@ jobs:
       - uses: ioBroker/testing-action-deploy@v1
         with:
           node-version: '24.x'
-          npm-token: ${{ secrets.NPM_TOKEN }}
+          # No npm-token: publishing uses npm Trusted Publishing (OIDC).
+          # Configure a Trusted Publisher for this package on npmjs.com
+          # (GitHub Actions, repo sadam6752-tech/ioBroker.fingerprint,
+          #  workflow test-and-release.yml). The id-token: write permission
+          # above provides the OIDC token; provenance is added automatically.
           github-token: ${{ secrets.GITHUB_TOKEN }}
