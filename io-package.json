@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "fingerprint",
-    "version": "0.7.1",
+    "version": "0.7.2",
     "news": {
+      "0.7.2": {
+        "en": "Repository compliance: responsive size attributes in the admin UI, license copyright line, uk translations, deploy workflow, and internal cleanups.",
+        "de": "Repository-Konformität: responsive Größenattribute in der Admin-UI, Lizenz-Copyright-Zeile, uk-Übersetzungen, Deploy-Workflow und interne Aufräumarbeiten.",
+        "ru": "Соответствие требованиям репозитория: адаптивные size-атрибуты в админ-UI, строка copyright лицензии, украинские переводы, deploy-workflow и внутренние доработки.",
+        "fr": "Conformité du dépôt : attributs de taille responsive dans l'UI admin, ligne de copyright de licence, traductions uk, workflow de déploiement et nettoyages internes.",
+        "it": "Conformità del repository: attributi di dimensione responsive nell'UI admin, riga di copyright della licenza, traduzioni uk, workflow di deploy e pulizie interne.",
+        "es": "Cumplimiento del repositorio: atributos de tamaño responsive en la UI de admin, línea de copyright de licencia, traducciones uk, flujo de despliegue y limpiezas internas.",
+        "pl": "Zgodność z repozytorium: responsywne atrybuty rozmiaru w UI admina, linia copyright licencji, tłumaczenia uk, workflow wdrożenia i porządki wewnętrzne.",
+        "pt": "Conformidade do repositório: atributos de tamanho responsivos na UI de admin, linha de copyright da licença, traduções uk, workflow de implantação e limpezas internas.",
+        "nl": "Repository-conformiteit: responsieve grootte-attributen in de admin-UI, licentie-copyrightregel, uk-vertalingen, deploy-workflow en interne opschoning.",
+        "zh-cn": "仓库合规：管理界面的响应式尺寸属性、许可证版权行、乌克兰语翻译、部署工作流以及内部清理。",
+        "uk": "Відповідність вимогам репозиторію: адаптивні size-атрибути в адмін-UI, рядок copyright ліцензії, українські переклади, deploy-workflow та внутрішні доопрацювання."
+      },
       "0.7.1": {
         "en": "Enroll section (Manage Fingers) now also shows the 'Available fingers' reference dropdown, so you can pick a free slot ID.",
         "de": "Die Anlernen-Sektion (Finger verwalten) zeigt jetzt ebenfalls das Referenz-Dropdown 'Verfügbare Finger', damit du eine freie Slot-ID wählen kannst.",
@@ -13,7 +26,8 @@
         "pl": "Sekcja rejestracji (Zarządzaj palcami) pokazuje teraz również listę referencyjną 'Dostępne palce', aby wybrać wolny ID slotu.",
         "pt": "A secção de registo (Gerir dedos) mostra agora também a lista de referência 'Dedos disponíveis' para escolher um ID de slot livre.",
         "nl": "De registratiesectie (Vingers beheren) toont nu ook de referentielijst 'Beschikbare vingers' om een vrije slot-ID te kiezen.",
-        "zh-cn": "录入区（管理手指）现在也显示“可用指纹”参考下拉列表，便于选择空闲的槽位 ID。"
+        "zh-cn": "录入区（管理手指）现在也显示“可用指纹”参考下拉列表，便于选择空闲的槽位 ID。",
+        "uk": "Розділ реєстрації (Управління пальцями) тепер теж показує довідковий список 'Доступні відбитки', щоб вибрати вільний ID слота."
       },
       "0.7.0": {
         "en": "Enroll a new finger from the adapter, LED ring control and WiFi signal (info.wifiRssi) — all need FingerprintDoorbell firmware v0.9.4. Conditions: added an 'Available fingers' reference dropdown.",
@@ -25,7 +39,8 @@
         "pl": "Rejestracja nowego palca z adaptera, sterowanie pierścieniem LED i sygnał WiFi (info.wifiRssi) — wymaga firmware FingerprintDoorbell v0.9.4. Warunki: dodano listę referencyjną 'Dostępne palce'.",
         "pt": "Registar um novo dedo a partir do adaptador, controlo do anel LED e sinal WiFi (info.wifiRssi) — requer o firmware FingerprintDoorbell v0.9.4. Condições: adicionada uma lista de referência 'Dedos disponíveis'.",
         "nl": "Een nieuwe vinger registreren vanuit de adapter, LED-ring-bediening en WiFi-signaal (info.wifiRssi) — vereist FingerprintDoorbell-firmware v0.9.4. Voorwaarden: referentielijst 'Beschikbare vingers' toegevoegd.",
-        "zh-cn": "从适配器录入新指纹、LED 灯环控制和 WiFi 信号（info.wifiRssi）— 需要 FingerprintDoorbell 固件 v0.9.4。条件页：新增“可用指纹”参考下拉列表。"
+        "zh-cn": "从适配器录入新指纹、LED 灯环控制和 WiFi 信号（info.wifiRssi）— 需要 FingerprintDoorbell 固件 v0.9.4。条件页：新增“可用指纹”参考下拉列表。",
+        "uk": "Реєстрація нового відбитка з адаптера, керування LED-кільцем і рівень WiFi (info.wifiRssi) — потрібна прошивка FingerprintDoorbell v0.9.4. Умови: додано довідковий список 'Доступні відбитки'."
       },
       "0.6.1": {
         "en": "Fix invalid jsonConfig: remove unsupported 'attr' from the Manage Fingers rename fields (settings page failed to load)",
@@ -37,7 +52,8 @@
         "pl": "Naprawiono nieprawidłowy jsonConfig: usunięto nieobsługiwane 'attr' z pól zmiany nazwy (Manage Fingers) (strona ustawień się nie ładowała)",
         "pt": "Corrigido jsonConfig inválido: removido 'attr' não suportado dos campos de renomear (Manage Fingers) (a página de definições não carregava)",
         "nl": "Ongeldige jsonConfig hersteld: niet-ondersteunde 'attr' verwijderd uit de hernoem-velden (Manage Fingers) (instellingenpagina laadde niet)",
-        "zh-cn": "修复无效的 jsonConfig：从 Manage Fingers 重命名字段中移除不支持的 'attr'（设置页面无法加载）"
+        "zh-cn": "修复无效的 jsonConfig：从 Manage Fingers 重命名字段中移除不支持的 'attr'（设置页面无法加载）",
+        "uk": "Виправлено некоректний jsonConfig: прибрано непідтримуване 'attr' з полів перейменування (Manage Fingers) — сторінка налаштувань не відкривалася"
       },
       "0.6.0": {
         "en": "Manage Fingers tab (rename, backup & restore via a file on the host) and Snapshot action (per-rule checkbox + target object, e.g. to trigger an ESP32-CAM capture)",
@@ -49,7 +65,8 @@
         "pl": "Karta Zarządzaj palcami (zmiana nazwy, kopia zapasowa i przywracanie przez plik na hoście) oraz akcja Snapshot (pole na regułę + obiekt docelowy, np. do zrzutu ESP32-CAM)",
         "pt": "Separador Gerir dedos (renomear, cópia de segurança e restauro através de um ficheiro no host) e ação Snapshot (caixa por regra + objeto alvo, p. ex. para uma captura ESP32-CAM)",
         "nl": "Tabblad Vingers beheren (hernoemen, back-up en herstel via een bestand op de host) en Snapshot-actie (vinkje per regel + doelobject, bijv. voor een ESP32-CAM-opname)",
-        "zh-cn": "管理手指选项卡（重命名、通过主机文件备份和恢复）以及快照动作（按规则复选框 + 目标对象，例如触发 ESP32-CAM 拍摄）"
+        "zh-cn": "管理手指选项卡（重命名、通过主机文件备份和恢复）以及快照动作（按规则复选框 + 目标对象，例如触发 ESP32-CAM 拍摄）",
+        "uk": "Вкладка «Управління пальцями» (перейменування, резервна копія та відновлення через файл на хості) і дія Snapshot (чекбокс на правило + цільовий обʼєкт, напр. для знімка ESP32-CAM)"
       },
       "0.5.1": {
         "en": "Conditions: the Finger field now accepts several IDs comma-separated (e.g. 1,2,4); added a hint/tooltip",
@@ -61,7 +78,8 @@
         "pl": "Warunki: pole Finger akceptuje teraz kilka ID oddzielonych przecinkami (np. 1,2,4); dodano podpowiedź",
         "pt": "Condições: o campo Finger aceita agora vários IDs separados por vírgulas (p. ex. 1,2,4); dica adicionada",
         "nl": "Voorwaarden: het Finger-veld accepteert nu meerdere ID's komma-gescheiden (bijv. 1,2,4); tooltip toegevoegd",
-        "zh-cn": "条件：Finger 字段现在接受用逗号分隔的多个 ID（例如 1,2,4）；已添加提示"
+        "zh-cn": "条件：Finger 字段现在接受用逗号分隔的多个 ID（例如 1,2,4）；已添加提示",
+        "uk": "Умови: поле Finger тепер приймає кілька ID через кому (наприклад 1,2,4); додано підказку"
       },
       "0.5.0": {
         "en": "Smart rules: per-rule debounce, time-based access conditions (Conditions tab: weekdays + time, OR-combined, crosses midnight), and alarm/panic finger (extra alarm object in addition to the normal action)",
@@ -73,19 +91,8 @@
         "pl": "Inteligentne reguły: debounce na regułę, warunki dostępu oparte na czasie (karta Warunki: dni + godzina, łączone LUB, przez północ) oraz palec paniki/alarmu (dodatkowy obiekt alarmu obok normalnej akcji)",
         "pt": "Regras inteligentes: debounce por regra, condições de acesso baseadas no tempo (separador Condições: dias + hora, combinadas por OU, cruza a meia-noite) e dedo de pânico/alarme (objeto de alarme além da ação normal)",
         "nl": "Slimme regels: debounce per regel, tijdgebaseerde toegangsvoorwaarden (tabblad Voorwaarden: weekdagen + tijd, met OF gecombineerd, over middernacht) en paniek-/alarmvinger (extra alarmobject naast de normale actie)",
-        "zh-cn": "智能规则：按规则去抖、基于时间的访问条件（条件选项卡：星期 + 时间，以“或”组合，可跨午夜）以及紧急/报警手指（在正常动作之外附加报警对象）"
-      },
-      "0.4.1": {
-        "en": "Docs: use an absolute logo URL in README so it shows on the npm package page",
-        "de": "Doku: absolute Logo-URL im README, damit es auf der npm-Paketseite angezeigt wird",
-        "ru": "Документация: абсолютный URL логотипа в README, чтобы он отображался на странице пакета npm",
-        "fr": "Docs : URL absolue du logo dans le README pour qu'il s'affiche sur la page du paquet npm",
-        "it": "Docs: URL assoluto del logo nel README così appare sulla pagina del pacchetto npm",
-        "es": "Docs: URL absoluta del logo en el README para que aparezca en la página del paquete npm",
-        "pl": "Dokumentacja: bezwzględny URL logo w README, aby pojawiało się na stronie pakietu npm",
-        "pt": "Docs: URL absoluto do logótipo no README para aparecer na página do pacote npm",
-        "nl": "Docs: absolute logo-URL in README zodat het op de npm-pakketpagina verschijnt",
-        "zh-cn": "文档：在 README 中使用绝对 logo URL，使其显示在 npm 包页面上"
+        "zh-cn": "智能规则：按规则去抖、基于时间的访问条件（条件选项卡：星期 + 时间，以“或”组合，可跨午夜）以及紧急/报警手指（在正常动作之外附加报警对象）",
+        "uk": "Розумні правила: антидребезг на правило, часові умови доступу (вкладка «Умови»: дні тижня + час, обʼєднання за АБО, перехід через північ) і палець-паніка/тривога (додатковий обʼєкт тривоги на додачу до звичайної дії)"
       }
     },
     "titleLang": {
@@ -98,7 +105,8 @@
       "pl": "FingerprintDoorbell",
       "pt": "FingerprintDoorbell",
       "nl": "FingerprintDoorbell",
-      "zh-cn": "FingerprintDoorbell"
+      "zh-cn": "FingerprintDoorbell",
+      "uk": "FingerprintDoorbell"
     },
     "desc": {
       "en": "Integrate the ESP32-based FingerprintDoorbell over HTTP: fingerprint access and doorbell ring events",
@@ -110,7 +118,8 @@
       "pl": "Integracja opartego na ESP32 FingerprintDoorbell przez HTTP: dostęp odciskiem palca i zdarzenia dzwonka",
       "pt": "Integrar o FingerprintDoorbell baseado em ESP32 via HTTP: acesso por impressão digital e eventos de campainha",
       "nl": "Integreer de op ESP32 gebaseerde FingerprintDoorbell via HTTP: vingerafdruktoegang en belgebeurtenissen",
-      "zh-cn": "通过 HTTP 集成基于 ESP32 的 FingerprintDoorbell：指纹门禁和门铃事件"
+      "zh-cn": "通过 HTTP 集成基于 ESP32 的 FingerprintDoorbell：指纹门禁和门铃事件",
+      "uk": "Інтеграція ESP32-дзвінка FingerprintDoorbell через HTTP: події доступу за відбитком і дзвінка у двері"
     },
     "authors": ["sadam6752-tech <sadam6752@gmail.com>"],
     "keywords": ["esp32", "fingerprint", "doorbell", "r503", "smart-home"],

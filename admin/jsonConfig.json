@@ -72,7 +72,7 @@
         "_webhookInfo": {
           "type": "staticText",
           "text": "With FingerprintDoorbell firmware >= v0.9.1 the adapter provisions the device automatically (server mode). For firmware v0.9, paste the URLs below into the device settings manually.",
-          "xs": 12
+          "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12
         },
         "serverHost": {
           "type": "text",
@@ -168,7 +168,7 @@
         "_actionsInfo": {
           "type": "staticText",
           "text": "Map each fingerprint to an ioBroker object. On a match the adapter sets/toggles the target. Load the fingerprints from the device, then choose an object and action per row.",
-          "xs": 12
+          "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12
         },
         "loadFingerprintsButton": {
           "type": "sendTo",
@@ -249,7 +249,7 @@
               "width": "8%"
             }
           ],
-          "xs": 12
+          "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12
         },
         "_ringHeader": {
           "type": "header",
@@ -276,7 +276,7 @@
         "_alarmInfo": {
           "type": "staticText",
           "text": "For rows with the 'Alarm' checkbox enabled, this object is set in addition to the normal action (panic finger: opens the door as usual and triggers an alarm state).",
-          "xs": 12
+          "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12
         },
         "alarmActionObject": {
           "type": "objectId",
@@ -298,7 +298,7 @@
         "_snapshotInfo": {
           "type": "staticText",
           "text": "For rows with the 'Snapshot' checkbox enabled, this object is set in addition to the normal action. Use it to trigger a script that captures a camera snapshot (e.g. ESP32-CAM) and sends it somewhere.",
-          "xs": 12
+          "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12
         },
         "snapshotActionObject": {
           "type": "objectId",
@@ -321,7 +321,7 @@
         "_conditionsInfo": {
           "type": "staticText",
           "text": "Time-based access windows. Enter one or more finger IDs (comma-separated, e.g. 1,2,4). A row allows those fingers only on the checked weekdays within the time range. Enable 'Conditions' for a finger in the Fingerprint Actions tab to enforce them. Multiple rows for the same finger are combined with OR. If a finger has 'Conditions' enabled but no matching row, access is denied. Time ranges may cross midnight (e.g. 22:00–06:00).",
-          "xs": 12
+          "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12
         },
         "_fingerLookup": {
           "type": "selectSendTo",
@@ -329,7 +329,6 @@
           "command": "getFingerOptions",
           "jsonData": "{}",
           "doNotSave": true,
-          "manipulateData": false,
           "tooltip": "Loads id → name from the device so you know which IDs to type into 'Finger ID(s)'. Selection is not saved.",
           "xs": 12, "sm": 6, "md": 5, "lg": 4, "xl": 4
         },
@@ -348,7 +347,7 @@
             { "type": "text", "attr": "timeFrom", "title": "From (HH:MM)", "width": "17%" },
             { "type": "text", "attr": "timeTo", "title": "To (HH:MM)", "width": "17%" }
           ],
-          "xs": 12
+          "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12
         }
       }
     },
@@ -392,7 +391,7 @@
         "_backupInfo": {
           "type": "staticText",
           "text": "Backup stores all fingerprint templates (id, name, template) in a file on the ioBroker host that survives adapter updates. Restore writes them back to the sensor. Save the settings first so the device connection is available.",
-          "xs": 12
+          "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12
         },
         "backupButton": {
           "type": "sendTo",
@@ -418,7 +417,7 @@
         "_enrollInfo": {
           "type": "staticText",
           "text": "Start enrollment directly from ioBroker (firmware >= v0.9.4). Enter a free slot ID (1–200) and a name, then press Start. Place the finger on the sensor 5 times. Watch the progress under the states enroll.status / enroll.step (channel 'enroll'). Save the settings first so the device connection is available.",
-          "xs": 12
+          "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12
         },
         "_enrollLookup": {
           "type": "selectSendTo",
@@ -426,7 +425,6 @@
           "command": "getFingerOptions",
           "jsonData": "{}",
           "doNotSave": true,
-          "manipulateData": false,
           "tooltip": "Loads id → name from the device so you can see which slots are already used and pick a free ID. Selection is not saved.",
           "xs": 12, "sm": 6, "md": 5, "lg": 4, "xl": 4
         },

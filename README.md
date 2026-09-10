@@ -209,6 +209,12 @@ Writing either state applies the ring immediately.
 
 ## Changelog
 
+### 0.7.2
+
+- Repository compliance for the ioBroker adapter repo: responsive size attributes
+  in the admin UI, license copyright line, Ukrainian translations, a deploy
+  workflow job, and internal cleanups (no functional change)
+
 ### 0.7.1
 
 - The *Enroll a new finger* section (Manage Fingers) now also shows the
@@ -317,4 +323,6 @@ Writing either state applies the ring immediately.
 
 ## License
 
-MIT License — Copyright (c) 2026 sadam6752-tech
+MIT License
+
+Copyright (c) 2026 sadam6752-tech
