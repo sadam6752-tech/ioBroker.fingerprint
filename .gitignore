@@ -3,7 +3,8 @@ build/
 .dev-server/
 *.log
 .DS_Store
-.vscode/
+.vscode/*
+!.vscode/settings.json
 coverage/
 .nyc_output/
 .commitinfo

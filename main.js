@@ -1341,7 +1341,7 @@ class Fingerprint extends utils.Adapter {
             common: {
                 name: 'Ringing',
                 type: 'boolean',
-                role: 'sensor.doorbell',
+                role: 'sensor',
                 read: true,
                 write: false,
                 def: false,
@@ -1386,7 +1386,7 @@ class Fingerprint extends utils.Adapter {
             common: {
                 name: 'Enroll: finger ID',
                 type: 'number',
-                role: 'value',
+                role: 'level',
                 read: true,
                 write: true,
                 min: 1,
@@ -1443,7 +1443,7 @@ class Fingerprint extends utils.Adapter {
             common: {
                 name: 'LED ring color',
                 type: 'number',
-                role: 'level.color',
+                role: 'level',
                 read: true,
                 write: true,
                 min: 1,

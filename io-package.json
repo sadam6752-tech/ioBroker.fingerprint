@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "fingerprint",
-    "version": "0.7.3",
+    "version": "0.7.4",
     "news": {
+      "0.7.4": {
+        "en": "Repository review fixes: correct state roles, mark adminPassword/webhookToken as protected & encrypted native, node.js 26 in CI, @iobroker/testing 6.x.",
+        "de": "Repository-Review-Korrekturen: State-Rollen korrigiert, adminPassword/webhookToken als protected & encrypted native markiert, Node.js 26 in CI, @iobroker/testing 6.x.",
+        "ru": "Исправления по ревью репозитория: корректные роли состояний, adminPassword/webhookToken помечены как protected и encrypted native, Node.js 26 в CI, @iobroker/testing 6.x.",
+        "fr": "Corrections de la revue du dépôt : rôles d'état corrigés, adminPassword/webhookToken marqués comme protected & encrypted native, Node.js 26 en CI, @iobroker/testing 6.x.",
+        "it": "Correzioni della revisione del repository: ruoli degli stati corretti, adminPassword/webhookToken segnati come protected & encrypted native, Node.js 26 in CI, @iobroker/testing 6.x.",
+        "es": "Correcciones de la revisión del repositorio: roles de estado corregidos, adminPassword/webhookToken marcados como protected y encrypted native, Node.js 26 en CI, @iobroker/testing 6.x.",
+        "pl": "Poprawki z przeglądu repozytorium: poprawne role stanów, adminPassword/webhookToken oznaczone jako protected i encrypted native, Node.js 26 w CI, @iobroker/testing 6.x.",
+        "pt": "Correções da revisão do repositório: papéis de estado corretos, adminPassword/webhookToken marcados como protected e encrypted native, Node.js 26 no CI, @iobroker/testing 6.x.",
+        "nl": "Correcties uit de repository-review: juiste state-rollen, adminPassword/webhookToken gemarkeerd als protected & encrypted native, Node.js 26 in CI, @iobroker/testing 6.x.",
+        "zh-cn": "仓库审查修复：修正状态角色，将 adminPassword/webhookToken 标记为 protected 与 encrypted native，CI 增加 Node.js 26，@iobroker/testing 升级到 6.x。",
+        "uk": "Виправлення за оглядом репозиторію: коректні ролі станів, adminPassword/webhookToken позначено як protected і encrypted native, Node.js 26 у CI, @iobroker/testing 6.x."
+      },
       "0.7.3": {
         "en": "Automated npm publishing via Trusted Publishing (OIDC) with provenance; removed the npm token from the deploy workflow.",
         "de": "Automatisiertes npm-Publishing über Trusted Publishing (OIDC) mit Provenance; npm-Token aus dem Deploy-Workflow entfernt.",
@@ -152,7 +165,9 @@
         "admin": ">=7.6.20"
       }
     ],
-    "tier": 3
+    "tier": 3,
+    "protectedNative": ["adminPassword", "webhookToken"],
+    "encryptedNative": ["adminPassword", "webhookToken"]
   },
   "native": {
     "espIp": "",
