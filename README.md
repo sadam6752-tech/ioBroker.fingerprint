@@ -87,6 +87,11 @@ Communication is authenticated in both directions:
 With firmware < v0.9.1 the token must be pasted manually into the device URLs. From
 v0.9.1 (server mode), the adapter provisions the URLs and token automatically.
 
+`adminPassword` and `webhookToken` are declared as protected and encrypted native
+attributes (`protectedNative` / `encryptedNative` in `io-package.json`): other adapters
+cannot read them and they are stored encrypted. **After updating from 0.7.4 or older, open
+the adapter settings once and save them**, so the existing values are re-written encrypted.
+
 ## Fingerprint Actions (no scripting)
 
 The **Fingerprint Actions** tab lets you trigger ioBroker objects directly from a
@@ -209,6 +214,16 @@ Writing either state applies the ring immediately.
 
 ## Changelog
 
+### 0.7.5
+
+- Repository checker fixes: moved `protectedNative` / `encryptedNative` to the **root** of
+  `io-package.json` (inside `common` they were ignored and the schema reported error E1105),
+  reduced `common.news` to 7 entries, added the complete MIT license text including the
+  copyright line to the README, completed the `.vscode` JSON schema settings, bumped
+  `@iobroker/testing` to 6.2.x
+- Please open and save the adapter settings once after this update, so `adminPassword` and
+  `webhookToken` are stored encrypted from now on
+
 ### 0.7.4
 
 - Repository review fixes: corrected state roles (`control.enrollId`/`ledColor`
@@ -256,10 +271,29 @@ Writing either state applies the ring immediately.
 ### 0.5.1
 
 - Conditions: the Finger field accepts several IDs comma-separated (e.g. `1,2,4`); added a hint/tooltip
+
 Older entries: see [CHANGELOG_OLD.md](CHANGELOG_OLD.md)
 
 ## License
 
 MIT License
 
-Copyright (c) 2026 sadam6752-tech
+Copyright (c) 2026 sadam6752-tech sadam6752@gmail.com
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

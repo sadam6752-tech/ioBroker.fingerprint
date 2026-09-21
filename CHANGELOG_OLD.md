@@ -1,5 +1,11 @@
 # Older Changelog
 
+### 0.6.0
+- **Manage Fingers** tab: rename a finger, and backup / restore all fingerprints
+  (stored in a file on the ioBroker host that survives adapter updates)
+- **Snapshot** action: per-rule checkbox + a *Snapshot target* object — set in addition
+  to the normal action, e.g. to trigger a script that captures an ESP32-CAM snapshot
+
 ### 0.5.1
 - Conditions: the Finger field accepts several IDs comma-separated (e.g. `1,2,4`); added a hint/tooltip
 

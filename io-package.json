@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "fingerprint",
-    "version": "0.7.4",
+    "version": "0.7.5",
     "news": {
+      "0.7.5": {
+        "en": "Repository checker fixes: protectedNative/encryptedNative moved to the root of io-package.json (schema error E1105), common.news reduced to 7 entries, complete MIT license text with copyright incl. e-mail in the README, .vscode JSON schemas completed, @iobroker/testing 6.2.x. Please open and save the adapter settings once after the update so adminPassword/webhookToken are stored encrypted.",
+        "de": "Repository-Checker-Korrekturen: protectedNative/encryptedNative auf die Root-Ebene von io-package.json verschoben (Schema-Fehler E1105), common.news auf 7 Eintraege reduziert, vollstaendiger MIT-Lizenztext mit Copyright inkl. E-Mail im README, VSCode-JSON-Schemas vervollstaendigt, @iobroker/testing 6.2.x. Bitte nach dem Update die Adapter-Einstellungen einmal oeffnen und speichern, damit adminPassword/webhookToken verschluesselt abgelegt werden.",
+        "ru": "Исправления по repository checker: protectedNative/encryptedNative перенесены на верхний уровень io-package.json (ошибка схемы E1105), common.news сокращён до 7 записей, полный текст лицензии MIT с копирайтом и e-mail в README, дополнены схемы VSCode, @iobroker/testing 6.2.x. После обновления откройте и сохраните настройки адаптера один раз, чтобы adminPassword/webhookToken хранились в зашифрованном виде.",
+        "fr": "Corrections pour le repository checker : protectedNative/encryptedNative deplaces a la racine de io-package.json (erreur de schema E1105), common.news reduit a 7 entrees, texte complet de la licence MIT avec copyright et e-mail dans le README, schemas JSON VSCode completes, @iobroker/testing 6.2.x. Apres la mise a jour, ouvrez et enregistrez une fois les parametres de l'adaptateur pour que adminPassword/webhookToken soient stockes chiffres.",
+        "it": "Correzioni per il repository checker: protectedNative/encryptedNative spostati nella radice di io-package.json (errore di schema E1105), common.news ridotto a 7 voci, testo completo della licenza MIT con copyright ed e-mail nel README, schemi JSON di VSCode completati, @iobroker/testing 6.2.x. Dopo l'aggiornamento aprire e salvare una volta le impostazioni dell'adattatore, cosi adminPassword/webhookToken vengono memorizzati cifrati.",
+        "es": "Correcciones para el repository checker: protectedNative/encryptedNative movidos a la raiz de io-package.json (error de esquema E1105), common.news reducido a 7 entradas, texto completo de la licencia MIT con copyright y correo electronico en el README, esquemas JSON de VSCode completados, @iobroker/testing 6.2.x. Tras la actualizacion, abra y guarde una vez los ajustes del adaptador para que adminPassword/webhookToken se almacenen cifrados.",
+        "pl": "Poprawki dla repository checkera: protectedNative/encryptedNative przeniesione do katalogu glownego io-package.json (blad schematu E1105), common.news skrocone do 7 wpisow, pelny tekst licencji MIT z prawami autorskimi i e-mailem w README, uzupelnione schematy JSON VSCode, @iobroker/testing 6.2.x. Po aktualizacji otworz i zapisz raz ustawienia adaptera, aby adminPassword/webhookToken byly przechowywane zaszyfrowane.",
+        "pt": "Correcoes para o repository checker: protectedNative/encryptedNative movidos para a raiz do io-package.json (erro de esquema E1105), common.news reduzido a 7 entradas, texto completo da licenca MIT com copyright e e-mail no README, esquemas JSON do VSCode completados, @iobroker/testing 6.2.x. Apos a atualizacao, abra e salve uma vez as configuracoes do adaptador para que adminPassword/webhookToken sejam armazenados criptografados.",
+        "nl": "Repository-checker-correcties: protectedNative/encryptedNative verplaatst naar de root van io-package.json (schemafout E1105), common.news teruggebracht tot 7 entries, volledige MIT-licentietekst met copyright en e-mail in de README, VSCode JSON-schema's aangevuld, @iobroker/testing 6.2.x. Open en bewaar de adapterinstellingen een keer na de update, zodat adminPassword/webhookToken versleuteld worden opgeslagen.",
+        "uk": "Виправлення для repository checker: protectedNative/encryptedNative перенесено на верхній рівень io-package.json (помилка схеми E1105), common.news скорочено до 7 записів, повний текст ліцензії MIT з копірайтом і e-mail у README, доповнено схеми VSCode, @iobroker/testing 6.2.x. Після оновлення відкрийте та збережіть налаштування адаптера один раз, щоб adminPassword/webhookToken зберігалися зашифрованими.",
+        "zh-cn": "仓库检查修复：将 protectedNative/encryptedNative 移至 io-package.json 的根级（架构错误 E1105），common.news 精简为 7 条，README 中加入包含版权与邮箱的完整 MIT 许可证文本，补全 VSCode JSON 架构，@iobroker/testing 升级到 6.2.x。更新后请打开并保存一次适配器设置，以便 adminPassword/webhookToken 以加密方式存储。"
+      },
       "0.7.4": {
         "en": "Repository review fixes: correct state roles, mark adminPassword/webhookToken as protected & encrypted native, node.js 26 in CI, @iobroker/testing 6.x.",
         "de": "Repository-Review-Korrekturen: State-Rollen korrigiert, adminPassword/webhookToken als protected & encrypted native markiert, Node.js 26 in CI, @iobroker/testing 6.x.",
@@ -80,32 +93,6 @@
         "nl": "Ongeldige jsonConfig hersteld: niet-ondersteunde 'attr' verwijderd uit de hernoem-velden (Manage Fingers) (instellingenpagina laadde niet)",
         "zh-cn": "修复无效的 jsonConfig：从 Manage Fingers 重命名字段中移除不支持的 'attr'（设置页面无法加载）",
         "uk": "Виправлено некоректний jsonConfig: прибрано непідтримуване 'attr' з полів перейменування (Manage Fingers) — сторінка налаштувань не відкривалася"
-      },
-      "0.6.0": {
-        "en": "Manage Fingers tab (rename, backup & restore via a file on the host) and Snapshot action (per-rule checkbox + target object, e.g. to trigger an ESP32-CAM capture)",
-        "de": "Tab Finger verwalten (umbenennen, sichern & wiederherstellen über eine Datei auf dem Host) und Snapshot-Aktion (Checkbox pro Regel + Zielobjekt, z. B. für eine ESP32-CAM-Aufnahme)",
-        "ru": "Вкладка «Управление пальцами» (переименование, резервная копия и восстановление через файл на хосте) и действие Snapshot (чекбокс на правило + целевой объект, напр. для снимка ESP32-CAM)",
-        "fr": "Onglet Gérer les doigts (renommer, sauvegarder et restaurer via un fichier sur l'hôte) et action Snapshot (case par règle + objet cible, p. ex. pour déclencher une capture ESP32-CAM)",
-        "it": "Scheda Gestisci dita (rinomina, backup e ripristino tramite un file sull'host) e azione Snapshot (casella per regola + oggetto target, es. per attivare una cattura ESP32-CAM)",
-        "es": "Pestaña Gestionar dedos (renombrar, copia de seguridad y restauración mediante un archivo en el host) y acción Snapshot (casilla por regla + objeto destino, p. ej. para una captura ESP32-CAM)",
-        "pl": "Karta Zarządzaj palcami (zmiana nazwy, kopia zapasowa i przywracanie przez plik na hoście) oraz akcja Snapshot (pole na regułę + obiekt docelowy, np. do zrzutu ESP32-CAM)",
-        "pt": "Separador Gerir dedos (renomear, cópia de segurança e restauro através de um ficheiro no host) e ação Snapshot (caixa por regra + objeto alvo, p. ex. para uma captura ESP32-CAM)",
-        "nl": "Tabblad Vingers beheren (hernoemen, back-up en herstel via een bestand op de host) en Snapshot-actie (vinkje per regel + doelobject, bijv. voor een ESP32-CAM-opname)",
-        "zh-cn": "管理手指选项卡（重命名、通过主机文件备份和恢复）以及快照动作（按规则复选框 + 目标对象，例如触发 ESP32-CAM 拍摄）",
-        "uk": "Вкладка «Управління пальцями» (перейменування, резервна копія та відновлення через файл на хості) і дія Snapshot (чекбокс на правило + цільовий обʼєкт, напр. для знімка ESP32-CAM)"
-      },
-      "0.5.1": {
-        "en": "Conditions: the Finger field now accepts several IDs comma-separated (e.g. 1,2,4); added a hint/tooltip",
-        "de": "Bedingungen: Das Finger-Feld akzeptiert jetzt mehrere IDs kommagetrennt (z. B. 1,2,4); Hinweis/Tooltip ergänzt",
-        "ru": "Условия: поле Finger теперь принимает несколько ID через запятую (например 1,2,4); добавлена подсказка",
-        "fr": "Conditions : le champ Finger accepte désormais plusieurs ID séparés par des virgules (p. ex. 1,2,4) ; info-bulle ajoutée",
-        "it": "Condizioni: il campo Finger ora accetta più ID separati da virgola (es. 1,2,4); aggiunto suggerimento",
-        "es": "Condiciones: el campo Finger ahora acepta varios ID separados por comas (p. ej. 1,2,4); añadido aviso",
-        "pl": "Warunki: pole Finger akceptuje teraz kilka ID oddzielonych przecinkami (np. 1,2,4); dodano podpowiedź",
-        "pt": "Condições: o campo Finger aceita agora vários IDs separados por vírgulas (p. ex. 1,2,4); dica adicionada",
-        "nl": "Voorwaarden: het Finger-veld accepteert nu meerdere ID's komma-gescheiden (bijv. 1,2,4); tooltip toegevoegd",
-        "zh-cn": "条件：Finger 字段现在接受用逗号分隔的多个 ID（例如 1,2,4）；已添加提示",
-        "uk": "Умови: поле Finger тепер приймає кілька ID через кому (наприклад 1,2,4); додано підказку"
       }
     },
     "titleLang": {
@@ -134,8 +121,16 @@
       "zh-cn": "通过 HTTP 集成基于 ESP32 的 FingerprintDoorbell：指纹门禁和门铃事件",
       "uk": "Інтеграція ESP32-дзвінка FingerprintDoorbell через HTTP: події доступу за відбитком і дзвінка у двері"
     },
-    "authors": ["sadam6752-tech <sadam6752@gmail.com>"],
-    "keywords": ["esp32", "fingerprint", "doorbell", "r503", "smart-home"],
+    "authors": [
+      "sadam6752-tech <sadam6752@gmail.com>"
+    ],
+    "keywords": [
+      "esp32",
+      "fingerprint",
+      "doorbell",
+      "r503",
+      "smart-home"
+    ],
     "licenseInformation": {
       "license": "MIT",
       "type": "free"
@@ -165,9 +160,7 @@
         "admin": ">=7.6.20"
       }
     ],
-    "tier": 3,
-    "protectedNative": ["adminPassword", "webhookToken"],
-    "encryptedNative": ["adminPassword", "webhookToken"]
+    "tier": 3
   },
   "native": {
     "espIp": "",
@@ -192,6 +185,14 @@
     "snapshotActionObject": "",
     "snapshotActionValue": ""
   },
+  "protectedNative": [
+    "adminPassword",
+    "webhookToken"
+  ],
+  "encryptedNative": [
+    "adminPassword",
+    "webhookToken"
+  ],
   "objects": [],
   "instanceObjects": [
     {
