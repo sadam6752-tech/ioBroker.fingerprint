@@ -1,5 +1,8 @@
 # Older Changelog
 
+### 0.6.1
+- Fix invalid jsonConfig: remove unsupported `attr` from the Manage Fingers rename fields (settings page failed to load)
+
 ### 0.6.0
 - **Manage Fingers** tab: rename a finger, and backup / restore all fingerprints
   (stored in a file on the ioBroker host that survives adapter updates)

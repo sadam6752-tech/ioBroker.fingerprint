@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "fingerprint",
-    "version": "0.7.5",
+    "version": "0.7.6",
     "news": {
+      "0.7.6": {
+        "en": "HOTFIX: v0.7.5 declared protectedNative/encryptedNative. The js-controller then converted previously stored plain text values (admin password, webhook token) into unusable data before the adapter started, so device login and provisioning failed. encryptedNative has been removed again; the values are only marked as protectedNative, stored values keep working. Unusable values (including settings saved while 0.7.5 was active) are detected automatically: the webhook token is regenerated and the password has to be entered once again.",
+        "de": "HOTFIX: In v0.7.5 wurden protectedNative/encryptedNative deklariert. Der js-controller hat daraufhin zuvor als Klartext gespeicherte Werte (Admin-Passwort, Webhook-Token) vor dem Adapterstart in unbrauchbare Daten umgewandelt, wodurch Geraete-Login und Provisioning fehlschlugen. encryptedNative wurde wieder entfernt, die Werte sind nur noch als protectedNative markiert, gespeicherte Werte funktionieren also weiter. Unbrauchbare Werte (auch ein Speichern der Einstellungen waehrend v0.7.5) werden automatisch erkannt: der Webhook-Token wird neu erzeugt und das Passwort muss einmal neu eingegeben werden.",
+        "ru": "HOTFIX: в v0.7.5 были объявлены protectedNative/encryptedNative. js-controller перед запуском адаптера превращал ранее сохранённые значения в открытом виде (пароль администратора, webhook-токен) в нечитаемые данные, из-за чего вход на устройство и провижининг не работали. encryptedNative снова удалён, значения помечены только как protectedNative, поэтому сохранённые данные продолжают работать. Нечитаемые значения (в том числе сохранение настроек при активной v0.7.5) определяются автоматически: webhook-токен создаётся заново, пароль нужно ввести ещё раз.",
+        "fr": "HOTFIX : la v0.7.5 declarait protectedNative/encryptedNative. Le js-controller transformait alors les valeurs precedemment enregistrees en clair (mot de passe admin, jeton webhook) en donnees inutilisables avant le demarrage de l'adaptateur, ce qui faisait echouer la connexion a l'appareil et le provisionnement. encryptedNative a ete retire ; les valeurs ne sont plus que protectedNative, les valeurs enregistrees continuent donc de fonctionner. Les valeurs inutilisables (y compris un enregistrement des parametres fait avec la v0.7.5) sont detectees automatiquement : le jeton webhook est regenere et le mot de passe doit etre saisi une nouvelle fois.",
+        "it": "HOTFIX: la v0.7.5 dichiarava protectedNative/encryptedNative. Il js-controller trasformava quindi i valori salvati in precedenza in chiaro (password admin, token webhook) in dati inutilizzabili prima dell'avvio dell'adattatore, facendo fallire login al dispositivo e provisioning. encryptedNative e stato rimosso di nuovo; i valori sono solo protectedNative, quindi i valori salvati continuano a funzionare. I valori inutilizzabili (incluso un salvataggio delle impostazioni fatto con la v0.7.5) vengono rilevati automaticamente: il token webhook viene rigenerato e la password deve essere inserita una seconda volta.",
+        "es": "HOTFIX: la v0.7.5 declaraba protectedNative/encryptedNative. El js-controller convertia entonces los valores guardados previamente en texto claro (contrasena de admin, token de webhook) en datos inutilizables antes de iniciar el adaptador, por lo que fallaban el inicio de sesion en el dispositivo y el provisioning. encryptedNative se ha vuelto a quitar; los valores solo se marcan como protectedNative, por lo que los valores guardados siguen funcionando. Los valores inutilizables (incluido un guardado de ajustes hecho con la v0.7.5) se detectan automaticamente: el token de webhook se regenera y la contrasena debe volver a introducirse.",
+        "pl": "HOTFIX: w v0.7.5 zadeklarowano protectedNative/encryptedNative. js-controller zamienial wczesniej zapisane wartosci w postaci jawnej (haslo administratora, token webhook) na nieuzywalne dane przed startem adaptera, przez co logowanie do urzadzenia i provisioning zawodzily. encryptedNative zostal ponownie usuniety, wartosci sa tylko oznaczone jako protectedNative, wiec zapisane dane nadal dzialaja. Nieuzywalne wartosci (takze zapis ustawien wykonany przy v0.7.5) sa wykrywane automatycznie: token webhook jest generowany od nowa, a haslo trzeba wprowadzic jeszcze raz.",
+        "pt": "HOTFIX: a v0.7.5 declarava protectedNative/encryptedNative. O js-controller convertia entao valores guardados anteriormente em texto simples (senha de admin, token de webhook) em dados inutilizaveis antes de iniciar o adaptador, pelo que o login no dispositivo e o provisionamento falhavam. O encryptedNative foi removido novamente; os valores ficam apenas como protectedNative, portanto os valores guardados continuam a funcionar. Valores inutilizaveis (incluindo um salvamento das configuracoes feito com a v0.7.5) sao detetados automaticamente: o token de webhook e regenerado e a senha tem de ser introduzida outra vez.",
+        "nl": "HOTFIX: in v0.7.5 waren protectedNative/encryptedNative gedeclareerd. De js-controller zette eerder als platte tekst opgeslagen waarden (adminwachtwoord, webhooktoken) om in onbruikbare data voordat de adapter startte, waardoor apparaatlogin en provisioning mislukten. encryptedNative is weer verwijderd; de waarden zijn alleen nog protectedNative, dus opgeslagen waarden blijven werken. Onbruikbare waarden (ook een keer opslaan van de instellingen met v0.7.5) worden automatisch herkend: het webhooktoken wordt opnieuw gegenereerd en het wachtwoord moet nog een keer worden ingevoerd.",
+        "uk": "HOTFIX: у v0.7.5 було оголошено protectedNative/encryptedNative. js-controller перетворював раніше збережені значення у відкритому вигляді (пароль адміністратора, webhook-токен) на нечитабельні дані до запуску адаптера, через що вхід на пристрій і провіжнінг не працювали. encryptedNative знову прибрано, значення позначені лише як protectedNative, тому збережені дані продовжують працювати. Нечитабельні значення (зокрема збереження налаштувань під час v0.7.5) визначаються автоматично: webhook-токен створюється заново, пароль потрібно ввести ще раз.",
+        "zh-cn": "HOTFIX：v0.7.5 声明了 protectedNative/encryptedNative。js-controller 因此在适配器启动前将之前以明文保存的值（管理员密码、webhook 令牌）转换为不可用数据，导致设备登录和配置失败。现已再次移除 encryptedNative；这些值仅标记为 protectedNative，因此已保存的值仍可正常使用。不可用的值（包括在 v0.7.5 期间保存的设置）会被自动识别：webhook 令牌将重新生成，密码需要再次输入。"
+      },
       "0.7.5": {
         "en": "Repository checker fixes: protectedNative/encryptedNative moved to the root of io-package.json (schema error E1105), common.news reduced to 7 entries, complete MIT license text with copyright incl. e-mail in the README, .vscode JSON schemas completed, @iobroker/testing 6.2.x. Please open and save the adapter settings once after the update so adminPassword/webhookToken are stored encrypted.",
         "de": "Repository-Checker-Korrekturen: protectedNative/encryptedNative auf die Root-Ebene von io-package.json verschoben (Schema-Fehler E1105), common.news auf 7 Eintraege reduziert, vollstaendiger MIT-Lizenztext mit Copyright inkl. E-Mail im README, VSCode-JSON-Schemas vervollstaendigt, @iobroker/testing 6.2.x. Bitte nach dem Update die Adapter-Einstellungen einmal oeffnen und speichern, damit adminPassword/webhookToken verschluesselt abgelegt werden.",
@@ -80,19 +93,6 @@
         "nl": "Een nieuwe vinger registreren vanuit de adapter, LED-ring-bediening en WiFi-signaal (info.wifiRssi) — vereist FingerprintDoorbell-firmware v0.9.4. Voorwaarden: referentielijst 'Beschikbare vingers' toegevoegd.",
         "zh-cn": "从适配器录入新指纹、LED 灯环控制和 WiFi 信号（info.wifiRssi）— 需要 FingerprintDoorbell 固件 v0.9.4。条件页：新增“可用指纹”参考下拉列表。",
         "uk": "Реєстрація нового відбитка з адаптера, керування LED-кільцем і рівень WiFi (info.wifiRssi) — потрібна прошивка FingerprintDoorbell v0.9.4. Умови: додано довідковий список 'Доступні відбитки'."
-      },
-      "0.6.1": {
-        "en": "Fix invalid jsonConfig: remove unsupported 'attr' from the Manage Fingers rename fields (settings page failed to load)",
-        "de": "Ungültige jsonConfig behoben: nicht unterstütztes 'attr' aus den Umbenennen-Feldern (Manage Fingers) entfernt (Einstellungsseite lud nicht)",
-        "ru": "Исправлен некорректный jsonConfig: убрано неподдерживаемое 'attr' из полей переименования (Manage Fingers) — страница настроек не открывалась",
-        "fr": "Correction du jsonConfig invalide : suppression de 'attr' non pris en charge des champs de renommage (Manage Fingers) (la page de réglages ne se chargeait pas)",
-        "it": "Corretto jsonConfig non valido: rimosso 'attr' non supportato dai campi di rinomina (Manage Fingers) (la pagina impostazioni non si caricava)",
-        "es": "Corregido jsonConfig no válido: eliminado 'attr' no compatible de los campos de renombrado (Manage Fingers) (la página de ajustes no cargaba)",
-        "pl": "Naprawiono nieprawidłowy jsonConfig: usunięto nieobsługiwane 'attr' z pól zmiany nazwy (Manage Fingers) (strona ustawień się nie ładowała)",
-        "pt": "Corrigido jsonConfig inválido: removido 'attr' não suportado dos campos de renomear (Manage Fingers) (a página de definições não carregava)",
-        "nl": "Ongeldige jsonConfig hersteld: niet-ondersteunde 'attr' verwijderd uit de hernoem-velden (Manage Fingers) (instellingenpagina laadde niet)",
-        "zh-cn": "修复无效的 jsonConfig：从 Manage Fingers 重命名字段中移除不支持的 'attr'（设置页面无法加载）",
-        "uk": "Виправлено некоректний jsonConfig: прибрано непідтримуване 'attr' з полів перейменування (Manage Fingers) — сторінка налаштувань не відкривалася"
       }
     },
     "titleLang": {
@@ -186,10 +186,6 @@
     "snapshotActionValue": ""
   },
   "protectedNative": [
-    "adminPassword",
-    "webhookToken"
-  ],
-  "encryptedNative": [
     "adminPassword",
     "webhookToken"
   ],
