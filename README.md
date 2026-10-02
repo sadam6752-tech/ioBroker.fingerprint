@@ -72,6 +72,62 @@ touch ring                          ◄───────  GET /set-touch-rin
    HTTP Ring URL:  http://<iobroker-ip>:8095/ring?token=<token>
    ```
 
+## Disclaimer
+
+**English**
+
+This adapter is an independent, community-made integration. It is **not** affiliated with,
+endorsed by or supported by the authors of the FingerprintDoorbell firmware, the sensor
+manufacturers or ioBroker GmbH. The software is provided **"as is", without warranty of any
+kind** (see the MIT [LICENSE](LICENSE)); you use it at your own risk.
+
+- **Not a certified security product.** Consumer fingerprint sensors (e.g. R503) can produce
+  false accepts and false rejects and can be spoofed. Do **not** rely on this adapter as the
+  only protection for doors, locks, alarm systems or anything that guards people or property,
+  and always keep a mechanical or otherwise independent way in and out.
+- **Not for safety-critical use.** Network, Wi-Fi, power or software failures can delay or
+  drop events. Never use it where a failure could endanger life or health (e.g. fire exits).
+- **Your network, your responsibility.** The device WebUI and the webhook use plain HTTP
+  (Basic Auth and a shared token are sent unencrypted). Use them only in a trusted LAN/VLAN,
+  never expose the webhook port or the device to the internet, and keep the token secret.
+- **Biometric data / privacy (GDPR).** Fingerprint templates, names, timestamps and access
+  logs are personal data. You are the controller: obtain the consent of the people enrolled,
+  protect backup files (`fingerprints-backup.json` contains the raw templates, unencrypted)
+  and observe the laws that apply to you (e.g. GDPR/BDSG, works-council rules for employees).
+- **Actions run unattended.** Fingerprint rules write to any ioBroker object you choose
+  (lights, locks, alarms, scripts). Test your rules carefully before you depend on them.
+- The authors are not liable for damage, loss of data, unauthorised access, burglary or any
+  other consequence arising from the use or misuse of this software.
+
+**Deutsch**
+
+Dieser Adapter ist eine unabhängige Community-Integration und steht in **keiner** Verbindung
+zu den Autoren der FingerprintDoorbell-Firmware, den Sensorherstellern oder der ioBroker GmbH.
+Die Software wird **„wie besehen“ ohne jegliche Gewährleistung** bereitgestellt (siehe
+MIT-[LICENSE](LICENSE)); die Nutzung erfolgt auf eigenes Risiko.
+
+- **Kein zertifiziertes Sicherheitsprodukt.** Fingerabdrucksensoren für den Endverbraucher
+  (z. B. R503) können Personen fälschlich akzeptieren oder abweisen und lassen sich überlisten.
+  Verlasse dich nicht allein auf diesen Adapter, um Türen, Schlösser, Alarmanlagen oder
+  Personen und Sachwerte zu schützen, und halte immer einen mechanischen bzw. unabhängigen
+  Zugang bereit.
+- **Nicht für sicherheitskritische Anwendungen.** Netzwerk-, WLAN-, Strom- oder Softwarefehler
+  können Ereignisse verzögern oder verlieren. Nicht dort einsetzen, wo ein Ausfall Leben oder
+  Gesundheit gefährden kann (z. B. Fluchttüren).
+- **Dein Netzwerk, deine Verantwortung.** WebUI des Geräts und Webhook nutzen unverschlüsseltes
+  HTTP (Basic-Auth und Token werden im Klartext übertragen). Nur in einem vertrauenswürdigen
+  LAN/VLAN betreiben, Webhook-Port und Gerät niemals ins Internet freigeben, Token geheim halten.
+- **Biometrische Daten / Datenschutz (DSGVO).** Fingerabdruck-Templates, Namen, Zeitstempel und
+  Zugriffsprotokolle sind personenbezogene Daten. Du bist Verantwortlicher: Hole die
+  Einwilligung der eingelernten Personen ein, schütze Backup-Dateien
+  (`fingerprints-backup.json` enthält die Roh-Templates unverschlüsselt) und beachte die für
+  dich geltenden Gesetze (z. B. DSGVO/BDSG, Betriebsrat bei Beschäftigten).
+- **Aktionen laufen automatisch.** Fingerabdruck-Regeln schreiben in beliebige von dir gewählte
+  ioBroker-Objekte (Licht, Schlösser, Alarm, Skripte). Teste deine Regeln gründlich, bevor du
+  dich darauf verlässt.
+- Die Autoren haften nicht für Schäden, Datenverlust, unbefugten Zutritt, Einbruch oder sonstige
+  Folgen aus der Nutzung oder dem Missbrauch dieser Software.
+
 ## Security
 
 Communication is authenticated in both directions:

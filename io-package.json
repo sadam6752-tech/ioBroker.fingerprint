@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "fingerprint",
-    "version": "0.7.6",
+    "version": "0.7.7",
     "news": {
+      "0.7.7": {
+        "en": "Security and stability fixes: unhandled errors in webhook handlers can no longer crash the adapter, objects are only created for valid finger IDs (1-200), constant-time token comparison, webhook timeouts, input limits, LED values are range-checked. Added disclaimer to README.",
+        "de": "Sicherheits- und Stabilitaetsfixes: Fehler in Webhook-Handlern koennen den Adapter nicht mehr abstuerzen lassen, Objekte werden nur fuer gueltige Finger-IDs (1-200) angelegt, zeitkonstanter Token-Vergleich, Webhook-Timeouts, Eingabelimits, LED-Werte werden geprueft. Disclaimer in der README ergaenzt.",
+        "ru": "Исправления безопасности и стабильности: необработанные ошибки в обработчиках webhook больше не приводят к сбою адаптера, объекты создаются только для допустимых ID отпечатков (1-200), сравнение токена за постоянное время, тайм-ауты webhook, ограничения ввода, проверка значений LED. В README добавлен отказ от ответственности.",
+        "fr": "Corrections de securite et de stabilite : les erreurs non gerees dans les gestionnaires webhook ne peuvent plus faire planter l'adaptateur, les objets ne sont crees que pour des ID d'empreinte valides (1-200), comparaison du jeton en temps constant, delais webhook, limites d'entree, valeurs LED verifiees. Avertissement ajoute au README.",
+        "it": "Correzioni di sicurezza e stabilita: gli errori non gestiti nei gestori webhook non possono piu bloccare l'adattatore, gli oggetti vengono creati solo per ID impronta validi (1-200), confronto del token a tempo costante, timeout webhook, limiti di input, valori LED verificati. Aggiunto disclaimer al README.",
+        "es": "Correcciones de seguridad y estabilidad: los errores no controlados en los manejadores de webhook ya no pueden bloquear el adaptador, los objetos solo se crean para ID de huella validos (1-200), comparacion del token en tiempo constante, tiempos de espera del webhook, limites de entrada, valores LED comprobados. Descargo de responsabilidad anadido al README.",
+        "pl": "Poprawki bezpieczenstwa i stabilnosci: nieobsluzone bledy w handlerach webhook nie powoduja juz awarii adaptera, obiekty sa tworzone tylko dla poprawnych ID odciskow (1-200), porownanie tokena w stalym czasie, limity czasu webhook, limity danych wejsciowych, sprawdzanie wartosci LED. Dodano zastrzezenie w README.",
+        "pt": "Correcoes de seguranca e estabilidade: erros nao tratados nos manipuladores de webhook ja nao podem derrubar o adaptador, os objetos so sao criados para IDs de impressao digital validos (1-200), comparacao do token em tempo constante, timeouts do webhook, limites de entrada, valores LED verificados. Aviso legal adicionado ao README.",
+        "nl": "Beveiligings- en stabiliteitsfixes: onafgehandelde fouten in webhook-handlers kunnen de adapter niet meer laten crashen, objecten worden alleen voor geldige vinger-ID's (1-200) aangemaakt, tokenvergelijking in constante tijd, webhook-timeouts, invoerlimieten, LED-waarden worden gecontroleerd. Disclaimer toegevoegd aan README.",
+        "uk": "Виправлення безпеки та стабільності: необроблені помилки в обробниках webhook більше не можуть призвести до збою адаптера, об'єкти створюються лише для допустимих ID відбитків (1-200), порівняння токена за сталий час, тайм-аути webhook, обмеження вводу, перевірка значень LED. У README додано відмову від відповідальності.",
+        "zh-cn": "安全与稳定性修复：webhook 处理程序中未处理的错误不再导致适配器崩溃，仅为有效指纹 ID（1-200）创建对象，令牌恒定时间比较，webhook 超时，输入限制，检查 LED 值范围。README 中添加免责声明。"
+      },
       "0.7.6": {
         "en": "HOTFIX: v0.7.5 declared protectedNative/encryptedNative. The js-controller then converted previously stored plain text values (admin password, webhook token) into unusable data before the adapter started, so device login and provisioning failed. encryptedNative has been removed again; the values are only marked as protectedNative, stored values keep working. Unusable values (including settings saved while 0.7.5 was active) are detected automatically: the webhook token is regenerated and the password has to be entered once again.",
         "de": "HOTFIX: In v0.7.5 wurden protectedNative/encryptedNative deklariert. Der js-controller hat daraufhin zuvor als Klartext gespeicherte Werte (Admin-Passwort, Webhook-Token) vor dem Adapterstart in unbrauchbare Daten umgewandelt, wodurch Geraete-Login und Provisioning fehlschlugen. encryptedNative wurde wieder entfernt, die Werte sind nur noch als protectedNative markiert, gespeicherte Werte funktionieren also weiter. Unbrauchbare Werte (auch ein Speichern der Einstellungen waehrend v0.7.5) werden automatisch erkannt: der Webhook-Token wird neu erzeugt und das Passwort muss einmal neu eingegeben werden.",
@@ -80,19 +93,6 @@
         "nl": "De registratiesectie (Vingers beheren) toont nu ook de referentielijst 'Beschikbare vingers' om een vrije slot-ID te kiezen.",
         "zh-cn": "录入区（管理手指）现在也显示“可用指纹”参考下拉列表，便于选择空闲的槽位 ID。",
         "uk": "Розділ реєстрації (Управління пальцями) тепер теж показує довідковий список 'Доступні відбитки', щоб вибрати вільний ID слота."
-      },
-      "0.7.0": {
-        "en": "Enroll a new finger from the adapter, LED ring control and WiFi signal (info.wifiRssi) — all need FingerprintDoorbell firmware v0.9.4. Conditions: added an 'Available fingers' reference dropdown.",
-        "de": "Neuen Finger direkt aus dem Adapter anlernen, LED-Ring-Steuerung und WLAN-Signal (info.wifiRssi) — benötigt FingerprintDoorbell-Firmware v0.9.4. Bedingungen: Referenz-Dropdown 'Verfügbare Finger' ergänzt.",
-        "ru": "Регистрация нового отпечатка из адаптера, управление LED-кольцом и уровень WiFi (info.wifiRssi) — требуется прошивка FingerprintDoorbell v0.9.4. Условия: добавлен справочный список 'Доступные отпечатки'.",
-        "fr": "Enregistrer un nouveau doigt depuis l'adaptateur, contrôle de l'anneau LED et signal WiFi (info.wifiRssi) — nécessite le firmware FingerprintDoorbell v0.9.4. Conditions : ajout d'une liste de référence 'Doigts disponibles'.",
-        "it": "Registra un nuovo dito dall'adattatore, controllo dell'anello LED e segnale WiFi (info.wifiRssi) — richiede il firmware FingerprintDoorbell v0.9.4. Condizioni: aggiunto un elenco di riferimento 'Dita disponibili'.",
-        "es": "Registrar un nuevo dedo desde el adaptador, control del anillo LED y señal WiFi (info.wifiRssi) — requiere el firmware FingerprintDoorbell v0.9.4. Condiciones: añadida una lista de referencia 'Dedos disponibles'.",
-        "pl": "Rejestracja nowego palca z adaptera, sterowanie pierścieniem LED i sygnał WiFi (info.wifiRssi) — wymaga firmware FingerprintDoorbell v0.9.4. Warunki: dodano listę referencyjną 'Dostępne palce'.",
-        "pt": "Registar um novo dedo a partir do adaptador, controlo do anel LED e sinal WiFi (info.wifiRssi) — requer o firmware FingerprintDoorbell v0.9.4. Condições: adicionada uma lista de referência 'Dedos disponíveis'.",
-        "nl": "Een nieuwe vinger registreren vanuit de adapter, LED-ring-bediening en WiFi-signaal (info.wifiRssi) — vereist FingerprintDoorbell-firmware v0.9.4. Voorwaarden: referentielijst 'Beschikbare vingers' toegevoegd.",
-        "zh-cn": "从适配器录入新指纹、LED 灯环控制和 WiFi 信号（info.wifiRssi）— 需要 FingerprintDoorbell 固件 v0.9.4。条件页：新增“可用指纹”参考下拉列表。",
-        "uk": "Реєстрація нового відбитка з адаптера, керування LED-кільцем і рівень WiFi (info.wifiRssi) — потрібна прошивка FingerprintDoorbell v0.9.4. Умови: додано довідковий список 'Доступні відбитки'."
       }
     },
     "titleLang": {

@@ -614,10 +614,12 @@ class Fingerprint extends utils.Adapter {
         await this.setStateAsync('stats.lastPerson', { val: event.name || '', ack: true });
         await this._incrementCounter('stats.totalMatches');
 
-        // Per-finger history
-        await this._ensureFingerObjects(event.id, event.name || `Finger ${event.id}`);
-        await this.setStateAsync(`fingerprints.${event.id}.lastSeen`, { val: ts, ack: true });
-        await this._incrementCounter(`fingerprints.${event.id}.count`);
+        // Per-finger history (only for valid slot ids — never create objects from arbitrary input)
+        if (Number.isInteger(event.id) && event.id >= 1 && event.id <= 200) {
+            await this._ensureFingerObjects(event.id, event.name || `Finger ${event.id}`);
+            await this.setStateAsync(`fingerprints.${event.id}.lastSeen`, { val: ts, ack: true });
+            await this._incrementCounter(`fingerprints.${event.id}.count`);
+        }
 
         // Run the configured action for this finger, if any
         await this._runMatchAction(event);
@@ -1023,8 +1025,10 @@ class Fingerprint extends utils.Adapter {
     async _applyLed() {
         const modeState = await this.getStateAsync('control.ledMode');
         const colorState = await this.getStateAsync('control.ledColor');
-        const mode = modeState && Number.isFinite(modeState.val) ? Number(modeState.val) : 1;
-        const color = colorState && Number.isFinite(colorState.val) ? Number(colorState.val) : 2;
+        const clamp = (v, min, max, def) =>
+            Number.isFinite(v) ? Math.min(max, Math.max(min, Math.round(Number(v)))) : def;
+        const mode = clamp(modeState && modeState.val, 0, 3, 1);
+        const color = clamp(colorState && colorState.val, 1, 7, 2);
         // breathing/flashing need a non-zero speed to be visible
         const speed = mode >= 2 ? 128 : 0;
         try {
