@@ -241,6 +241,10 @@ Writing either state applies the ring immediately.
 
 ## Changelog
 
+### 0.7.8
+
+- README is English-only (German disclaimer moved to `DISCLAIMER.de.md`), added the 0.7.7 changelog entry, updated `@iobroker/testing` to 6.3.x
+
 ### 0.7.7
 
 - Security/stability: errors in the async webhook handlers can no longer crash the adapter; objects are only created for valid finger IDs (1–200); constant-time token comparison; webhook timeouts; name length and device response size limits; LED values are range-checked; fixed an unhandled rejection after a failed backup request

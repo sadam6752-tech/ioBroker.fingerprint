@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "fingerprint",
-    "version": "0.7.7",
+    "version": "0.7.8",
     "news": {
+      "0.7.8": {
+        "en": "Documentation and dependency update: README is English-only (German disclaimer moved to DISCLAIMER.de.md), changelog entry added, @iobroker/testing updated to 6.3.",
+        "de": "Dokumentations- und Abhaengigkeits-Update: README nur noch Englisch (deutscher Disclaimer in DISCLAIMER.de.md), Changelog-Eintrag ergaenzt, @iobroker/testing auf 6.3 aktualisiert.",
+        "ru": "Обновление документации и зависимостей: README только на английском (немецкий отказ от ответственности перенесён в DISCLAIMER.de.md), добавлена запись в changelog, @iobroker/testing обновлён до 6.3.",
+        "fr": "Mise a jour de la documentation et des dependances : README uniquement en anglais (avertissement allemand deplace dans DISCLAIMER.de.md), entree de changelog ajoutee, @iobroker/testing mis a jour en 6.3.",
+        "it": "Aggiornamento di documentazione e dipendenze: README solo in inglese (disclaimer tedesco spostato in DISCLAIMER.de.md), voce di changelog aggiunta, @iobroker/testing aggiornato a 6.3.",
+        "es": "Actualizacion de documentacion y dependencias: README solo en ingles (descargo aleman movido a DISCLAIMER.de.md), entrada de changelog anadida, @iobroker/testing actualizado a 6.3.",
+        "pl": "Aktualizacja dokumentacji i zaleznosci: README tylko po angielsku (niemieckie zastrzezenie przeniesiono do DISCLAIMER.de.md), dodano wpis w changelogu, @iobroker/testing zaktualizowano do 6.3.",
+        "pt": "Atualizacao de documentacao e dependencias: README apenas em ingles (aviso legal em alemao movido para DISCLAIMER.de.md), entrada de changelog adicionada, @iobroker/testing atualizado para 6.3.",
+        "nl": "Documentatie- en afhankelijkheidsupdate: README alleen in het Engels (Duitse disclaimer verplaatst naar DISCLAIMER.de.md), changelog-item toegevoegd, @iobroker/testing bijgewerkt naar 6.3.",
+        "uk": "Оновлення документації та залежностей: README лише англійською (німецьку відмову від відповідальності перенесено до DISCLAIMER.de.md), додано запис у changelog, @iobroker/testing оновлено до 6.3.",
+        "zh-cn": "文档和依赖更新：README 仅保留英文（德文免责声明移至 DISCLAIMER.de.md），补充更新日志条目，@iobroker/testing 升级到 6.3。"
+      },
       "0.7.7": {
         "en": "Security and stability fixes: unhandled errors in webhook handlers can no longer crash the adapter, objects are only created for valid finger IDs (1-200), constant-time token comparison, webhook timeouts, input limits, LED values are range-checked. Added disclaimer to README.",
         "de": "Sicherheits- und Stabilitaetsfixes: Fehler in Webhook-Handlern koennen den Adapter nicht mehr abstuerzen lassen, Objekte werden nur fuer gueltige Finger-IDs (1-200) angelegt, zeitkonstanter Token-Vergleich, Webhook-Timeouts, Eingabelimits, LED-Werte werden geprueft. Disclaimer in der README ergaenzt.",
@@ -80,19 +93,6 @@
         "nl": "Repository-conformiteit: responsieve grootte-attributen in de admin-UI, licentie-copyrightregel, uk-vertalingen, deploy-workflow en interne opschoning.",
         "zh-cn": "仓库合规：管理界面的响应式尺寸属性、许可证版权行、乌克兰语翻译、部署工作流以及内部清理。",
         "uk": "Відповідність вимогам репозиторію: адаптивні size-атрибути в адмін-UI, рядок copyright ліцензії, українські переклади, deploy-workflow та внутрішні доопрацювання."
-      },
-      "0.7.1": {
-        "en": "Enroll section (Manage Fingers) now also shows the 'Available fingers' reference dropdown, so you can pick a free slot ID.",
-        "de": "Die Anlernen-Sektion (Finger verwalten) zeigt jetzt ebenfalls das Referenz-Dropdown 'Verfügbare Finger', damit du eine freie Slot-ID wählen kannst.",
-        "ru": "В разделе регистрации (Управление пальцами) теперь тоже есть справочный список 'Доступные отпечатки', чтобы выбрать свободный ID слота.",
-        "fr": "La section d'enregistrement (Gérer les doigts) affiche désormais aussi la liste de référence 'Doigts disponibles' pour choisir un ID d'emplacement libre.",
-        "it": "La sezione di registrazione (Gestisci dita) ora mostra anche l'elenco di riferimento 'Dita disponibili' per scegliere un ID di slot libero.",
-        "es": "La sección de registro (Gestionar dedos) ahora también muestra la lista de referencia 'Dedos disponibles' para elegir un ID de ranura libre.",
-        "pl": "Sekcja rejestracji (Zarządzaj palcami) pokazuje teraz również listę referencyjną 'Dostępne palce', aby wybrać wolny ID slotu.",
-        "pt": "A secção de registo (Gerir dedos) mostra agora também a lista de referência 'Dedos disponíveis' para escolher um ID de slot livre.",
-        "nl": "De registratiesectie (Vingers beheren) toont nu ook de referentielijst 'Beschikbare vingers' om een vrije slot-ID te kiezen.",
-        "zh-cn": "录入区（管理手指）现在也显示“可用指纹”参考下拉列表，便于选择空闲的槽位 ID。",
-        "uk": "Розділ реєстрації (Управління пальцями) тепер теж показує довідковий список 'Доступні відбитки', щоб вибрати вільний ID слота."
       }
     },
     "titleLang": {
