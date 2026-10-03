@@ -241,6 +241,10 @@ Writing either state applies the ring immediately.
 
 ## Changelog
 
+### 0.7.9
+
+- New: link to the device WebUI in the instance list of Admin (`localLinks`)
+
 ### 0.7.8
 
 - README is English-only (German disclaimer moved to `DISCLAIMER.de.md`), added the 0.7.7 changelog entry, updated `@iobroker/testing` to 6.3.x

@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "fingerprint",
-    "version": "0.7.8",
+    "version": "0.7.9",
     "news": {
+      "0.7.9": {
+        "en": "New: link to the device WebUI in the instance list of Admin (localLinks).",
+        "de": "Neu: Link zur WebUI des Geraets in der Instanzliste von Admin (localLinks).",
+        "ru": "Новое: ссылка на WebUI устройства в списке инстансов Admin (localLinks).",
+        "fr": "Nouveau : lien vers l'interface web de l'appareil dans la liste des instances d'Admin (localLinks).",
+        "it": "Novita: link alla WebUI del dispositivo nell'elenco delle istanze di Admin (localLinks).",
+        "es": "Nuevo: enlace a la WebUI del dispositivo en la lista de instancias de Admin (localLinks).",
+        "pl": "Nowe: link do WebUI urzadzenia na liscie instancji w Admin (localLinks).",
+        "pt": "Novo: link para a WebUI do dispositivo na lista de instancias do Admin (localLinks).",
+        "nl": "Nieuw: link naar de WebUI van het apparaat in de instantielijst van Admin (localLinks).",
+        "uk": "Нове: посилання на WebUI пристрою у списку інстансів Admin (localLinks).",
+        "zh-cn": "新增：在 Admin 实例列表中显示设备 WebUI 链接（localLinks）。"
+      },
       "0.7.8": {
         "en": "Documentation and dependency update: README is English-only (German disclaimer moved to DISCLAIMER.de.md), changelog entry added, @iobroker/testing updated to 6.3.",
         "de": "Dokumentations- und Abhaengigkeits-Update: README nur noch Englisch (deutscher Disclaimer in DISCLAIMER.de.md), Changelog-Eintrag ergaenzt, @iobroker/testing auf 6.3 aktualisiert.",
@@ -80,19 +93,6 @@
         "nl": "Geautomatiseerd npm-publiceren via Trusted Publishing (OIDC) met provenance; npm-token verwijderd uit de deploy-workflow.",
         "zh-cn": "通过 Trusted Publishing（OIDC）自动发布 npm 并附带 provenance；已从部署工作流中移除 npm 令牌。",
         "uk": "Автоматична публікація в npm через Trusted Publishing (OIDC) з provenance; npm-токен прибрано з deploy-workflow."
-      },
-      "0.7.2": {
-        "en": "Repository compliance: responsive size attributes in the admin UI, license copyright line, uk translations, deploy workflow, and internal cleanups.",
-        "de": "Repository-Konformität: responsive Größenattribute in der Admin-UI, Lizenz-Copyright-Zeile, uk-Übersetzungen, Deploy-Workflow und interne Aufräumarbeiten.",
-        "ru": "Соответствие требованиям репозитория: адаптивные size-атрибуты в админ-UI, строка copyright лицензии, украинские переводы, deploy-workflow и внутренние доработки.",
-        "fr": "Conformité du dépôt : attributs de taille responsive dans l'UI admin, ligne de copyright de licence, traductions uk, workflow de déploiement et nettoyages internes.",
-        "it": "Conformità del repository: attributi di dimensione responsive nell'UI admin, riga di copyright della licenza, traduzioni uk, workflow di deploy e pulizie interne.",
-        "es": "Cumplimiento del repositorio: atributos de tamaño responsive en la UI de admin, línea de copyright de licencia, traducciones uk, flujo de despliegue y limpiezas internas.",
-        "pl": "Zgodność z repozytorium: responsywne atrybuty rozmiaru w UI admina, linia copyright licencji, tłumaczenia uk, workflow wdrożenia i porządki wewnętrzne.",
-        "pt": "Conformidade do repositório: atributos de tamanho responsivos na UI de admin, linha de copyright da licença, traduções uk, workflow de implantação e limpezas internas.",
-        "nl": "Repository-conformiteit: responsieve grootte-attributen in de admin-UI, licentie-copyrightregel, uk-vertalingen, deploy-workflow en interne opschoning.",
-        "zh-cn": "仓库合规：管理界面的响应式尺寸属性、许可证版权行、乌克兰语翻译、部署工作流以及内部清理。",
-        "uk": "Відповідність вимогам репозиторію: адаптивні size-атрибути в адмін-UI, рядок copyright ліцензії, українські переклади, deploy-workflow та внутрішні доопрацювання."
       }
     },
     "titleLang": {
@@ -160,7 +160,19 @@
         "admin": ">=7.6.20"
       }
     ],
-    "tier": 3
+    "tier": 3,
+    "localLinks": {
+      "_default": {
+        "link": "http://%native_espIp%:%native_espPort%/",
+        "name": {
+          "en": "FingerprintDoorbell WebUI",
+          "de": "FingerprintDoorbell WebUI",
+          "ru": "WebUI FingerprintDoorbell"
+        },
+        "color": "#0b57d0",
+        "order": 1
+      }
+    }
   },
   "native": {
     "espIp": "",
