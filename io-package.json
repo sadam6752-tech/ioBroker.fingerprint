@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "fingerprint",
-    "version": "0.7.9",
+    "version": "0.7.10",
     "news": {
+      "0.7.10": {
+        "en": "Polling interval is now range-checked (5-600 s); removed unused translation keys; localLinks name translated into all languages.",
+        "de": "Polling-Intervall wird jetzt auf Bereich geprueft (5-600 s); ungenutzte Uebersetzungsschluessel entfernt; localLinks-Name in alle Sprachen uebersetzt.",
+        "ru": "Интервал опроса теперь проверяется на диапазон (5-600 с); удалены неиспользуемые ключи перевода; название localLinks переведено на все языки.",
+        "fr": "L'intervalle d'interrogation est maintenant limite (5-600 s) ; cles de traduction inutilisees supprimees ; nom de localLinks traduit dans toutes les langues.",
+        "it": "L'intervallo di polling e ora limitato (5-600 s); chiavi di traduzione inutilizzate rimosse; nome di localLinks tradotto in tutte le lingue.",
+        "es": "El intervalo de sondeo ahora se limita (5-600 s); claves de traduccion sin usar eliminadas; nombre de localLinks traducido a todos los idiomas.",
+        "pl": "Interwal odpytywania jest teraz ograniczony (5-600 s); usunieto nieuzywane klucze tlumaczen; nazwa localLinks przetlumaczona na wszystkie jezyki.",
+        "pt": "O intervalo de consulta agora e limitado (5-600 s); chaves de traducao nao utilizadas removidas; nome de localLinks traduzido para todos os idiomas.",
+        "nl": "Pollinginterval wordt nu binnen bereik gehouden (5-600 s); ongebruikte vertaalsleutels verwijderd; localLinks-naam in alle talen vertaald.",
+        "uk": "Інтервал опитування тепер обмежено діапазоном (5-600 с); видалено невикористані ключі перекладу; назву localLinks перекладено всіма мовами.",
+        "zh-cn": "轮询间隔现在会检查范围（5-600 秒）；删除未使用的翻译键；localLinks 名称已翻译为所有语言。"
+      },
       "0.7.9": {
         "en": "New: link to the device WebUI in the instance list of Admin (localLinks).",
         "de": "Neu: Link zur WebUI des Geraets in der Instanzliste von Admin (localLinks).",
@@ -80,19 +93,6 @@
         "nl": "Correcties uit de repository-review: juiste state-rollen, adminPassword/webhookToken gemarkeerd als protected & encrypted native, Node.js 26 in CI, @iobroker/testing 6.x.",
         "zh-cn": "仓库审查修复：修正状态角色，将 adminPassword/webhookToken 标记为 protected 与 encrypted native，CI 增加 Node.js 26，@iobroker/testing 升级到 6.x。",
         "uk": "Виправлення за оглядом репозиторію: коректні ролі станів, adminPassword/webhookToken позначено як protected і encrypted native, Node.js 26 у CI, @iobroker/testing 6.x."
-      },
-      "0.7.3": {
-        "en": "Automated npm publishing via Trusted Publishing (OIDC) with provenance; removed the npm token from the deploy workflow.",
-        "de": "Automatisiertes npm-Publishing über Trusted Publishing (OIDC) mit Provenance; npm-Token aus dem Deploy-Workflow entfernt.",
-        "ru": "Автоматическая публикация в npm через Trusted Publishing (OIDC) с provenance; npm-токен убран из deploy-workflow.",
-        "fr": "Publication npm automatisée via Trusted Publishing (OIDC) avec provenance ; jeton npm retiré du workflow de déploiement.",
-        "it": "Pubblicazione npm automatizzata tramite Trusted Publishing (OIDC) con provenance; rimosso il token npm dal workflow di deploy.",
-        "es": "Publicación npm automatizada mediante Trusted Publishing (OIDC) con provenance; eliminado el token npm del flujo de despliegue.",
-        "pl": "Automatyczna publikacja npm przez Trusted Publishing (OIDC) z provenance; usunięto token npm z workflow wdrożenia.",
-        "pt": "Publicação npm automatizada via Trusted Publishing (OIDC) com provenance; removido o token npm do workflow de implantação.",
-        "nl": "Geautomatiseerd npm-publiceren via Trusted Publishing (OIDC) met provenance; npm-token verwijderd uit de deploy-workflow.",
-        "zh-cn": "通过 Trusted Publishing（OIDC）自动发布 npm 并附带 provenance；已从部署工作流中移除 npm 令牌。",
-        "uk": "Автоматична публікація в npm через Trusted Publishing (OIDC) з provenance; npm-токен прибрано з deploy-workflow."
       }
     },
     "titleLang": {
@@ -167,7 +167,15 @@
         "name": {
           "en": "FingerprintDoorbell WebUI",
           "de": "FingerprintDoorbell WebUI",
-          "ru": "WebUI FingerprintDoorbell"
+          "ru": "WebUI FingerprintDoorbell",
+          "pt": "FingerprintDoorbell WebUI",
+          "nl": "FingerprintDoorbell WebUI",
+          "fr": "FingerprintDoorbell WebUI",
+          "it": "FingerprintDoorbell WebUI",
+          "es": "FingerprintDoorbell WebUI",
+          "pl": "FingerprintDoorbell WebUI",
+          "uk": "FingerprintDoorbell WebUI",
+          "zh-cn": "FingerprintDoorbell WebUI"
         },
         "color": "#0b57d0",
         "order": 1

@@ -241,6 +241,11 @@ Writing either state applies the ring immediately.
 
 ## Changelog
 
+### 0.7.10
+
+- Polling interval is range-checked (5–600 s) even if the config is edited outside the UI
+- Removed unused translation keys; translated the `localLinks` name into all languages
+
 ### 0.7.9
 
 - New: link to the device WebUI in the instance list of Admin (`localLinks`)

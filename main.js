@@ -1099,7 +1099,8 @@ class Fingerprint extends utils.Adapter {
         if (this._pollingTimer) {
             this.clearTimeout(this._pollingTimer);
         }
-        const interval = (this.config.pollingInterval || 30) * 1000;
+        const raw = Number(this.config.pollingInterval);
+        const interval = Math.max(5, Math.min(600, Number.isFinite(raw) && raw > 0 ? raw : 30)) * 1000;
         this._pollingTimer = this.setTimeout(() => this._pollAndReschedule(), interval);
     }
 
