@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "fingerprint",
-    "version": "0.7.10",
+    "version": "0.7.11",
     "news": {
+      "0.7.11": {
+        "en": "Fixes: lastMatch.matched is reset after 3 s so every match triggers a change; info.connection is correct when polling is disabled; match/ring counters no longer lose concurrent events; faster adapter stop. README badges added.",
+        "de": "Fixes: lastMatch.matched wird nach 3 s zurueckgesetzt, sodass jeder Match eine Aenderung ausloest; info.connection ist bei deaktiviertem Polling korrekt; Match-/Ring-Zaehler verlieren keine gleichzeitigen Ereignisse mehr; schnelleres Beenden des Adapters. README-Badges ergaenzt.",
+        "ru": "Исправления: lastMatch.matched сбрасывается через 3 с, поэтому каждое совпадение вызывает изменение; info.connection корректен при выключенном опросе; счётчики совпадений/звонков больше не теряют одновременные события; быстрая остановка адаптера. Добавлены бейджи в README.",
+        "fr": "Corrections : lastMatch.matched est remis a zero apres 3 s pour que chaque detection declenche un changement ; info.connection est correct si l'interrogation est desactivee ; les compteurs ne perdent plus d'evenements simultanes ; arret plus rapide de l'adaptateur. Badges ajoutes au README.",
+        "it": "Correzioni: lastMatch.matched viene azzerato dopo 3 s cosi ogni riconoscimento genera una modifica; info.connection e corretto con il polling disattivato; i contatori non perdono piu eventi simultanei; arresto piu rapido dell'adattatore. Badge aggiunti al README.",
+        "es": "Correcciones: lastMatch.matched se restablece tras 3 s para que cada coincidencia genere un cambio; info.connection es correcto con el sondeo desactivado; los contadores ya no pierden eventos simultaneos; parada mas rapida del adaptador. Insignias anadidas al README.",
+        "pl": "Poprawki: lastMatch.matched jest zerowany po 3 s, wiec kazde dopasowanie wywoluje zmiane; info.connection jest poprawny przy wylaczonym odpytywaniu; liczniki nie gubia rownoczesnych zdarzen; szybsze zatrzymywanie adaptera. Dodano odznaki w README.",
+        "pt": "Correcoes: lastMatch.matched e reposto apos 3 s para que cada correspondencia gere uma alteracao; info.connection esta correto com a consulta desativada; os contadores deixam de perder eventos simultaneos; paragem mais rapida do adaptador. Emblemas adicionados ao README.",
+        "nl": "Fixes: lastMatch.matched wordt na 3 s teruggezet zodat elke match een wijziging geeft; info.connection klopt bij uitgeschakelde polling; tellers verliezen geen gelijktijdige gebeurtenissen meer; sneller stoppen van de adapter. README-badges toegevoegd.",
+        "uk": "Виправлення: lastMatch.matched скидається через 3 с, тому кожен збіг викликає зміну; info.connection коректний при вимкненому опитуванні; лічильники більше не втрачають одночасні події; швидша зупинка адаптера. Додано бейджі в README.",
+        "zh-cn": "修复：lastMatch.matched 在 3 秒后重置，使每次匹配都会触发变更；禁用轮询时 info.connection 正确；计数器不再丢失并发事件；适配器停止更快。README 添加徽章。"
+      },
       "0.7.10": {
         "en": "Polling interval is now range-checked (5-600 s); removed unused translation keys; localLinks name translated into all languages.",
         "de": "Polling-Intervall wird jetzt auf Bereich geprueft (5-600 s); ungenutzte Uebersetzungsschluessel entfernt; localLinks-Name in alle Sprachen uebersetzt.",
@@ -80,19 +93,6 @@
         "nl": "Repository-checker-correcties: protectedNative/encryptedNative verplaatst naar de root van io-package.json (schemafout E1105), common.news teruggebracht tot 7 entries, volledige MIT-licentietekst met copyright en e-mail in de README, VSCode JSON-schema's aangevuld, @iobroker/testing 6.2.x. Open en bewaar de adapterinstellingen een keer na de update, zodat adminPassword/webhookToken versleuteld worden opgeslagen.",
         "uk": "Виправлення для repository checker: protectedNative/encryptedNative перенесено на верхній рівень io-package.json (помилка схеми E1105), common.news скорочено до 7 записів, повний текст ліцензії MIT з копірайтом і e-mail у README, доповнено схеми VSCode, @iobroker/testing 6.2.x. Після оновлення відкрийте та збережіть налаштування адаптера один раз, щоб adminPassword/webhookToken зберігалися зашифрованими.",
         "zh-cn": "仓库检查修复：将 protectedNative/encryptedNative 移至 io-package.json 的根级（架构错误 E1105），common.news 精简为 7 条，README 中加入包含版权与邮箱的完整 MIT 许可证文本，补全 VSCode JSON 架构，@iobroker/testing 升级到 6.2.x。更新后请打开并保存一次适配器设置，以便 adminPassword/webhookToken 以加密方式存储。"
-      },
-      "0.7.4": {
-        "en": "Repository review fixes: correct state roles, mark adminPassword/webhookToken as protected & encrypted native, node.js 26 in CI, @iobroker/testing 6.x.",
-        "de": "Repository-Review-Korrekturen: State-Rollen korrigiert, adminPassword/webhookToken als protected & encrypted native markiert, Node.js 26 in CI, @iobroker/testing 6.x.",
-        "ru": "Исправления по ревью репозитория: корректные роли состояний, adminPassword/webhookToken помечены как protected и encrypted native, Node.js 26 в CI, @iobroker/testing 6.x.",
-        "fr": "Corrections de la revue du dépôt : rôles d'état corrigés, adminPassword/webhookToken marqués comme protected & encrypted native, Node.js 26 en CI, @iobroker/testing 6.x.",
-        "it": "Correzioni della revisione del repository: ruoli degli stati corretti, adminPassword/webhookToken segnati come protected & encrypted native, Node.js 26 in CI, @iobroker/testing 6.x.",
-        "es": "Correcciones de la revisión del repositorio: roles de estado corregidos, adminPassword/webhookToken marcados como protected y encrypted native, Node.js 26 en CI, @iobroker/testing 6.x.",
-        "pl": "Poprawki z przeglądu repozytorium: poprawne role stanów, adminPassword/webhookToken oznaczone jako protected i encrypted native, Node.js 26 w CI, @iobroker/testing 6.x.",
-        "pt": "Correções da revisão do repositório: papéis de estado corretos, adminPassword/webhookToken marcados como protected e encrypted native, Node.js 26 no CI, @iobroker/testing 6.x.",
-        "nl": "Correcties uit de repository-review: juiste state-rollen, adminPassword/webhookToken gemarkeerd als protected & encrypted native, Node.js 26 in CI, @iobroker/testing 6.x.",
-        "zh-cn": "仓库审查修复：修正状态角色，将 adminPassword/webhookToken 标记为 protected 与 encrypted native，CI 增加 Node.js 26，@iobroker/testing 升级到 6.x。",
-        "uk": "Виправлення за оглядом репозиторію: коректні ролі станів, adminPassword/webhookToken позначено як protected і encrypted native, Node.js 26 у CI, @iobroker/testing 6.x."
       }
     },
     "titleLang": {

@@ -17,6 +17,7 @@ class Fingerprint extends utils.Adapter {
         this._pollingTimer = null;
         this._enrollTimer = null;
         this._ringResetTimer = null;
+        this._matchResetTimer = null;
         this._lastActionTime = {};
 
         this.on('ready', this.onReady.bind(this));
@@ -81,10 +82,12 @@ class Fingerprint extends utils.Adapter {
             await this._provisionServer();
         }
 
-        // Status polling
-        if (ip && this.config.pollingEnabled) {
+        // Status polling (one initial poll is always done so info.connection reflects reality)
+        if (ip) {
             await this._pollStatus();
-            this._scheduleNextPoll();
+            if (this.config.pollingEnabled) {
+                this._scheduleNextPoll();
+            }
         }
 
         // Initial fingerprint list sync
@@ -227,6 +230,10 @@ class Fingerprint extends utils.Adapter {
             if (this._enrollTimer) {
                 this.clearTimeout(this._enrollTimer);
                 this._enrollTimer = null;
+            }
+            if (this._matchResetTimer) {
+                this.clearTimeout(this._matchResetTimer);
+                this._matchResetTimer = null;
             }
             if (this.webhook) {
                 await this.webhook.stop();
@@ -599,8 +606,15 @@ class Fingerprint extends utils.Adapter {
         await this.setStateAsync('lastMatch.name', { val: event.name, ack: true });
         await this.setStateAsync('lastMatch.confidence', { val: event.confidence, ack: true });
         await this.setStateAsync('lastMatch.timestamp', { val: ts, ack: true });
-        // Fire the match trigger (auto-resets)
+        // Fire the match trigger (auto-resets after 3s so that every match is a state change)
         await this.setStateAsync('lastMatch.matched', { val: true, ack: true });
+        if (this._matchResetTimer) {
+            this.clearTimeout(this._matchResetTimer);
+        }
+        this._matchResetTimer = this.setTimeout(() => {
+            this.setState('lastMatch.matched', { val: false, ack: true });
+            this._matchResetTimer = null;
+        }, 3000);
         this.log.info(`Fingerprint match: id=${event.id} name="${event.name}" confidence=${event.confidence}`);
 
         // Access log + history
@@ -631,10 +645,15 @@ class Fingerprint extends utils.Adapter {
      * @param {string} id state id
      * @returns {Promise<void>} resolves when the state is written
      */
-    async _incrementCounter(id) {
-        const cur = await this.getStateAsync(id);
-        const next = (cur && typeof cur.val === 'number' ? cur.val : 0) + 1;
-        await this.setStateAsync(id, { val: next, ack: true });
+    _incrementCounter(id) {
+        // Serialize increments: concurrent events would otherwise read the same value
+        const run = (this._counterQueue || Promise.resolve()).then(async () => {
+            const cur = await this.getStateAsync(id);
+            const next = (cur && typeof cur.val === 'number' ? cur.val : 0) + 1;
+            await this.setStateAsync(id, { val: next, ack: true });
+        });
+        this._counterQueue = run.catch(() => {});
+        return run;
     }
 
     async _handleRingEvent() {
