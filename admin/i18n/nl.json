@@ -92,5 +92,6 @@
   "Start enrollment": "Registreren starten",
   "Available fingers (reference)": "Beschikbare vingers (referentie)",
   "Loads id → name from the device so you know which IDs to type into 'Finger ID(s)'. Selection is not saved.": "Laadt id → naam van het apparaat zodat je weet welke ID's je in 'Finger ID(s)' moet invoeren. De selectie wordt niet opgeslagen.",
-  "Loads id → name from the device so you can see which slots are already used and pick a free ID. Selection is not saved.": "Laadt id → naam van het apparaat zodat je ziet welke slots al in gebruik zijn en een vrije ID kunt kiezen. De selectie wordt niet opgeslagen."
+  "Loads id → name from the device so you can see which slots are already used and pick a free ID. Selection is not saved.": "Laadt id → naam van het apparaat zodat je ziet welke slots al in gebruik zijn en een vrije ID kunt kiezen. De selectie wordt niet opgeslagen.",
+  "Quotes and backslashes are not allowed in names": "Aanhalingstekens en backslashes zijn niet toegestaan in namen"
 }

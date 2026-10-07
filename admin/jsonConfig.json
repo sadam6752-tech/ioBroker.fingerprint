@@ -372,9 +372,12 @@
           "type": "text",
           "label": "New name",
           "doNotSave": true,
+          "validator": "!/[\"\\\\]/.test(data._renameName || '')",
+          "validatorErrorText": "Quotes and backslashes are not allowed in names",
           "xs": 12, "sm": 5, "md": 4, "lg": 3, "xl": 3
         },
         "renameButton": {
+          "disabled": "/[\"\\\\]/.test(data._renameName || '')",
           "type": "sendTo",
           "label": "Rename",
           "command": "renameFinger",
@@ -440,9 +443,12 @@
           "type": "text",
           "label": "New finger name",
           "doNotSave": true,
+          "validator": "!/[\"\\\\]/.test(data._enrollName || '')",
+          "validatorErrorText": "Quotes and backslashes are not allowed in names",
           "xs": 12, "sm": 5, "md": 4, "lg": 3, "xl": 3
         },
         "enrollButton": {
+          "disabled": "/[\"\\\\]/.test(data._enrollName || '')",
           "type": "sendTo",
           "label": "Start enrollment",
           "command": "enrollFinger",

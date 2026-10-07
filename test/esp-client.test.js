@@ -15,7 +15,13 @@ describe('EspClient', () => {
         });
 
         it('keeps explicit values', () => {
-            const client = new EspClient({ ip: '10.0.0.2', port: 8080, timeout: 1000, user: 'admin', password: 'secret' });
+            const client = new EspClient({
+                ip: '10.0.0.2',
+                port: 8080,
+                timeout: 1000,
+                user: 'admin',
+                password: 'secret',
+            });
             assert.equal(client.port, 8080);
             assert.equal(client.timeout, 1000);
             assert.equal(client.user, 'admin');
@@ -43,6 +49,25 @@ describe('EspClient', () => {
         it('handles empty input', () => {
             const client = new EspClient({ ip: '127.0.0.1' });
             assert.deepEqual(client._parseDebug(''), {});
+        });
+    });
+
+    describe('error messages', () => {
+        it('do not leak the query string (webhook token) of a timed out request', async () => {
+            const http = require('node:http');
+            const srv = http.createServer(() => {}); // never answers
+            await new Promise(resolve => srv.listen(0, '127.0.0.1', resolve));
+            const client = new EspClient({ ip: '127.0.0.1', port: srv.address().port, timeout: 200 });
+            try {
+                await client.registerServer('10.0.0.1', 8095, 'SECRET-TOKEN');
+                assert.fail('should time out');
+            } catch (err) {
+                assert.match(err.message, /timed out/);
+                assert.equal(err.message.includes('SECRET-TOKEN'), false);
+            } finally {
+                srv.closeAllConnections();
+                srv.close();
+            }
         });
     });
 

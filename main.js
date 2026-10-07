@@ -18,6 +18,7 @@ class Fingerprint extends utils.Adapter {
         this._enrollTimer = null;
         this._ringResetTimer = null;
         this._matchResetTimer = null;
+        this._webhookRetryTimer = null;
         this._lastActionTime = {};
 
         this.on('ready', this.onReady.bind(this));
@@ -53,29 +54,8 @@ class Fingerprint extends utils.Adapter {
 
         await this.subscribeStatesAsync('control.*');
 
-        // Start webhook receiver
-        const webhookPort = this.config.webhookPort || 8095;
-        const webhookBind = this.config.webhookBind || '0.0.0.0';
-        this.webhook = new WebhookServer({
-            port: webhookPort,
-            bind: webhookBind,
-            token: this._token,
-            allowedIp: this.config.restrictToDeviceIp ? ip : '',
-            log: (level, msg) => this.log[level](msg),
-            onMatch: event => this._handleMatchEvent(event),
-            onRing: () => this._handleRingEvent(),
-        });
-        try {
-            await this.webhook.start();
-            if (this._token) {
-                this.log.info('Webhook token active — device must include the token (see instance settings).');
-            } else {
-                this.log.warn('Webhook token empty — events are accepted without authentication.');
-            }
-            this.log.info(`Configure device HTTP URLs to point to this adapter on port ${webhookPort} (see README).`);
-        } catch (err) {
-            this.log.error(`Failed to start webhook server on port ${webhookPort}: ${err.message}`);
-        }
+        // Start webhook receiver (retries every 30 s if the port is busy)
+        await this._startWebhook(ip);
 
         // Auto-provision the device (server mode): tell the ESP to send events here
         if (ip) {
@@ -93,6 +73,40 @@ class Fingerprint extends utils.Adapter {
         // Initial fingerprint list sync
         if (ip) {
             await this._syncFingerprints();
+        }
+    }
+
+    /**
+     * Start the webhook receiver. If the port cannot be bound (e.g. still in use after a
+     * restart), the start is retried every 30 s instead of leaving the adapter without webhook.
+     *
+     * @param {string} ip configured device IP (for the optional IP restriction)
+     * @returns {Promise<void>} resolves after the first attempt
+     */
+    async _startWebhook(ip) {
+        this._webhookRetryTimer = null;
+        const port = this.config.webhookPort || 8095;
+        const webhook = new WebhookServer({
+            port,
+            bind: this.config.webhookBind || '0.0.0.0',
+            token: this._token,
+            allowedIp: this.config.restrictToDeviceIp ? ip : '',
+            log: (level, msg) => this.log[level](msg),
+            onMatch: event => this._handleMatchEvent(event),
+            onRing: () => this._handleRingEvent(),
+        });
+        try {
+            await webhook.start();
+            this.webhook = webhook;
+            if (this._token) {
+                this.log.info('Webhook token active — device must include the token (see instance settings).');
+            } else {
+                this.log.warn('Webhook token empty — events are accepted without authentication.');
+            }
+            this.log.info(`Configure device HTTP URLs to point to this adapter on port ${port} (see README).`);
+        } catch (err) {
+            this.log.error(`Failed to start webhook server on port ${port}: ${err.message} — retrying in 30 s`);
+            this._webhookRetryTimer = this.setTimeout(() => this._startWebhook(ip), 30000);
         }
     }
 
@@ -166,7 +180,7 @@ class Fingerprint extends utils.Adapter {
             return;
         }
         for (const fp of list) {
-            if (fp.id === undefined) {
+            if (!Number.isInteger(fp.id) || fp.id < 1 || fp.id > 200) {
                 continue;
             }
             await this._ensureFingerObjects(fp.id, fp.name || `Finger ${fp.id}`);
@@ -234,6 +248,10 @@ class Fingerprint extends utils.Adapter {
             if (this._matchResetTimer) {
                 this.clearTimeout(this._matchResetTimer);
                 this._matchResetTimer = null;
+            }
+            if (this._webhookRetryTimer) {
+                this.clearTimeout(this._webhookRetryTimer);
+                this._webhookRetryTimer = null;
             }
             if (this.webhook) {
                 await this.webhook.stop();
@@ -319,13 +337,6 @@ class Fingerprint extends utils.Adapter {
             } else {
                 this.sendTo(obj.from, obj.command, { error: `Device not reachable at ${ip}` }, obj.callback);
             }
-            return;
-        }
-
-        if (obj.command === 'getWebhookInfo') {
-            const token = await this._ensureWebhookToken();
-            const port = this.config.webhookPort || 8095;
-            this.sendTo(obj.from, obj.command, { native: { webhookToken: token }, port }, obj.callback);
             return;
         }
 
@@ -510,7 +521,8 @@ class Fingerprint extends utils.Adapter {
             try {
                 const file = this._getBackupPath();
                 fs.mkdirSync(path.dirname(file), { recursive: true });
-                fs.writeFileSync(file, json, 'utf8');
+                fs.writeFileSync(file, json, { encoding: 'utf8', mode: 0o600 });
+                fs.chmodSync(file, 0o600);
                 this.log.info(`Fingerprint backup saved (${count} finger(s)) to ${file}`);
                 this.sendTo(obj.from, obj.command, { result: `Backup saved: ${count} finger(s)` }, obj.callback);
             } catch (err) {
@@ -601,6 +613,10 @@ class Fingerprint extends utils.Adapter {
     // ── Event handlers ────────────────────────────────────────────────────────
 
     async _handleMatchEvent(event) {
+        if (!Number.isInteger(event.id) || event.id < 1 || event.id > 200) {
+            this.log.warn(`Ignoring match event with invalid finger id ${event.id}`);
+            return;
+        }
         const ts = Date.now();
         await this.setStateAsync('lastMatch.id', { val: event.id, ack: true });
         await this.setStateAsync('lastMatch.name', { val: event.name, ack: true });
@@ -628,12 +644,10 @@ class Fingerprint extends utils.Adapter {
         await this.setStateAsync('stats.lastPerson', { val: event.name || '', ack: true });
         await this._incrementCounter('stats.totalMatches');
 
-        // Per-finger history (only for valid slot ids — never create objects from arbitrary input)
-        if (Number.isInteger(event.id) && event.id >= 1 && event.id <= 200) {
-            await this._ensureFingerObjects(event.id, event.name || `Finger ${event.id}`);
-            await this.setStateAsync(`fingerprints.${event.id}.lastSeen`, { val: ts, ack: true });
-            await this._incrementCounter(`fingerprints.${event.id}.count`);
-        }
+        // Per-finger history
+        await this._ensureFingerObjects(event.id, event.name || `Finger ${event.id}`);
+        await this.setStateAsync(`fingerprints.${event.id}.lastSeen`, { val: ts, ack: true });
+        await this._incrementCounter(`fingerprints.${event.id}.count`);
 
         // Run the configured action for this finger, if any
         await this._runMatchAction(event);

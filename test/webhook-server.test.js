@@ -193,6 +193,41 @@ describe('WebhookServer', () => {
             assert.equal(res.status, 404);
         });
 
+        it('strips control characters and limits the length of the name', () => {
+            const { server, events } = createServer();
+            server._handleRequest(createReqMock('/match?id=2&name=Al%0Aice%00' + 'x'.repeat(100)), createResMock());
+            assert.equal(
+                Array.from(events.matches[0].name).some(ch => ch.charCodeAt(0) < 32),
+                false,
+            );
+            assert.equal(events.matches[0].name.length, 64);
+        });
+
+        it('logs rejected requests at most once per 30 s', () => {
+            const logs = [];
+            const server = new WebhookServer({ port: 8095, token: 'secret', log: (level, msg) => logs.push(msg) });
+            for (let i = 0; i < 5; i++) {
+                server._handleRequest(createReqMock('/match?id=3'), createResMock());
+            }
+            assert.equal(logs.length, 1);
+        });
+
+        it('handles a rejecting async handler without an unhandled rejection', async () => {
+            const logs = [];
+            const server = new WebhookServer({
+                port: 8095,
+                onMatch: async () => {
+                    throw new Error('async boom');
+                },
+                log: (level, msg) => logs.push(`${level}: ${msg}`),
+            });
+            const res = createResMock();
+            server._handleRequest(createReqMock('/match?id=1'), res);
+            await new Promise(resolve => setImmediate(resolve));
+            assert.equal(res.status, 200);
+            assert.ok(logs.some(l => /onMatch handler failed: async boom/.test(l)));
+        });
+
         it('logs a failing handler but still answers 200', () => {
             const logs = [];
             const server = new WebhookServer({
@@ -211,4 +246,3 @@ describe('WebhookServer', () => {
         });
     });
 });
-
