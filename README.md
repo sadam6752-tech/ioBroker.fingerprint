@@ -100,7 +100,8 @@ kind** (see the MIT [LICENSE](LICENSE)); you use it at your own risk.
   never expose the webhook port or the device to the internet, and keep the token secret.
 - **Biometric data / privacy (GDPR).** Fingerprint templates, names, timestamps and access
   logs are personal data. You are the controller: obtain the consent of the people enrolled,
-  protect backup files (`fingerprints-backup.json` contains the raw templates, unencrypted)
+  protect backup files (`fingerprints-backup.json` contains the raw templates, unencrypted —
+  this also applies to the copies on an external SFTP server, see *Backup*)
   and observe the laws that apply to you (e.g. GDPR/BDSG, works-council rules for employees).
 - **Actions run unattended.** Fingerprint rules write to any ioBroker object you choose
   (lights, locks, alarms, scripts). Test your rules carefully before you depend on them.
@@ -174,6 +175,57 @@ Save the instance settings first so the device connection is available.
 > (full 1536-byte templates). Backups made with older firmware are incomplete —
 > re-create them after updating.
 
+## Backup (v0.8.0)
+
+### Automatic backup
+
+The **Backup** tab of the instance settings can create the fingerprint backup automatically,
+**daily** or **weekly** — it is **off** by default. The automatic backup writes the same file
+as *Create backup* (the file that *Restore* uses) and needs the device to be reachable.
+
+- The interval counts from the last backup (by hand or automatic), also after a restart of the
+  adapter. A backup that is overdue runs five minutes after the start.
+- A device that returns **no** fingerprints never replaces an existing backup (the automatic
+  backup is skipped and logged).
+- If the device is unreachable, the next attempt follows after one hour. A running enrollment
+  postpones the backup by ten minutes.
+- The time of the last backup is shown in `info.lastBackup`.
+
+### Copy to an external server (SFTP)
+
+A backup that lies on the same machine as ioBroker does not survive the loss of that machine.
+The **Backup** tab can copy **every backup** (automatic and by hand) to another computer, for
+example a NAS, over **SFTP**. The adapter opens the SSH connection itself: no mount, no `sudo`,
+no shell command.
+
+1. On the server, create a user that may only write into the target directory (not an
+   administrator) and switch SFTP on (on a Synology: *Control Panel → File Services → FTP →
+   Enable SFTP service*).
+2. In the **Backup** tab, switch the copy on and enter host, user, password and the directory
+   (it is created when it is missing). The password is stored encrypted and never written to
+   the log.
+3. Press *Test connection*: the adapter logs in, creates the directory, writes and deletes a
+   small test file, and shows the **fingerprint** of the server. Enter that fingerprint in the
+   settings to trust only this server — a different server is then refused before the password
+   is sent. Without a fingerprint the copy works too, but the server is not verified (the log
+   warns at every copy, with the fingerprint).
+
+How it behaves:
+
+- The local backup is made first. If the copy fails, the backup stays, the error is logged and
+  shown in `info.remoteBackupError`; the last successful copy is in `info.lastRemoteBackup`.
+  A failed copy is **not retried**: the next backup is copied again.
+- File names: `fingerprint-backup-<time>.json` (by hand) and `fingerprint-auto-<time>.json`
+  (automatic), time in UTC.
+- A copy appears under its final name only when it is complete (uploaded as `.part`, size
+  checked, renamed). The whole copy is limited to ten minutes. Leftovers of interrupted uploads
+  of this adapter are removed by the next good copy.
+- *Copies to keep on the server* deletes the oldest **automatic** copies beyond that number
+  (0 = keep all). Backups made by hand and every other file in the directory are never deleted.
+- Only password login is supported. The file is **not encrypted** on the server — the transfer
+  is. It contains the raw fingerprint templates (biometric data): keep it on a volume only you
+  can read.
+
 ## Enroll a new finger (v0.7.0, firmware ≥ v0.9.4)
 
 You can enroll a new fingerprint directly from ioBroker — no need to open the
@@ -215,6 +267,9 @@ Writing either state applies the ring immediately.
 | `info.firmwareVersion` | string | Device firmware version |
 | `info.serverMode` | boolean | Device sends events directly to this adapter |
 | `info.wifiRssi` | number | WiFi signal strength in dBm (firmware ≥ v0.9.4) |
+| `info.lastBackup` | number | Time of the last fingerprint backup (by hand or automatic) |
+| `info.lastRemoteBackup` | string | Path of the last copy on the external SFTP server |
+| `info.remoteBackupError` | string | Error of the last copy to the external server (empty = fine) |
 | `fingerprints.<id>.name` | string | Name of the enrolled finger with that ID |
 | `fingerprints.<id>.lastSeen` | number | Timestamp the finger was last matched |
 | `fingerprints.<id>.count` | number | How often the finger was matched |
@@ -251,6 +306,14 @@ Writing either state applies the ring immediately.
 - **Enroll from adapter, LED ring, `info.wifiRssi`** require **v0.9.4**.
 
 ## Changelog
+
+### 0.8.0
+
+- New **Backup** tab: automatic fingerprint backup (off, daily, weekly; off by default). The interval counts from the last backup, also after a restart; an empty device never replaces an existing backup
+- New: every backup (by hand and automatic) can be copied to an external server over **SFTP** (e.g. a NAS) — upload as `.part` with size check and rename, optional host key fingerprint, test button, cleanup of old automatic copies. The password is stored encrypted (`encryptedNative`)
+- New states `info.lastBackup`, `info.lastRemoteBackup`, `info.remoteBackupError`
+- Admin buttons wait until the adapter has finished its start
+- New dependency `ssh2`; tests against an SFTP server inside the test and an integration test with a simulated device
 
 ### 0.7.13
 

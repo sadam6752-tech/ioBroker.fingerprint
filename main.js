@@ -7,6 +7,14 @@ const fs = require('node:fs');
 const WebhookServer = require('./lib/webhook-server');
 const EspClient = require('./lib/esp-client');
 const { normalizeSecrets, migrateSecrets } = require('./lib/secrets');
+const {
+    copyBackupToRemote,
+    remoteBackupName,
+    settingsForConnectionTest,
+    testRemoteConnection,
+} = require('./lib/remote-backup');
+const { connectSsh2 } = require('./lib/sftp-ssh2');
+const { autoBackupDelay } = require('./lib/backup-schedule');
 
 class Fingerprint extends utils.Adapter {
     constructor(options = {}) {
@@ -19,7 +27,14 @@ class Fingerprint extends utils.Adapter {
         this._ringResetTimer = null;
         this._matchResetTimer = null;
         this._webhookRetryTimer = null;
+        this._autoBackupTimer = null;
+        this._backupQueue = Promise.resolve();
+        this._remoteQueue = Promise.resolve();
         this._lastActionTime = {};
+        // messages (admin buttons) wait until the objects exist and the secrets are usable
+        this._ready = new Promise(resolve => {
+            this._markReady = resolve;
+        });
 
         this.on('ready', this.onReady.bind(this));
         this.on('stateChange', this.onStateChange.bind(this));
@@ -28,13 +43,17 @@ class Fingerprint extends utils.Adapter {
     }
 
     async onReady() {
-        await this._createObjects();
-        await this.setStateAsync('info.connection', { val: false, ack: true });
+        try {
+            await this._createObjects();
+            await this.setStateAsync('info.connection', { val: false, ack: true });
 
-        // Encrypt secrets still stored as plain text (encryptedNative since v0.7.13), then
-        // repair/replace values that are still unusable — both before the secrets are used
-        await migrateSecrets(this);
-        await normalizeSecrets(this.config, this.log, attr => this.getEncryptedConfig(attr));
+            // Encrypt secrets still stored as plain text (encryptedNative since v0.7.13), then
+            // repair/replace values that are still unusable — both before the secrets are used
+            await migrateSecrets(this);
+            await normalizeSecrets(this.config, this.log, attr => this.getEncryptedConfig(attr));
+        } finally {
+            this._markReady();
+        }
 
         // Ensure a webhook token exists (auto-generate on first start)
         this._token = await this._ensureWebhookToken();
@@ -76,6 +95,12 @@ class Fingerprint extends utils.Adapter {
         if (ip) {
             await this._syncFingerprints();
         }
+
+        // Automatic backup (off by default), optionally copied to an external server
+        if (this.config.remoteEnabled !== true) {
+            await this.setStateAsync('info.remoteBackupError', { val: '', ack: true });
+        }
+        await this._scheduleAutoBackup();
     }
 
     /**
@@ -255,6 +280,10 @@ class Fingerprint extends utils.Adapter {
                 this.clearTimeout(this._webhookRetryTimer);
                 this._webhookRetryTimer = null;
             }
+            if (this._autoBackupTimer) {
+                this.clearTimeout(this._autoBackupTimer);
+                this._autoBackupTimer = null;
+            }
             if (this.webhook) {
                 await this.webhook.stop();
                 this.webhook = null;
@@ -293,6 +322,7 @@ class Fingerprint extends utils.Adapter {
         this.log.debug(`onMessage: command="${obj.command}"`);
 
         try {
+            await this._ready;
             await this._processMessage(obj);
         } catch (err) {
             this.log.error(`onMessage(${obj.command}) failed: ${err.message}`);
@@ -510,31 +540,31 @@ class Fingerprint extends utils.Adapter {
                 );
                 return;
             }
-            const { ok, json, count } = await client.getBackup();
-            if (!ok) {
-                this.sendTo(
-                    obj.from,
-                    obj.command,
-                    { error: 'Backup failed (device unreachable or empty)' },
-                    obj.callback,
-                );
-                return;
-            }
-            try {
-                const file = this._getBackupPath();
-                fs.mkdirSync(path.dirname(file), { recursive: true });
-                fs.writeFileSync(file, json, { encoding: 'utf8', mode: 0o600 });
-                fs.chmodSync(file, 0o600);
-                this.log.info(`Fingerprint backup saved (${count} finger(s)) to ${file}`);
-                this.sendTo(obj.from, obj.command, { result: `Backup saved: ${count} finger(s)` }, obj.callback);
-            } catch (err) {
-                this.sendTo(
-                    obj.from,
-                    obj.command,
-                    { error: `Could not write backup file: ${err.message}` },
-                    obj.callback,
-                );
-            }
+            const result = await this._createBackup('manual');
+            this.sendTo(
+                obj.from,
+                obj.command,
+                result.ok ? { result: result.message } : { error: result.message },
+                obj.callback,
+            );
+            return;
+        }
+
+        if (obj.command === 'testRemoteBackup') {
+            // an empty password field means the saved password, but only for the saved server
+            const form = obj.message && typeof obj.message === 'object' ? obj.message : {};
+            const settings = settingsForConnectionTest(form, this._remoteSettings());
+            const result = await testRemoteConnection(connectSsh2, settings, this._remoteTimers());
+            const hint =
+                result.ok && !String(settings.hostKey || '').trim() && result.fingerprint
+                    ? ` Fingerprint of the server (enter it to trust only this server): ${result.fingerprint}`
+                    : '';
+            this.sendTo(
+                obj.from,
+                obj.command,
+                result.ok ? { result: `OK: ${result.message}.${hint}` } : { error: result.message },
+                obj.callback,
+            );
             return;
         }
 
@@ -610,6 +640,214 @@ class Fingerprint extends utils.Adapter {
     _getBackupPath() {
         const dataDir = utils.getAbsoluteDefaultDataDir();
         return path.join(dataDir, this.namespace, 'fingerprints-backup.json');
+    }
+
+    // ── Backup (by hand, automatic, external copy) ──────────────────────────
+
+    /**
+     * Create a backup. Backups run one after the other (a backup by hand and an automatic one
+     * must not read the sensor at the same time).
+     *
+     * @param {'manual'|'auto'} kind made by hand or automatic
+     * @returns {Promise<{ok: boolean, message: string}>} outcome as a text for the admin page and the log
+     */
+    _createBackup(kind) {
+        const run = () => this._doBackup(kind);
+        const next = this._backupQueue.then(run, run);
+        this._backupQueue = next.catch(() => undefined);
+        return next;
+    }
+
+    /**
+     * Read all templates from the sensor, write the local backup file and copy it to the
+     * external server when that is switched on. Never throws.
+     *
+     * @param {'manual'|'auto'} kind made by hand or automatic
+     * @returns {Promise<{ok: boolean, message: string}>} outcome
+     */
+    async _doBackup(kind) {
+        const client = this._makeEspClient();
+        if (!client) {
+            return { ok: false, message: 'Device IP not configured (save settings first)' };
+        }
+        let backup;
+        try {
+            backup = await client.getBackup();
+        } catch (err) {
+            return { ok: false, message: `Backup failed: ${err.message}` };
+        }
+        const { ok, json, count } = backup;
+        if (!ok) {
+            return { ok: false, message: 'Backup failed (device unreachable or empty)' };
+        }
+        if (kind === 'auto' && count === 0) {
+            // an empty sensor must not replace a good backup without anybody asking for it
+            return {
+                ok: false,
+                message: 'Automatic backup skipped: the device returned no fingerprints, the existing backup is kept',
+            };
+        }
+        const file = this._getBackupPath();
+        try {
+            fs.mkdirSync(path.dirname(file), { recursive: true });
+            fs.writeFileSync(file, json, { encoding: 'utf8', mode: 0o600 });
+            fs.chmodSync(file, 0o600);
+        } catch (err) {
+            return { ok: false, message: `Could not write backup file: ${err.message}` };
+        }
+        const now = Date.now();
+        await this.setStateAsync('info.lastBackup', { val: now, ack: true });
+        this.log.info(
+            `Fingerprint backup saved (${count} finger(s))${kind === 'auto' ? ' automatically' : ''} to ${file}`,
+        );
+
+        let message = `Backup saved: ${count} finger(s)`;
+        const remote = await this._copyToRemote({
+            name: remoteBackupName(kind, new Date(now)),
+            data: Buffer.from(json, 'utf8'),
+        });
+        if (remote) {
+            message += remote.ok
+                ? `; copied to the external server (${remote.remoteFile})`
+                : `; the copy to the external server FAILED: ${remote.message}`;
+        }
+        return { ok: true, message };
+    }
+
+    /**
+     * The adapter's own timers, handed to the SFTP copy so a pending timeout ends with the adapter.
+     *
+     * @returns {{start: (callback: () => void, ms: number) => unknown, stop: (handle: unknown) => void}} timers
+     */
+    _remoteTimers() {
+        return {
+            start: (callback, ms) => this.setTimeout(callback, ms),
+            stop: handle => {
+                if (handle) {
+                    this.clearTimeout(handle);
+                }
+            },
+        };
+    }
+
+    /**
+     * The instance settings of the copy to the external server.
+     *
+     * @returns {object} settings for `lib/remote-backup.js`
+     */
+    _remoteSettings() {
+        return {
+            enabled: this.config.remoteEnabled === true,
+            host: this.config.remoteHost,
+            port: Number(this.config.remotePort) || undefined,
+            username: this.config.remoteUser,
+            password: this.config.remotePassword,
+            directory: this.config.remoteDirectory,
+            hostKey: this.config.remoteHostKey,
+            keep: Number(this.config.remoteKeep || 0),
+        };
+    }
+
+    /**
+     * Copy a backup to the external server, when that is switched on. The local backup is already
+     * safe at this point: a failed copy is logged and shown in `info.remoteBackupError`.
+     *
+     * @param {{name: string, data: Buffer}} backup file name on the server and the bytes
+     * @returns {Promise<object|null>} the result, or null when the copy is switched off
+     */
+    _copyToRemote(backup) {
+        const settings = this._remoteSettings();
+        if (!settings.enabled) {
+            return Promise.resolve(null);
+        }
+        const run = async () => {
+            const result = await copyBackupToRemote(connectSsh2, settings, backup, this.log, this._remoteTimers());
+            const publish = async (id, value) => {
+                try {
+                    await this.setStateAsync(id, { val: value, ack: true });
+                } catch (err) {
+                    this.log.debug(`Cannot set ${id}: ${err.message}`);
+                }
+            };
+            if (result.ok) {
+                this.log.info(`Backup copied to the external server: ${result.remoteFile}`);
+                for (const old of result.deleted) {
+                    this.log.info(`Old copy deleted on the external server: ${old}`);
+                }
+                for (const stale of result.partialsRemoved) {
+                    this.log.info(`Interrupted upload removed on the external server: ${stale}`);
+                }
+                await publish('info.lastRemoteBackup', result.remoteFile || backup.name);
+                await publish('info.remoteBackupError', '');
+            } else {
+                this.log.error(`Copy to the external server failed: ${result.message}`);
+                await publish('info.remoteBackupError', result.message);
+            }
+            return result;
+        };
+        const next = this._remoteQueue.then(run, run);
+        this._remoteQueue = next.catch(() => undefined);
+        return next;
+    }
+
+    /**
+     * Plan the next automatic backup from `autoBackupInterval` and the time of the last backup
+     * (`info.lastBackup`, so a restart does not reset the clock). Off when the interval is 0.
+     *
+     * @returns {Promise<void>} resolves when the timer is set (or not needed)
+     */
+    async _scheduleAutoBackup() {
+        if (this._autoBackupTimer) {
+            this.clearTimeout(this._autoBackupTimer);
+            this._autoBackupTimer = null;
+        }
+        if (!(this.config.espIp || '').trim()) {
+            return;
+        }
+        const last = await this.getStateAsync('info.lastBackup');
+        const delay = autoBackupDelay(this.config.autoBackupInterval, last ? last.val : 0);
+        if (delay === null) {
+            return;
+        }
+        this.log.debug(`Next automatic backup in ${Math.round(delay / 60_000)} min`);
+        this._autoBackupTimer = this.setTimeout(() => {
+            this._autoBackupTimer = null;
+            void this._runAutoBackup();
+        }, delay);
+    }
+
+    /**
+     * Run one automatic backup. A failure (device offline, write error) is retried after one hour
+     * instead of every few minutes; an enrollment in progress postpones the backup.
+     *
+     * @returns {Promise<void>} resolves when the backup ran and the next one is planned
+     */
+    async _runAutoBackup() {
+        const retry = ms => {
+            this._autoBackupTimer = this.setTimeout(() => {
+                this._autoBackupTimer = null;
+                void this._runAutoBackup();
+            }, ms);
+        };
+        try {
+            const enrolling = await this.getStateAsync('enroll.active');
+            if (enrolling && enrolling.val) {
+                this.log.info('Automatic backup postponed by 10 minutes: an enrollment is running');
+                retry(10 * 60_000);
+                return;
+            }
+            const result = await this._createBackup('auto');
+            if (!result.ok) {
+                this.log.warn(`Automatic backup: ${result.message} — next attempt in one hour`);
+                retry(60 * 60_000);
+                return;
+            }
+        } catch (err) {
+            this.log.warn(`Automatic backup failed: ${err.message} — next attempt in one hour`);
+            retry(60 * 60_000);
+            return;
+        }
+        await this._scheduleAutoBackup();
     }
 
     // ── Event handlers ────────────────────────────────────────────────────────
@@ -1564,6 +1802,45 @@ class Fingerprint extends utils.Adapter {
                 read: true,
                 write: false,
                 def: 0,
+            },
+            native: {},
+        });
+
+        // Backup status
+        await this.extendObjectAsync('info.lastBackup', {
+            type: 'state',
+            common: {
+                name: 'Last fingerprint backup',
+                type: 'number',
+                role: 'date',
+                read: true,
+                write: false,
+                def: 0,
+                desc: 'Time of the last backup (by hand or automatic)',
+            },
+            native: {},
+        });
+        await this.extendObjectAsync('info.lastRemoteBackup', {
+            type: 'state',
+            common: {
+                name: 'Last copy on the external server',
+                type: 'string',
+                role: 'text',
+                read: true,
+                write: false,
+                def: '',
+            },
+            native: {},
+        });
+        await this.extendObjectAsync('info.remoteBackupError', {
+            type: 'state',
+            common: {
+                name: 'Error of the last copy to the external server (empty = fine)',
+                type: 'string',
+                role: 'text',
+                read: true,
+                write: false,
+                def: '',
             },
             native: {},
         });

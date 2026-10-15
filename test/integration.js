@@ -5,6 +5,8 @@ const assert = require('node:assert/strict');
 const { tests } = require('@iobroker/testing');
 const { AES_PREFIX } = require('../lib/secrets');
 const controller = require('./helpers/controller-crypto');
+const { startDevice } = require('./helpers/fake-device');
+const { startServer } = require('./helpers/sftp-server');
 
 const INSTANCE = 'system.adapter.fingerprint.0';
 const PASSWORD = 'pw1';
@@ -81,6 +83,66 @@ tests.integration(path.join(__dirname, '..'), {
 
                 assert.ok(stored, 'no webhook token was generated');
                 assert.match(controller.decrypt(secret, stored), /^[0-9a-f]{48}$/);
+            });
+        });
+
+        suite('Backup copied to an external server (SFTP)', getHarness => {
+            let harness;
+            let device;
+            let sftp;
+            let disk;
+            before(async () => {
+                harness = getHarness();
+                device = await startDevice([
+                    { id: 1, name: 'Alice' },
+                    { id: 2, name: 'Bob' },
+                ]);
+                disk = { files: new Map(), directories: new Set(['/']) };
+                sftp = await startServer(disk);
+            });
+            after(() => {
+                device.close();
+                sftp.close();
+            });
+
+            it('saves the backup made by hand and copies it to the SFTP server', async function () {
+                this.timeout(60000);
+                // changeAdapterConfig() encrypts the encryptedNative fields (remotePassword) like the admin does
+                await harness.changeAdapterConfig('fingerprint', {
+                    native: {
+                        espIp: '127.0.0.1',
+                        espPort: device.port,
+                        webhookPort: 18097,
+                        pollingEnabled: false,
+                        remoteEnabled: true,
+                        remoteHost: '127.0.0.1',
+                        remotePort: sftp.port,
+                        remoteUser: 'backup',
+                        remotePassword: 'secret',
+                        remoteDirectory: '/backups/fingerprint',
+                        remoteHostKey: sftp.fingerprint,
+                    },
+                });
+                await harness.startAdapterAndWait();
+                await harness.enableSendTo();
+
+                const answer = await new Promise(resolve =>
+                    harness.sendTo('fingerprint.0', 'backupFingerprints', {}, resolve),
+                );
+                assert.ok(answer && answer.result, `unexpected answer: ${JSON.stringify(answer)}`);
+                assert.match(answer.result, /Backup saved: 2 finger\(s\); copied to the external server/);
+
+                const copies = [...disk.files.keys()].filter(p => p.startsWith('/backups/fingerprint/'));
+                assert.equal(copies.length, 1, `files on the server: ${[...disk.files.keys()].join(', ')}`);
+                assert.match(copies[0], /\/fingerprint-backup-\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2}\.json$/);
+                assert.equal(disk.files.get(copies[0]).toString('utf8'), device.backupJson);
+
+                const lastRemote = await harness.states.getStateAsync('fingerprint.0.info.lastRemoteBackup');
+                assert.equal(lastRemote && lastRemote.val, copies[0]);
+                const error = await harness.states.getStateAsync('fingerprint.0.info.remoteBackupError');
+                assert.equal(error && error.val, '');
+                const lastBackup = await harness.states.getStateAsync('fingerprint.0.info.lastBackup');
+                assert.ok(lastBackup && lastBackup.val > 0);
             });
         });
     },

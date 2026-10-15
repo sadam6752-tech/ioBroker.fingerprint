@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "fingerprint",
-    "version": "0.7.13",
+    "version": "0.8.0",
     "news": {
+      "0.8.0": {
+        "en": "New Backup tab: automatic fingerprint backup (off, daily or weekly) and a copy of every backup to an external server over SFTP (e.g. a NAS) with connection test, host key check and cleanup of old automatic copies. The SFTP password is stored encrypted.",
+        "de": "Neuer Reiter Backup: automatische Fingerabdruck-Sicherung (aus, täglich oder wöchentlich) und Kopie jeder Sicherung per SFTP auf einen externen Server (z. B. ein NAS) mit Verbindungstest, Prüfung des Host-Schlüssels und Aufräumen alter automatischer Kopien. Das SFTP-Passwort wird verschlüsselt gespeichert.",
+        "ru": "Новая вкладка «Резервная копия»: автоматическое резервное копирование отпечатков (выкл., ежедневно или еженедельно) и копирование каждой резервной копии по SFTP на внешний сервер (например, NAS) с проверкой соединения, проверкой ключа хоста и удалением старых автоматических копий. Пароль SFTP хранится в зашифрованном виде.",
+        "pt": "Novo separador Cópia de segurança: cópia automática das impressões digitais (desligada, diária ou semanal) e cópia de cada cópia de segurança para um servidor externo por SFTP (p. ex. um NAS) com teste de ligação, verificação da chave do anfitrião e limpeza de cópias automáticas antigas. A senha SFTP é guardada encriptada.",
+        "nl": "Nieuw tabblad Back-up: automatische vingerafdrukback-up (uit, dagelijks of wekelijks) en een kopie van elke back-up via SFTP naar een externe server (bijv. een NAS) met verbindingstest, controle van de hostsleutel en opruimen van oude automatische kopieën. Het SFTP-wachtwoord wordt versleuteld opgeslagen.",
+        "fr": "Nouvel onglet Sauvegarde : sauvegarde automatique des empreintes (désactivée, quotidienne ou hebdomadaire) et copie de chaque sauvegarde vers un serveur externe par SFTP (p. ex. un NAS) avec test de connexion, vérification de la clé d'hôte et nettoyage des anciennes copies automatiques. Le mot de passe SFTP est stocké chiffré.",
+        "it": "Nuova scheda Backup: backup automatico delle impronte (disattivato, giornaliero o settimanale) e copia di ogni backup su un server esterno via SFTP (ad es. un NAS) con test di connessione, verifica della chiave dell'host e pulizia delle vecchie copie automatiche. La password SFTP viene salvata cifrata.",
+        "es": "Nueva pestaña Copia de seguridad: copia automática de las huellas (desactivada, diaria o semanal) y copia de cada copia de seguridad a un servidor externo por SFTP (p. ej. un NAS) con prueba de conexión, verificación de la clave del host y limpieza de copias automáticas antiguas. La contraseña SFTP se guarda cifrada.",
+        "pl": "Nowa karta Kopia zapasowa: automatyczna kopia odcisków (wyłączona, codziennie lub co tydzień) oraz kopiowanie każdej kopii zapasowej przez SFTP na serwer zewnętrzny (np. NAS) z testem połączenia, sprawdzaniem klucza hosta i usuwaniem starych kopii automatycznych. Hasło SFTP jest przechowywane w postaci zaszyfrowanej.",
+        "uk": "Нова вкладка «Резервна копія»: автоматичне резервне копіювання відбитків (вимкнено, щодня або щотижня) і копіювання кожної резервної копії через SFTP на зовнішній сервер (наприклад, NAS) із перевіркою з’єднання, перевіркою ключа хоста та видаленням старих автоматичних копій. Пароль SFTP зберігається зашифрованим.",
+        "zh-cn": "新增“备份”选项卡：指纹自动备份（关闭、每天或每周），并可通过 SFTP 将每次备份复制到外部服务器（例如 NAS），支持连接测试、主机密钥校验和清理旧的自动副本。SFTP 密码以加密方式存储。"
+      },
       "0.7.13": {
         "en": "Admin password and webhook token are now stored encrypted (encryptedNative). Values stored as plain text are encrypted automatically on the first start; the instance restarts once.",
         "de": "Admin-Passwort und Webhook-Token werden jetzt verschlüsselt gespeichert (encryptedNative). Im Klartext gespeicherte Werte werden beim ersten Start automatisch verschlüsselt; die Instanz startet dabei einmal neu.",
@@ -80,19 +93,6 @@
         "nl": "Documentatie- en afhankelijkheidsupdate: README alleen in het Engels (Duitse disclaimer verplaatst naar DISCLAIMER.de.md), changelog-item toegevoegd, @iobroker/testing bijgewerkt naar 6.3.",
         "uk": "Оновлення документації та залежностей: README лише англійською (німецьку відмову від відповідальності перенесено до DISCLAIMER.de.md), додано запис у changelog, @iobroker/testing оновлено до 6.3.",
         "zh-cn": "文档和依赖更新：README 仅保留英文（德文免责声明移至 DISCLAIMER.de.md），补充更新日志条目，@iobroker/testing 升级到 6.3。"
-      },
-      "0.7.7": {
-        "en": "Security and stability fixes: unhandled errors in webhook handlers can no longer crash the adapter, objects are only created for valid finger IDs (1-200), constant-time token comparison, webhook timeouts, input limits, LED values are range-checked. Added disclaimer to README.",
-        "de": "Sicherheits- und Stabilitaetsfixes: Fehler in Webhook-Handlern koennen den Adapter nicht mehr abstuerzen lassen, Objekte werden nur fuer gueltige Finger-IDs (1-200) angelegt, zeitkonstanter Token-Vergleich, Webhook-Timeouts, Eingabelimits, LED-Werte werden geprueft. Disclaimer in der README ergaenzt.",
-        "ru": "Исправления безопасности и стабильности: необработанные ошибки в обработчиках webhook больше не приводят к сбою адаптера, объекты создаются только для допустимых ID отпечатков (1-200), сравнение токена за постоянное время, тайм-ауты webhook, ограничения ввода, проверка значений LED. В README добавлен отказ от ответственности.",
-        "fr": "Corrections de securite et de stabilite : les erreurs non gerees dans les gestionnaires webhook ne peuvent plus faire planter l'adaptateur, les objets ne sont crees que pour des ID d'empreinte valides (1-200), comparaison du jeton en temps constant, delais webhook, limites d'entree, valeurs LED verifiees. Avertissement ajoute au README.",
-        "it": "Correzioni di sicurezza e stabilita: gli errori non gestiti nei gestori webhook non possono piu bloccare l'adattatore, gli oggetti vengono creati solo per ID impronta validi (1-200), confronto del token a tempo costante, timeout webhook, limiti di input, valori LED verificati. Aggiunto disclaimer al README.",
-        "es": "Correcciones de seguridad y estabilidad: los errores no controlados en los manejadores de webhook ya no pueden bloquear el adaptador, los objetos solo se crean para ID de huella validos (1-200), comparacion del token en tiempo constante, tiempos de espera del webhook, limites de entrada, valores LED comprobados. Descargo de responsabilidad anadido al README.",
-        "pl": "Poprawki bezpieczenstwa i stabilnosci: nieobsluzone bledy w handlerach webhook nie powoduja juz awarii adaptera, obiekty sa tworzone tylko dla poprawnych ID odciskow (1-200), porownanie tokena w stalym czasie, limity czasu webhook, limity danych wejsciowych, sprawdzanie wartosci LED. Dodano zastrzezenie w README.",
-        "pt": "Correcoes de seguranca e estabilidade: erros nao tratados nos manipuladores de webhook ja nao podem derrubar o adaptador, os objetos so sao criados para IDs de impressao digital validos (1-200), comparacao do token em tempo constante, timeouts do webhook, limites de entrada, valores LED verificados. Aviso legal adicionado ao README.",
-        "nl": "Beveiligings- en stabiliteitsfixes: onafgehandelde fouten in webhook-handlers kunnen de adapter niet meer laten crashen, objecten worden alleen voor geldige vinger-ID's (1-200) aangemaakt, tokenvergelijking in constante tijd, webhook-timeouts, invoerlimieten, LED-waarden worden gecontroleerd. Disclaimer toegevoegd aan README.",
-        "uk": "Виправлення безпеки та стабільності: необроблені помилки в обробниках webhook більше не можуть призвести до збою адаптера, об'єкти створюються лише для допустимих ID відбитків (1-200), порівняння токена за сталий час, тайм-аути webhook, обмеження вводу, перевірка значень LED. У README додано відмову від відповідальності.",
-        "zh-cn": "安全与稳定性修复：webhook 处理程序中未处理的错误不再导致适配器崩溃，仅为有效指纹 ID（1-200）创建对象，令牌恒定时间比较，webhook 超时，输入限制，检查 LED 值范围。README 中添加免责声明。"
       }
     },
     "titleLang": {
@@ -203,15 +203,26 @@
     "alarmActionObject": "",
     "alarmActionValue": "",
     "snapshotActionObject": "",
-    "snapshotActionValue": ""
+    "snapshotActionValue": "",
+    "autoBackupInterval": 0,
+    "remoteEnabled": false,
+    "remoteHost": "",
+    "remotePort": 22,
+    "remoteUser": "",
+    "remotePassword": "",
+    "remoteDirectory": "/backups/fingerprint",
+    "remoteHostKey": "",
+    "remoteKeep": 0
   },
   "encryptedNative": [
     "adminPassword",
-    "webhookToken"
+    "webhookToken",
+    "remotePassword"
   ],
   "protectedNative": [
     "adminPassword",
-    "webhookToken"
+    "webhookToken",
+    "remotePassword"
   ],
   "objects": [],
   "instanceObjects": [

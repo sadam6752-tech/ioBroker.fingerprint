@@ -458,6 +458,119 @@
           "xs": 12, "sm": 4, "md": 3, "lg": 2, "xl": 2
         }
       }
+    },
+    "_tabBackup": {
+      "type": "panel",
+      "label": "Backup",
+      "items": {
+        "_autoHeader": {
+          "type": "header",
+          "text": "Automatic backup",
+          "size": 3
+        },
+        "_autoInfo": {
+          "type": "staticText",
+          "text": "Reads all fingerprint templates from the sensor at the chosen interval and saves them in the backup file on the ioBroker host (the same file that Restore uses). The interval counts from the last backup, also after a restart. A device that returns no fingerprints never replaces an existing backup.",
+          "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12
+        },
+        "autoBackupInterval": {
+          "type": "select",
+          "label": "Automatic backup",
+          "options": [
+            { "value": 0, "label": "Off" },
+            { "value": 24, "label": "Daily" },
+            { "value": 168, "label": "Weekly" }
+          ],
+          "default": 0,
+          "newLine": true,
+          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
+        },
+        "_remoteHeader": {
+          "type": "header",
+          "text": "Copy to an external server (SFTP)",
+          "size": 3
+        },
+        "_remoteHint": {
+          "type": "staticText",
+          "text": "Every backup (by hand and automatic) is also copied to another computer over SFTP, for example a NAS, so it survives the loss of this host. Use a user that may only write into the target directory, not an administrator. The copy needs no mount and no sudo. The file contains the fingerprint templates (biometric data) and is not encrypted on the server: keep it on a volume only you can read.",
+          "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12
+        },
+        "remoteEnabled": {
+          "type": "checkbox",
+          "label": "Copy backups to an external server (SFTP)",
+          "newLine": true,
+          "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12
+        },
+        "remoteHost": {
+          "type": "text",
+          "label": "Server address",
+          "help": "IP address or host name of the server",
+          "disabled": "!data.remoteEnabled",
+          "newLine": true,
+          "xs": 12, "sm": 12, "md": 4, "lg": 4, "xl": 4
+        },
+        "remotePort": {
+          "type": "number",
+          "label": "SSH port",
+          "min": 1,
+          "max": 65535,
+          "default": 22,
+          "disabled": "!data.remoteEnabled",
+          "xs": 12, "sm": 12, "md": 4, "lg": 4, "xl": 4
+        },
+        "remoteUser": {
+          "type": "text",
+          "label": "User name",
+          "disabled": "!data.remoteEnabled",
+          "newLine": true,
+          "xs": 12, "sm": 12, "md": 4, "lg": 4, "xl": 4
+        },
+        "remotePassword": {
+          "type": "password",
+          "label": "Password of the user",
+          "repeat": false,
+          "visible": true,
+          "disabled": "!data.remoteEnabled",
+          "xs": 12, "sm": 12, "md": 4, "lg": 4, "xl": 4
+        },
+        "remoteDirectory": {
+          "type": "text",
+          "label": "Directory on the server",
+          "help": "e.g. /backups/fingerprint, created when it is missing",
+          "disabled": "!data.remoteEnabled",
+          "newLine": true,
+          "xs": 12, "sm": 12, "md": 4, "lg": 4, "xl": 4
+        },
+        "remoteHostKey": {
+          "type": "text",
+          "label": "Server fingerprint (optional)",
+          "help": "SHA256:… as the server shows it. Empty: the server is not verified, the log shows its fingerprint.",
+          "disabled": "!data.remoteEnabled",
+          "xs": 12, "sm": 12, "md": 8, "lg": 8, "xl": 8
+        },
+        "remoteKeep": {
+          "type": "number",
+          "label": "Copies to keep on the server",
+          "help": "Only automatic copies are deleted, the oldest first; 0 = keep all. Backups made by hand and other files are never deleted.",
+          "min": 0,
+          "max": 1000,
+          "default": 0,
+          "disabled": "!data.remoteEnabled",
+          "newLine": true,
+          "xs": 12, "sm": 12, "md": 4, "lg": 4, "xl": 4
+        },
+        "_remoteTest": {
+          "type": "sendTo",
+          "command": "testRemoteBackup",
+          "label": "Test connection",
+          "variant": "outlined",
+          "useNative": true,
+          "showProcess": true,
+          "disabled": "!data.remoteEnabled",
+          "newLine": true,
+          "xs": 12, "sm": 12, "md": 4, "lg": 4, "xl": 4
+        }
+      }
     }
   }
 }
