@@ -165,18 +165,21 @@ fingerprint — no JavaScript needed:
 The **Manage Fingers** tab lets you administer fingers without opening the device WebUI:
 
 - **Rename** — enter a finger ID and a new name, then click *Rename*.
-- **Create backup** — downloads all fingerprint templates from the sensor and stores them as a
-  new file in the storage folder (see *Backup*).
-- **Backup to restore** + **Restore the selected backup** — writes the chosen backup back to
-  the sensor; the current content of the sensor is saved first as a safety copy.
+- **Enroll a new finger** — see below.
+
+Backup and restore are on the **Backup** tab (see *Backup*).
 
 Save the instance settings first so the device connection is available.
+
+## Backup (v0.8.0, storage folder and restore v0.8.1)
+
+Everything about backups is on the **Backup** tab of the instance settings: **Create backup**,
+**Backup to restore** + **Restore the selected backup**, the automatic backup, the copy to an
+external server and the restore from that server.
 
 > **Note:** reliable backup/restore of *all* fingers needs firmware **v0.9.4**
 > (full 1536-byte templates). Backups made with older firmware are incomplete —
 > re-create them after updating.
-
-## Backup (v0.8.0, storage folder and restore v0.8.1)
 
 ### Storage folder
 
@@ -202,7 +205,7 @@ file storage, folder `fingerprint.0.storage/backups/`:
 
 ### Restore
 
-*Manage Fingers* → **Backup to restore**: choose a backup (newest first; reopen the settings to
+Tab **Backup** → **Backup to restore**: choose a backup (newest first; reopen the settings to
 refresh the list) → **Restore the selected backup** → confirm. The adapter checks the file
 (valid JSON, finger ids 1–200, no duplicates, templates present), saves the current content of the
 sensor as `fingerprint-prerestore-<time>.json` and then writes the backup to the sensor. If the
@@ -217,7 +220,7 @@ current content cannot be read from the device, the restore is aborted.
    - **from the SFTP server**: tab **Backup** → enter the SFTP settings, switch the copy on,
      save → **Backup on the server** → choose → **Fetch from the server and restore**.
      The file is fetched into the storage folder and restored in one step.
-3. For the first two ways: *Manage Fingers* → **Backup to restore** → **Restore the selected backup**.
+3. For the first two ways: tab **Backup** → **Backup to restore** → **Restore the selected backup**.
 
 ### Automatic backup
 
@@ -348,6 +351,10 @@ Writing either state applies the ring immediately.
 - **Enroll from adapter, LED ring, `info.wifiRssi`** require **v0.9.4**.
 
 ## Changelog
+
+### 0.8.2
+
+- Admin UI: *Create backup* and *Restore* moved from *Manage Fingers* to the **Backup** tab, so everything about backups is on one page
 
 ### 0.8.1
 

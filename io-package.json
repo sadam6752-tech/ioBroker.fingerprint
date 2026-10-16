@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "fingerprint",
-    "version": "0.8.1",
+    "version": "0.8.2",
     "news": {
+      "0.8.2": {
+        "en": "Admin UI: \"Create backup\" and \"Restore\" moved from \"Manage Fingers\" to the \"Backup\" tab, so everything about backups is on one page.",
+        "de": "Admin-Oberfläche: „Sicherung erstellen“ und „Wiederherstellen“ sind vom Reiter „Finger verwalten“ in den Reiter „Sicherung“ umgezogen, damit alles rund um Sicherungen auf einer Seite steht.",
+        "ru": "Интерфейс админки: «Создать копию» и «Восстановить» перенесены со вкладки «Управление отпечатками» на вкладку «Резервная копия», чтобы всё о резервном копировании было на одной странице.",
+        "pt": "Interface do admin: \"Criar cópia de segurança\" e \"Restaurar\" passaram do separador \"Gerir impressões digitais\" para o separador \"Cópia de segurança\", para que tudo sobre cópias fique numa só página.",
+        "nl": "Admin-UI: \"Back-up maken\" en \"Herstellen\" zijn van het tabblad \"Vingers beheren\" naar het tabblad \"Back-up\" verplaatst, zodat alles over back-ups op één pagina staat.",
+        "fr": "Interface admin : « Créer une sauvegarde » et « Restaurer » passent de l'onglet « Gérer les empreintes » à l'onglet « Sauvegarde », pour que tout ce qui concerne les sauvegardes soit sur une seule page.",
+        "it": "Interfaccia admin: \"Crea backup\" e \"Ripristina\" sono stati spostati dalla scheda \"Gestisci impronte\" alla scheda \"Backup\", così tutto ciò che riguarda i backup si trova in un'unica pagina.",
+        "es": "Interfaz del admin: «Crear copia de seguridad» y «Restaurar» pasan de la pestaña «Gestionar huellas» a la pestaña «Copia de seguridad», para que todo lo relativo a las copias esté en una sola página.",
+        "pl": "Interfejs admina: „Utwórz kopię” i „Przywróć” przeniesiono z karty „Zarządzaj odciskami” do karty „Kopia zapasowa”, aby wszystko o kopiach zapasowych było na jednej stronie.",
+        "uk": "Інтерфейс адмінки: «Створити копію» та «Відновити» перенесено з вкладки «Керування відбитками» на вкладку «Резервна копія», щоб усе про резервне копіювання було на одній сторінці.",
+        "zh-cn": "管理界面：“创建备份”和“恢复”已从“管理指纹”选项卡移至“备份”选项卡，备份相关的所有内容都在同一页面。"
+      },
       "0.8.1": {
         "en": "New storage folder for the backups (download and upload in the admin tab Files, taken along by ioBroker backups), restore of a chosen backup with a safety copy of the sensor first, and restore directly from the external SFTP server after a new installation. New setting: automatic backups to keep.",
         "de": "Neuer Storage-Ordner für die Sicherungen (Herunterladen und Hochladen im Admin unter Dateien, wird von ioBroker-Sicherungen mitgenommen), Wiederherstellen einer gewählten Sicherung mit vorheriger Sicherheitskopie des Sensors und Wiederherstellen direkt vom externen SFTP-Server nach einer Neuinstallation. Neue Einstellung: Anzahl der automatischen Sicherungen.",
@@ -80,19 +93,6 @@
         "nl": "Pollinginterval wordt nu binnen bereik gehouden (5-600 s); ongebruikte vertaalsleutels verwijderd; localLinks-naam in alle talen vertaald.",
         "uk": "Інтервал опитування тепер обмежено діапазоном (5-600 с); видалено невикористані ключі перекладу; назву localLinks перекладено всіма мовами.",
         "zh-cn": "轮询间隔现在会检查范围（5-600 秒）；删除未使用的翻译键；localLinks 名称已翻译为所有语言。"
-      },
-      "0.7.9": {
-        "en": "New: link to the device WebUI in the instance list of Admin (localLinks).",
-        "de": "Neu: Link zur WebUI des Geraets in der Instanzliste von Admin (localLinks).",
-        "ru": "Новое: ссылка на WebUI устройства в списке инстансов Admin (localLinks).",
-        "fr": "Nouveau : lien vers l'interface web de l'appareil dans la liste des instances d'Admin (localLinks).",
-        "it": "Novita: link alla WebUI del dispositivo nell'elenco delle istanze di Admin (localLinks).",
-        "es": "Nuevo: enlace a la WebUI del dispositivo en la lista de instancias de Admin (localLinks).",
-        "pl": "Nowe: link do WebUI urzadzenia na liscie instancji w Admin (localLinks).",
-        "pt": "Novo: link para a WebUI do dispositivo na lista de instancias do Admin (localLinks).",
-        "nl": "Nieuw: link naar de WebUI van het apparaat in de instantielijst van Admin (localLinks).",
-        "uk": "Нове: посилання на WebUI пристрою у списку інстансів Admin (localLinks).",
-        "zh-cn": "新增：在 Admin 实例列表中显示设备 WebUI 链接（localLinks）。"
       }
     },
     "titleLang": {

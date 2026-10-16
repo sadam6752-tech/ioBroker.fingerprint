@@ -386,52 +386,6 @@
           "color": "primary",
           "xs": 12, "sm": 4, "md": 3, "lg": 2, "xl": 2
         },
-        "_backupHeader": {
-          "type": "header",
-          "text": "Backup & Restore",
-          "size": 3
-        },
-        "_backupInfo": {
-          "type": "staticText",
-          "text": "A backup stores all fingerprint templates (id, name, template) as a file in the storage folder fingerprint.0.storage/backups. You find it in the admin under Files, where it can be downloaded and uploaded; ioBroker and BackItUp backups take it along. Restore writes the chosen backup back to the sensor; the current content of the sensor is saved first as a safety copy. Save the settings first so the device connection is available.",
-          "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12
-        },
-        "backupButton": {
-          "type": "sendTo",
-          "label": "Create backup",
-          "command": "backupFingerprints",
-          "variant": "contained",
-          "color": "primary",
-          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
-        },
-        "_restoreFile": {
-          "type": "selectSendTo",
-          "label": "Backup to restore",
-          "command": "listBackups",
-          "jsonData": "{}",
-          "noTranslation": true,
-          "doNotSave": true,
-          "help": "The backups in the storage folder, newest first. Reopen the settings to refresh the list.",
-          "newLine": true,
-          "xs": 12, "sm": 8, "md": 6, "lg": 5, "xl": 5
-        },
-        "restoreButton": {
-          "type": "sendTo",
-          "label": "Restore the selected backup",
-          "command": "restoreFingerprints",
-          "jsonData": "{ \"file\": \"${data._restoreFile}\" }",
-          "disabled": "!data._restoreFile",
-          "variant": "outlined",
-          "color": "secondary",
-          "confirm": {
-            "type": "warning",
-            "title": "Restore fingerprints",
-            "text": "The fingerprints on the sensor are replaced by the chosen backup. The current content is saved first as a safety copy. Continue?",
-            "ok": "Restore",
-            "cancel": "Cancel"
-          },
-          "xs": 12, "sm": 4, "md": 4, "lg": 3, "xl": 3
-        },
         "_enrollHeader": {
           "type": "header",
           "text": "Enroll a new finger",
@@ -483,6 +437,52 @@
       "type": "panel",
       "label": "Backup",
       "items": {
+        "_backupHeader": {
+          "type": "header",
+          "text": "Backup & Restore",
+          "size": 3
+        },
+        "_backupInfo": {
+          "type": "staticText",
+          "text": "A backup stores all fingerprint templates (id, name, template) as a file in the storage folder fingerprint.0.storage/backups. You find it in the admin under Files, where it can be downloaded and uploaded; ioBroker and BackItUp backups take it along. Restore writes the chosen backup back to the sensor; the current content of the sensor is saved first as a safety copy. Save the settings first so the device connection is available.",
+          "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12
+        },
+        "backupButton": {
+          "type": "sendTo",
+          "label": "Create backup",
+          "command": "backupFingerprints",
+          "variant": "contained",
+          "color": "primary",
+          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
+        },
+        "_restoreFile": {
+          "type": "selectSendTo",
+          "label": "Backup to restore",
+          "command": "listBackups",
+          "jsonData": "{}",
+          "noTranslation": true,
+          "doNotSave": true,
+          "help": "The backups in the storage folder, newest first. Reopen the settings to refresh the list.",
+          "newLine": true,
+          "xs": 12, "sm": 8, "md": 6, "lg": 5, "xl": 5
+        },
+        "restoreButton": {
+          "type": "sendTo",
+          "label": "Restore the selected backup",
+          "command": "restoreFingerprints",
+          "jsonData": "{ \"file\": \"${data._restoreFile}\" }",
+          "disabled": "!data._restoreFile",
+          "variant": "outlined",
+          "color": "secondary",
+          "confirm": {
+            "type": "warning",
+            "title": "Restore fingerprints",
+            "text": "The fingerprints on the sensor are replaced by the chosen backup. The current content is saved first as a safety copy. Continue?",
+            "ok": "Restore",
+            "cancel": "Cancel"
+          },
+          "xs": 12, "sm": 4, "md": 4, "lg": 3, "xl": 3
+        },
         "_autoHeader": {
           "type": "header",
           "text": "Automatic backup",
