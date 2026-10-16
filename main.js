@@ -9,12 +9,37 @@ const EspClient = require('./lib/esp-client');
 const { normalizeSecrets, migrateSecrets } = require('./lib/secrets');
 const {
     copyBackupToRemote,
-    remoteBackupName,
+    fetchRemoteBackup,
+    listRemoteBackups,
     settingsForConnectionTest,
     testRemoteConnection,
 } = require('./lib/remote-backup');
 const { connectSsh2 } = require('./lib/sftp-ssh2');
 const { autoBackupDelay } = require('./lib/backup-schedule');
+const {
+    BACKUP_DIR,
+    backupLabel,
+    backupName,
+    isBackupName,
+    selectLocalBackupsToPrune,
+    sortBackupsNewestFirst,
+    validateBackupContent,
+} = require('./lib/backup-store');
+
+/** Name of the mount point of the storage folder, in the eleven admin languages. */
+const STORAGE_NAME = {
+    en: 'Backup storage',
+    de: 'Sicherungsablage',
+    ru: 'Хранилище резервных копий',
+    pt: 'Armazenamento de cópias de segurança',
+    nl: 'Back-upopslag',
+    fr: 'Stockage des sauvegardes',
+    it: 'Archivio dei backup',
+    es: 'Almacén de copias de seguridad',
+    pl: 'Magazyn kopii zapasowych',
+    uk: 'Сховище резервних копій',
+    'zh-cn': '备份存储',
+};
 
 class Fingerprint extends utils.Adapter {
     constructor(options = {}) {
@@ -51,6 +76,14 @@ class Fingerprint extends utils.Adapter {
             // repair/replace values that are still unusable — both before the secrets are used
             await migrateSecrets(this);
             await normalizeSecrets(this.config, this.log, attr => this.getEncryptedConfig(attr));
+
+            // Storage folder for the backups (visible and downloadable in the admin "Files" tab)
+            try {
+                await this._ensureStorage();
+                await this._migrateLegacyBackup();
+            } catch (err) {
+                this.log.error(`Cannot create the storage folder ${this._storageId()}: ${err.message}`);
+            }
         } finally {
             this._markReady();
         }
@@ -568,46 +601,65 @@ class Fingerprint extends utils.Adapter {
             return;
         }
 
+        if (obj.command === 'listBackups') {
+            // options for the "Backup to restore" selection: the files in the storage folder, newest first
+            const backups = await this._listStoredBackups();
+            const options = backups.map(b => ({ value: b.name, label: backupLabel(b.name, b.size) }));
+            this.sendTo(
+                obj.from,
+                obj.command,
+                options.length > 0 ? options : [{ value: '', label: 'No backup in the storage folder' }],
+                obj.callback,
+            );
+            return;
+        }
+
         if (obj.command === 'restoreFingerprints') {
-            const client = this._makeEspClient();
-            if (!client) {
+            const file = obj.message && typeof obj.message.file === 'string' ? obj.message.file : '';
+            const result = await this._restoreBackup(file);
+            this.sendTo(
+                obj.from,
+                obj.command,
+                result.ok ? { result: result.message } : { error: result.message },
+                obj.callback,
+            );
+            return;
+        }
+
+        if (obj.command === 'listRemoteBackups') {
+            // options for the "Backup on the server" selection (saved settings only)
+            const settings = this._remoteSettings();
+            if (!settings.enabled) {
                 this.sendTo(
                     obj.from,
                     obj.command,
-                    { error: 'Device IP not configured (save settings first)' },
+                    [{ value: '', label: 'Switch the copy to the external server on and save first' }],
                     obj.callback,
                 );
                 return;
             }
-            const file = this._getBackupPath();
-            let json;
-            try {
-                json = fs.readFileSync(file, 'utf8');
-            } catch {
-                this.sendTo(
-                    obj.from,
-                    obj.command,
-                    { error: 'No backup file found. Create a backup first.' },
-                    obj.callback,
-                );
-                return;
-            }
-            let count = 0;
-            try {
-                const arr = JSON.parse(json);
-                count = Array.isArray(arr) ? arr.length : 0;
-            } catch {
-                this.sendTo(obj.from, obj.command, { error: 'Backup file is not valid JSON' }, obj.callback);
-                return;
-            }
-            const ok = await client.restore(json);
-            if (ok) {
-                await this._syncFingerprints();
-                this.log.info(`Fingerprint restore sent (${count} finger(s))`);
-                this.sendTo(obj.from, obj.command, { result: `Restore sent: ${count} finger(s)` }, obj.callback);
+            const result = await listRemoteBackups(connectSsh2, settings, this._remoteTimers());
+            let options;
+            if (!result.ok) {
+                options = [{ value: '', label: `Error: ${result.message}` }];
+            } else if (result.names.length === 0) {
+                options = [{ value: '', label: 'No backup on the server' }];
             } else {
-                this.sendTo(obj.from, obj.command, { error: 'Restore failed (device unreachable)' }, obj.callback);
+                options = result.names.map(name => ({ value: name, label: backupLabel(name) }));
             }
+            this.sendTo(obj.from, obj.command, options, obj.callback);
+            return;
+        }
+
+        if (obj.command === 'restoreFromRemote') {
+            const file = obj.message && typeof obj.message.file === 'string' ? obj.message.file : '';
+            const result = await this._restoreFromRemote(file);
+            this.sendTo(
+                obj.from,
+                obj.command,
+                result.ok ? { result: result.message } : { error: result.message },
+                obj.callback,
+            );
             return;
         }
     }
@@ -632,14 +684,249 @@ class Fingerprint extends utils.Adapter {
     }
 
     /**
-     * Absolute path of the fingerprint backup file (outside the adapter folder,
-     * so it survives adapter updates).
+     * Absolute path of the backup file of versions up to 0.8.0 (instance data directory). Only
+     * used to take that file over into the storage folder once.
      *
      * @returns {string} backup file path
      */
-    _getBackupPath() {
+    _getLegacyBackupPath() {
         const dataDir = utils.getAbsoluteDefaultDataDir();
         return path.join(dataDir, this.namespace, 'fingerprints-backup.json');
+    }
+
+    // ── Storage folder (ioBroker file storage) ──────────────────────────────
+
+    /**
+     * Id of the mount point of the storage folder.
+     *
+     * @returns {string} `<namespace>.storage`
+     */
+    _storageId() {
+        return `${this.namespace}.storage`;
+    }
+
+    /**
+     * Create the mount point of the storage folder (`meta.user`: ioBroker and BackItUp backups
+     * take its files along; `meta.folder` would be skipped). Idempotent.
+     *
+     * @returns {Promise<void>} resolves when the mount point exists
+     */
+    async _ensureStorage() {
+        await this.setObjectNotExistsAsync(this._storageId(), {
+            type: 'meta',
+            common: { name: STORAGE_NAME, type: 'meta.user' },
+            native: {},
+        });
+    }
+
+    /**
+     * The backup files in the storage folder, newest first.
+     *
+     * @returns {Promise<Array<{name: string, size: number}>>} backups (empty when the folder is missing)
+     */
+    async _listStoredBackups() {
+        let entries;
+        try {
+            entries = await this.readDirAsync(this._storageId(), BACKUP_DIR);
+        } catch {
+            return [];
+        }
+        const sizes = new Map(
+            (entries || []).filter(e => !e.isDir).map(e => [e.file, Number(e.stats && e.stats.size) || 0]),
+        );
+        return sortBackupsNewestFirst([...sizes.keys()]).map(name => ({ name, size: sizes.get(name) }));
+    }
+
+    /**
+     * Write a backup file into the storage folder.
+     *
+     * @param {string} name backup file name
+     * @param {string|Buffer} data content
+     * @returns {Promise<void>} resolves when written
+     */
+    async _writeStoredBackup(name, data) {
+        await this.writeFileAsync(this._storageId(), `${BACKUP_DIR}/${name}`, data);
+    }
+
+    /**
+     * Read a backup file from the storage folder.
+     *
+     * @param {string} name backup file name
+     * @returns {Promise<string>} content
+     */
+    async _readStoredBackup(name) {
+        const result = await this.readFileAsync(this._storageId(), `${BACKUP_DIR}/${name}`);
+        const file = result && typeof result === 'object' && 'file' in result ? result.file : result;
+        return Buffer.isBuffer(file) ? file.toString('utf8') : String(file ?? '');
+    }
+
+    /**
+     * Delete the oldest automatic backups in the storage folder beyond `backupKeep`. Backups made
+     * by hand and safety copies are never deleted. A file that cannot be deleted is logged.
+     *
+     * @returns {Promise<void>} resolves when done
+     */
+    async _pruneStoredBackups() {
+        const names = (await this._listStoredBackups()).map(b => b.name);
+        for (const old of selectLocalBackupsToPrune(names, this.config.backupKeep)) {
+            try {
+                await this.delFileAsync(this._storageId(), `${BACKUP_DIR}/${old}`);
+                this.log.info(`Old automatic backup deleted: ${old}`);
+            } catch (err) {
+                this.log.warn(`Cannot delete the old backup ${old}: ${err.message}`);
+            }
+        }
+    }
+
+    /**
+     * Take the backup file of versions up to 0.8.0 over into the storage folder once (as a backup
+     * made by hand with the time of the file), then rename the old file to `….migrated`.
+     *
+     * @returns {Promise<void>} resolves when done; never throws
+     */
+    async _migrateLegacyBackup() {
+        const legacy = this._getLegacyBackupPath();
+        if (!fs.existsSync(legacy)) {
+            return;
+        }
+        try {
+            const json = fs.readFileSync(legacy, 'utf8');
+            const name = backupName('manual', fs.statSync(legacy).mtime);
+            await this._writeStoredBackup(name, json);
+            fs.renameSync(legacy, `${legacy}.migrated`);
+            this.log.info(`The previous backup file was moved into the storage folder as ${BACKUP_DIR}/${name}.`);
+        } catch (err) {
+            this.log.warn(`Could not move the previous backup file into the storage folder: ${err.message}`);
+        }
+    }
+
+    // ── Restore ─────────────────────────────────────────────────────────────
+
+    /**
+     * Restore a backup from the storage folder. Runs in the backup queue (never at the same time
+     * as a backup). Before the sensor is overwritten, its current content is saved as a safety
+     * copy (`fingerprint-prerestore-…`), so a wrong restore can be undone.
+     *
+     * @param {string} [file] backup file name; empty = the newest backup
+     * @returns {Promise<{ok: boolean, message: string}>} outcome; never throws
+     */
+    _restoreBackup(file) {
+        const run = () => this._doRestore(file);
+        const next = this._backupQueue.then(run, run);
+        this._backupQueue = next.catch(() => undefined);
+        return next;
+    }
+
+    /**
+     * See `_restoreBackup`.
+     *
+     * @param {string} [file] backup file name; empty = the newest backup
+     * @returns {Promise<{ok: boolean, message: string}>} outcome
+     */
+    async _doRestore(file) {
+        const client = this._makeEspClient();
+        if (!client) {
+            return { ok: false, message: 'Device IP not configured (save settings first)' };
+        }
+        let name = file;
+        if (!name) {
+            const newest = (await this._listStoredBackups())[0];
+            if (!newest) {
+                return { ok: false, message: 'No backup in the storage folder. Create a backup first.' };
+            }
+            name = newest.name;
+        }
+        if (!isBackupName(name)) {
+            return { ok: false, message: 'Choose a backup from the list' };
+        }
+        let content;
+        try {
+            content = await this._readStoredBackup(name);
+        } catch (err) {
+            return { ok: false, message: `Cannot read ${name}: ${err.message}` };
+        }
+        const checked = validateBackupContent(content);
+        if (!checked.ok) {
+            return { ok: false, message: `${name}: ${checked.message}` };
+        }
+
+        // safety copy of the current sensor content
+        let current;
+        try {
+            current = await client.getBackup();
+        } catch (err) {
+            current = { ok: false, message: err.message };
+        }
+        if (!current.ok) {
+            return {
+                ok: false,
+                message:
+                    'Restore aborted: the current fingerprints could not be read from the device for the safety copy',
+            };
+        }
+        let safety = '';
+        if (current.count > 0) {
+            safety = backupName('prerestore');
+            try {
+                await this._writeStoredBackup(safety, current.json);
+            } catch (err) {
+                return { ok: false, message: `Restore aborted: the safety copy could not be written: ${err.message}` };
+            }
+        }
+
+        let ok;
+        try {
+            ok = await client.restore(checked.json);
+        } catch (err) {
+            return { ok: false, message: `Restore failed: ${err.message}` };
+        }
+        if (!ok) {
+            return { ok: false, message: 'Restore failed (device unreachable)' };
+        }
+        await this._syncFingerprints();
+        this.log.info(
+            `Fingerprint restore sent from ${name} (${checked.count} finger(s))${safety ? `, safety copy ${safety}` : ''}`,
+        );
+        return {
+            ok: true,
+            message: `Restore sent: ${checked.count} finger(s) from ${name}${
+                safety ? `. The previous content is saved as ${safety}.` : ''
+            }`,
+        };
+    }
+
+    /**
+     * Fetch a backup from the external server into the storage folder and restore it.
+     *
+     * @param {string} file backup file name on the server
+     * @returns {Promise<{ok: boolean, message: string}>} outcome; never throws
+     */
+    async _restoreFromRemote(file) {
+        const settings = this._remoteSettings();
+        if (!settings.enabled) {
+            return { ok: false, message: 'Switch the copy to the external server on and save the settings first' };
+        }
+        const fetched = await fetchRemoteBackup(connectSsh2, settings, file, this._remoteTimers());
+        if (!fetched.ok) {
+            return { ok: false, message: `Download from the external server failed: ${fetched.message}` };
+        }
+        const checked = validateBackupContent(fetched.data);
+        if (!checked.ok) {
+            return { ok: false, message: `${file}: ${checked.message}` };
+        }
+        try {
+            await this._writeStoredBackup(file, fetched.data);
+        } catch (err) {
+            return { ok: false, message: `Cannot write ${file} into the storage folder: ${err.message}` };
+        }
+        this.log.info(`Backup ${file} fetched from the external server into the storage folder`);
+        const restored = await this._restoreBackup(file);
+        return restored.ok
+            ? { ok: true, message: `Fetched from the external server. ${restored.message}` }
+            : {
+                  ok: false,
+                  message: `Fetched ${file} into the storage folder, but the restore failed: ${restored.message}`,
+              };
     }
 
     // ── Backup (by hand, automatic, external copy) ──────────────────────────
@@ -687,25 +974,23 @@ class Fingerprint extends utils.Adapter {
                 message: 'Automatic backup skipped: the device returned no fingerprints, the existing backup is kept',
             };
         }
-        const file = this._getBackupPath();
-        try {
-            fs.mkdirSync(path.dirname(file), { recursive: true });
-            fs.writeFileSync(file, json, { encoding: 'utf8', mode: 0o600 });
-            fs.chmodSync(file, 0o600);
-        } catch (err) {
-            return { ok: false, message: `Could not write backup file: ${err.message}` };
-        }
         const now = Date.now();
+        const name = backupName(kind, new Date(now));
+        try {
+            await this._writeStoredBackup(name, json);
+        } catch (err) {
+            return { ok: false, message: `Could not write the backup into the storage folder: ${err.message}` };
+        }
         await this.setStateAsync('info.lastBackup', { val: now, ack: true });
         this.log.info(
-            `Fingerprint backup saved (${count} finger(s))${kind === 'auto' ? ' automatically' : ''} to ${file}`,
+            `Fingerprint backup saved (${count} finger(s))${kind === 'auto' ? ' automatically' : ''}: ${this._storageId()}/${BACKUP_DIR}/${name}`,
         );
+        if (kind === 'auto') {
+            await this._pruneStoredBackups();
+        }
 
-        let message = `Backup saved: ${count} finger(s)`;
-        const remote = await this._copyToRemote({
-            name: remoteBackupName(kind, new Date(now)),
-            data: Buffer.from(json, 'utf8'),
-        });
+        let message = `Backup saved: ${count} finger(s) (${name})`;
+        const remote = await this._copyToRemote({ name, data: Buffer.from(json, 'utf8') });
         if (remote) {
             message += remote.ok
                 ? `; copied to the external server (${remote.remoteFile})`

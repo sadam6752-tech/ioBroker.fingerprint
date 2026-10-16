@@ -7,7 +7,12 @@
  */
 
 const assert = require('node:assert/strict');
-const { copyBackupToRemote, testRemoteConnection } = require('../lib/remote-backup');
+const {
+    copyBackupToRemote,
+    testRemoteConnection,
+    listRemoteBackups,
+    fetchRemoteBackup,
+} = require('../lib/remote-backup');
 const { connectSsh2 } = require('../lib/sftp-ssh2');
 const { startServer } = require('./helpers/sftp-server');
 
@@ -126,5 +131,28 @@ describe('sftp-ssh2 => against a real SFTP server', function () {
         assert.equal(result.ok, true, result.message);
         assert.equal(result.fingerprint, server.fingerprint);
         assert.deepEqual([...disk.files.keys()], []);
+    });
+
+    it('lists and downloads a backup that was copied before (several chunks)', async () => {
+        const copied = await copyBackupToRemote(connectSsh2, settings(server.port), backup, quiet, timers);
+        assert.equal(copied.ok, true, copied.message);
+        const list = await listRemoteBackups(connectSsh2, settings(server.port), timers);
+        assert.equal(list.ok, true, list.message);
+        assert.deepEqual(list.names, ['fingerprint-auto-2026-10-12T08-00-00.json']);
+        const fetched = await fetchRemoteBackup(connectSsh2, settings(server.port), list.names[0], timers);
+        assert.equal(fetched.ok, true, fetched.message);
+        assert.ok(fetched.data.equals(backup.data));
+    });
+
+    it('reports a backup that is not on the server', async () => {
+        disk.directories.add('/backups');
+        disk.directories.add(DIR);
+        const fetched = await fetchRemoteBackup(
+            connectSsh2,
+            settings(server.port),
+            'fingerprint-backup-2026-10-01T08-00-00.json',
+            timers,
+        );
+        assert.equal(fetched.ok, false);
     });
 });

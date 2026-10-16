@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "fingerprint",
-    "version": "0.8.0",
+    "version": "0.8.1",
     "news": {
+      "0.8.1": {
+        "en": "New storage folder for the backups (download and upload in the admin tab Files, taken along by ioBroker backups), restore of a chosen backup with a safety copy of the sensor first, and restore directly from the external SFTP server after a new installation. New setting: automatic backups to keep.",
+        "de": "Neuer Storage-Ordner für die Sicherungen (Herunterladen und Hochladen im Admin unter Dateien, wird von ioBroker-Sicherungen mitgenommen), Wiederherstellen einer gewählten Sicherung mit vorheriger Sicherheitskopie des Sensors und Wiederherstellen direkt vom externen SFTP-Server nach einer Neuinstallation. Neue Einstellung: Anzahl der automatischen Sicherungen.",
+        "ru": "Новая папка хранилища для резервных копий (скачивание и загрузка в админке в разделе «Файлы», включается в резервные копии ioBroker), восстановление выбранной копии с предварительной страховочной копией датчика и восстановление прямо с внешнего SFTP-сервера после новой установки. Новая настройка: сколько автоматических копий хранить.",
+        "pt": "Nova pasta de armazenamento para as cópias de segurança (transferir e carregar no admin em Ficheiros, incluída nas cópias do ioBroker), restauro de uma cópia escolhida com cópia de proteção prévia do sensor e restauro diretamente do servidor SFTP externo após uma nova instalação. Nova definição: cópias automáticas a manter.",
+        "nl": "Nieuwe opslagmap voor de back-ups (downloaden en uploaden in de admin onder Bestanden, meegenomen door ioBroker-back-ups), herstellen van een gekozen back-up met eerst een veiligheidskopie van de sensor, en herstellen rechtstreeks vanaf de externe SFTP-server na een nieuwe installatie. Nieuwe instelling: te bewaren automatische back-ups.",
+        "fr": "Nouveau dossier de stockage pour les sauvegardes (téléchargement et envoi dans l'admin sous Fichiers, inclus dans les sauvegardes ioBroker), restauration d'une sauvegarde choisie avec copie de sécurité préalable du capteur, et restauration directe depuis le serveur SFTP externe après une nouvelle installation. Nouveau paramètre : sauvegardes automatiques à conserver.",
+        "it": "Nuova cartella di archiviazione per i backup (download e caricamento nell'admin in File, inclusa nei backup di ioBroker), ripristino di un backup scelto con copia di sicurezza preventiva del sensore e ripristino direttamente dal server SFTP esterno dopo una nuova installazione. Nuova impostazione: backup automatici da conservare.",
+        "es": "Nueva carpeta de almacenamiento para las copias de seguridad (descarga y subida en el admin en Archivos, incluida en las copias de ioBroker), restauración de una copia elegida con copia de protección previa del sensor y restauración directa desde el servidor SFTP externo tras una nueva instalación. Nueva opción: copias automáticas que se conservan.",
+        "pl": "Nowy folder magazynu na kopie zapasowe (pobieranie i przesyłanie w adminie w zakładce Pliki, uwzględniany w kopiach ioBroker), przywracanie wybranej kopii z wcześniejszą kopią bezpieczeństwa czujnika oraz przywracanie bezpośrednio z zewnętrznego serwera SFTP po nowej instalacji. Nowe ustawienie: liczba przechowywanych kopii automatycznych.",
+        "uk": "Нова папка сховища для резервних копій (завантаження та вивантаження в адмінці в розділі «Файли», входить до резервних копій ioBroker), відновлення вибраної копії з попередньою страховою копією датчика та відновлення безпосередньо із зовнішнього SFTP-сервера після нової інсталяції. Нове налаштування: скільки автоматичних копій зберігати.",
+        "zh-cn": "新增备份存储文件夹（可在 Admin 的“文件”中下载和上传，并随 ioBroker 备份一起保存），可恢复所选备份并预先保存传感器的安全副本，重新安装后还可直接从外部 SFTP 服务器恢复。新设置：保留的自动备份数。"
+      },
       "0.8.0": {
         "en": "New Backup tab: automatic fingerprint backup (off, daily or weekly) and a copy of every backup to an external server over SFTP (e.g. a NAS) with connection test, host key check and cleanup of old automatic copies. The SFTP password is stored encrypted.",
         "de": "Neuer Reiter Backup: automatische Fingerabdruck-Sicherung (aus, täglich oder wöchentlich) und Kopie jeder Sicherung per SFTP auf einen externen Server (z. B. ein NAS) mit Verbindungstest, Prüfung des Host-Schlüssels und Aufräumen alter automatischer Kopien. Das SFTP-Passwort wird verschlüsselt gespeichert.",
@@ -80,19 +93,6 @@
         "nl": "Nieuw: link naar de WebUI van het apparaat in de instantielijst van Admin (localLinks).",
         "uk": "Нове: посилання на WebUI пристрою у списку інстансів Admin (localLinks).",
         "zh-cn": "新增：在 Admin 实例列表中显示设备 WebUI 链接（localLinks）。"
-      },
-      "0.7.8": {
-        "en": "Documentation and dependency update: README is English-only (German disclaimer moved to DISCLAIMER.de.md), changelog entry added, @iobroker/testing updated to 6.3.",
-        "de": "Dokumentations- und Abhaengigkeits-Update: README nur noch Englisch (deutscher Disclaimer in DISCLAIMER.de.md), Changelog-Eintrag ergaenzt, @iobroker/testing auf 6.3 aktualisiert.",
-        "ru": "Обновление документации и зависимостей: README только на английском (немецкий отказ от ответственности перенесён в DISCLAIMER.de.md), добавлена запись в changelog, @iobroker/testing обновлён до 6.3.",
-        "fr": "Mise a jour de la documentation et des dependances : README uniquement en anglais (avertissement allemand deplace dans DISCLAIMER.de.md), entree de changelog ajoutee, @iobroker/testing mis a jour en 6.3.",
-        "it": "Aggiornamento di documentazione e dipendenze: README solo in inglese (disclaimer tedesco spostato in DISCLAIMER.de.md), voce di changelog aggiunta, @iobroker/testing aggiornato a 6.3.",
-        "es": "Actualizacion de documentacion y dependencias: README solo en ingles (descargo aleman movido a DISCLAIMER.de.md), entrada de changelog anadida, @iobroker/testing actualizado a 6.3.",
-        "pl": "Aktualizacja dokumentacji i zaleznosci: README tylko po angielsku (niemieckie zastrzezenie przeniesiono do DISCLAIMER.de.md), dodano wpis w changelogu, @iobroker/testing zaktualizowano do 6.3.",
-        "pt": "Atualizacao de documentacao e dependencias: README apenas em ingles (aviso legal em alemao movido para DISCLAIMER.de.md), entrada de changelog adicionada, @iobroker/testing atualizado para 6.3.",
-        "nl": "Documentatie- en afhankelijkheidsupdate: README alleen in het Engels (Duitse disclaimer verplaatst naar DISCLAIMER.de.md), changelog-item toegevoegd, @iobroker/testing bijgewerkt naar 6.3.",
-        "uk": "Оновлення документації та залежностей: README лише англійською (німецьку відмову від відповідальності перенесено до DISCLAIMER.de.md), додано запис у changelog, @iobroker/testing оновлено до 6.3.",
-        "zh-cn": "文档和依赖更新：README 仅保留英文（德文免责声明移至 DISCLAIMER.de.md），补充更新日志条目，@iobroker/testing 升级到 6.3。"
       }
     },
     "titleLang": {
@@ -212,7 +212,8 @@
     "remotePassword": "",
     "remoteDirectory": "/backups/fingerprint",
     "remoteHostKey": "",
-    "remoteKeep": 0
+    "remoteKeep": 0,
+    "backupKeep": 7
   },
   "encryptedNative": [
     "adminPassword",

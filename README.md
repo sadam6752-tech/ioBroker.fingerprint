@@ -100,8 +100,9 @@ kind** (see the MIT [LICENSE](LICENSE)); you use it at your own risk.
   never expose the webhook port or the device to the internet, and keep the token secret.
 - **Biometric data / privacy (GDPR).** Fingerprint templates, names, timestamps and access
   logs are personal data. You are the controller: obtain the consent of the people enrolled,
-  protect backup files (`fingerprints-backup.json` contains the raw templates, unencrypted —
-  this also applies to the copies on an external SFTP server, see *Backup*)
+  protect the backup files (they contain the raw templates, unencrypted — in the storage folder
+  `fingerprint.0.storage`, readable for every admin user and possibly through a `web` instance,
+  and on an external SFTP server, see *Backup*)
   and observe the laws that apply to you (e.g. GDPR/BDSG, works-council rules for employees).
 - **Actions run unattended.** Fingerprint rules write to any ioBroker object you choose
   (lights, locks, alarms, scripts). Test your rules carefully before you depend on them.
@@ -164,10 +165,10 @@ fingerprint — no JavaScript needed:
 The **Manage Fingers** tab lets you administer fingers without opening the device WebUI:
 
 - **Rename** — enter a finger ID and a new name, then click *Rename*.
-- **Create backup** — downloads all fingerprint templates from the sensor and stores them in
-  a file on the ioBroker host (`<iobroker-data>/fingerprint.0/fingerprints-backup.json`),
-  which survives adapter updates.
-- **Restore from backup** — writes the fingerprints from that file back to the sensor.
+- **Create backup** — downloads all fingerprint templates from the sensor and stores them as a
+  new file in the storage folder (see *Backup*).
+- **Backup to restore** + **Restore the selected backup** — writes the chosen backup back to
+  the sensor; the current content of the sensor is saved first as a safety copy.
 
 Save the instance settings first so the device connection is available.
 
@@ -175,18 +176,59 @@ Save the instance settings first so the device connection is available.
 > (full 1536-byte templates). Backups made with older firmware are incomplete —
 > re-create them after updating.
 
-## Backup (v0.8.0)
+## Backup (v0.8.0, storage folder and restore v0.8.1)
+
+### Storage folder
+
+Every backup (by hand, automatic, fetched from the server, safety copy) is a file in the ioBroker
+file storage, folder `fingerprint.0.storage/backups/`:
+
+| File | Made by | Deleted automatically |
+| --- | --- | --- |
+| `fingerprint-backup-<time>.json` | *Create backup* | never |
+| `fingerprint-auto-<time>.json` | automatic backup | the oldest beyond *Automatic backups to keep* (default 7, 0 = keep all) |
+| `fingerprint-prerestore-<time>.json` | safety copy of the sensor right before a restore | never |
+
+- In the admin, tab **Files**, open `fingerprint.0.storage` → `backups` to **download** a backup
+  or to **upload** one (e.g. a copy from your NAS); uploaded files must keep the name pattern above.
+- The mount point is of type `meta.user`, so ioBroker backups (BackItUp: include this instance and
+  its files) take the folder along.
+- The backup file of version 0.8.0 and older (`<iobroker-data>/fingerprint.0/fingerprints-backup.json`)
+  is moved into the folder once as `fingerprint-backup-<time of the file>.json`; the old file is
+  renamed to `fingerprints-backup.json.migrated`.
+- Like everything in the file storage, the backups are readable for every admin user and, when a
+  `web` instance serves the file storage without login, possibly in the browser. They contain the
+  raw fingerprint templates (biometric data): protect your admin and web instances accordingly.
+
+### Restore
+
+*Manage Fingers* → **Backup to restore**: choose a backup (newest first; reopen the settings to
+refresh the list) → **Restore the selected backup** → confirm. The adapter checks the file
+(valid JSON, finger ids 1–200, no duplicates, templates present), saves the current content of the
+sensor as `fingerprint-prerestore-<time>.json` and then writes the backup to the sensor. If the
+current content cannot be read from the device, the restore is aborted.
+
+### Restore after a new installation of ioBroker
+
+1. Install the adapter and enter the device settings (IP, admin user/password). Save.
+2. Bring a backup back — one of:
+   - **from an ioBroker/BackItUp backup**: after restoring it, the storage folder is back;
+   - **upload**: admin → **Files** → `fingerprint.0.storage` → `backups` → upload the file;
+   - **from the SFTP server**: tab **Backup** → enter the SFTP settings, switch the copy on,
+     save → **Backup on the server** → choose → **Fetch from the server and restore**.
+     The file is fetched into the storage folder and restored in one step.
+3. For the first two ways: *Manage Fingers* → **Backup to restore** → **Restore the selected backup**.
 
 ### Automatic backup
 
 The **Backup** tab of the instance settings can create the fingerprint backup automatically,
-**daily** or **weekly** — it is **off** by default. The automatic backup writes the same file
-as *Create backup* (the file that *Restore* uses) and needs the device to be reachable.
+**daily** or **weekly** — it is **off** by default. Every automatic backup is a new file in the
+storage folder; the device has to be reachable.
 
 - The interval counts from the last backup (by hand or automatic), also after a restart of the
   adapter. A backup that is overdue runs five minutes after the start.
-- A device that returns **no** fingerprints never replaces an existing backup (the automatic
-  backup is skipped and logged).
+- A device that returns **no** fingerprints creates no backup (the automatic backup is skipped
+  and logged).
 - If the device is unreachable, the next attempt follows after one hour. A running enrollment
   postpones the backup by ten minutes.
 - The time of the last backup is shown in `info.lastBackup`.
@@ -306,6 +348,14 @@ Writing either state applies the ring immediately.
 - **Enroll from adapter, LED ring, `info.wifiRssi`** require **v0.9.4**.
 
 ## Changelog
+
+### 0.8.1
+
+- New **storage folder** `fingerprint.0.storage/backups/` (`meta.user`): every backup is a file there — download and upload it in the admin tab *Files*; ioBroker/BackItUp backups take it along. The backup file of 0.8.0 is moved there once
+- New: **restore a chosen backup** (list newest first, confirmation). Before every restore the current content of the sensor is saved as a safety copy (`fingerprint-prerestore-…`); the file is checked first (JSON, ids 1–200, no duplicates, templates)
+- New: **restore from the external SFTP server** — list the backups on the server, fetch one into the storage folder and restore it (for a new installation of ioBroker)
+- New setting *Automatic backups to keep* (default 7); backups made by hand and safety copies are never deleted
+- Tests: storage, restore, safety copy and SFTP restore against a real js-controller, a simulated device and an SFTP server inside the test
 
 ### 0.8.0
 

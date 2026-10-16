@@ -393,7 +393,7 @@
         },
         "_backupInfo": {
           "type": "staticText",
-          "text": "Backup stores all fingerprint templates (id, name, template) in a file on the ioBroker host that survives adapter updates. Restore writes them back to the sensor. Save the settings first so the device connection is available.",
+          "text": "A backup stores all fingerprint templates (id, name, template) as a file in the storage folder fingerprint.0.storage/backups. You find it in the admin under Files, where it can be downloaded and uploaded; ioBroker and BackItUp backups take it along. Restore writes the chosen backup back to the sensor; the current content of the sensor is saved first as a safety copy. Save the settings first so the device connection is available.",
           "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12
         },
         "backupButton": {
@@ -404,13 +404,33 @@
           "color": "primary",
           "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
         },
+        "_restoreFile": {
+          "type": "selectSendTo",
+          "label": "Backup to restore",
+          "command": "listBackups",
+          "jsonData": "{}",
+          "noTranslation": true,
+          "doNotSave": true,
+          "help": "The backups in the storage folder, newest first. Reopen the settings to refresh the list.",
+          "newLine": true,
+          "xs": 12, "sm": 8, "md": 6, "lg": 5, "xl": 5
+        },
         "restoreButton": {
           "type": "sendTo",
-          "label": "Restore from backup",
+          "label": "Restore the selected backup",
           "command": "restoreFingerprints",
+          "jsonData": "{ \"file\": \"${data._restoreFile}\" }",
+          "disabled": "!data._restoreFile",
           "variant": "outlined",
           "color": "secondary",
-          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
+          "confirm": {
+            "type": "warning",
+            "title": "Restore fingerprints",
+            "text": "The fingerprints on the sensor are replaced by the chosen backup. The current content is saved first as a safety copy. Continue?",
+            "ok": "Restore",
+            "cancel": "Cancel"
+          },
+          "xs": 12, "sm": 4, "md": 4, "lg": 3, "xl": 3
         },
         "_enrollHeader": {
           "type": "header",
@@ -470,7 +490,7 @@
         },
         "_autoInfo": {
           "type": "staticText",
-          "text": "Reads all fingerprint templates from the sensor at the chosen interval and saves them in the backup file on the ioBroker host (the same file that Restore uses). The interval counts from the last backup, also after a restart. A device that returns no fingerprints never replaces an existing backup.",
+          "text": "Reads all fingerprint templates from the sensor at the chosen interval and saves them as a new file in the storage folder. The interval counts from the last backup, also after a restart. A device that returns no fingerprints is skipped, so no empty backup is created.",
           "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12
         },
         "autoBackupInterval": {
@@ -483,6 +503,15 @@
           ],
           "default": 0,
           "newLine": true,
+          "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
+        },
+        "backupKeep": {
+          "type": "number",
+          "label": "Automatic backups to keep",
+          "help": "In the storage folder, the oldest first; 0 = keep all. Backups made by hand and safety copies are never deleted.",
+          "min": 0,
+          "max": 1000,
+          "default": 7,
           "xs": 12, "sm": 6, "md": 4, "lg": 3, "xl": 3
         },
         "_remoteHeader": {
@@ -569,6 +598,46 @@
           "disabled": "!data.remoteEnabled",
           "newLine": true,
           "xs": 12, "sm": 12, "md": 4, "lg": 4, "xl": 4
+        },
+        "_remoteRestoreHeader": {
+          "type": "header",
+          "text": "Restore from the external server",
+          "size": 3
+        },
+        "_remoteRestoreInfo": {
+          "type": "staticText",
+          "text": "After a new installation of ioBroker: enter the SFTP settings above, switch the copy on and save. Then choose a backup on the server and restore it. The file is fetched into the storage folder and written to the sensor; the current content of the sensor is saved first as a safety copy.",
+          "xs": 12, "sm": 12, "md": 12, "lg": 12, "xl": 12
+        },
+        "_remoteRestoreFile": {
+          "type": "selectSendTo",
+          "label": "Backup on the server",
+          "command": "listRemoteBackups",
+          "jsonData": "{}",
+          "noTranslation": true,
+          "doNotSave": true,
+          "disabled": "!data.remoteEnabled",
+          "help": "Loaded from the server with the saved settings, newest first.",
+          "newLine": true,
+          "xs": 12, "sm": 8, "md": 6, "lg": 5, "xl": 5
+        },
+        "remoteRestoreButton": {
+          "type": "sendTo",
+          "label": "Fetch from the server and restore",
+          "command": "restoreFromRemote",
+          "jsonData": "{ \"file\": \"${data._remoteRestoreFile}\" }",
+          "disabled": "!data.remoteEnabled || !data._remoteRestoreFile",
+          "variant": "outlined",
+          "color": "secondary",
+          "showProcess": true,
+          "confirm": {
+            "type": "warning",
+            "title": "Restore fingerprints",
+            "text": "The fingerprints on the sensor are replaced by the chosen backup from the server. The current content is saved first as a safety copy. Continue?",
+            "ok": "Restore",
+            "cancel": "Cancel"
+          },
+          "xs": 12, "sm": 4, "md": 4, "lg": 3, "xl": 3
         }
       }
     }

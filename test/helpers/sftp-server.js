@@ -8,7 +8,7 @@
 const { createHash } = require('node:crypto');
 const { Server, utils } = require('ssh2');
 
-const { STATUS_CODE } = utils.sftp;
+const { STATUS_CODE, OPEN_MODE } = utils.sftp;
 
 /**
  * Starts an SFTP server on a free port; `fingerprint` is its host key as OpenSSH shows it.
@@ -71,9 +71,27 @@ async function startServer(disk, login = { username: 'backup', password: 'secret
                     sftp.on('REALPATH', (id, path) => {
                         sftp.name(id, [{ filename: path, longname: path, attrs: {} }]);
                     });
-                    sftp.on('OPEN', (id, path) => {
-                        disk.files.set(path, Buffer.alloc(0));
+                    sftp.on('OPEN', (id, path, flags) => {
+                        if (flags & OPEN_MODE.WRITE) {
+                            disk.files.set(path, Buffer.alloc(0));
+                        } else if (!disk.files.has(path)) {
+                            missing(id);
+                            return;
+                        }
                         sftp.handle(id, open(path, 'file'));
+                    });
+                    sftp.on('READ', (id, handle, offset, length) => {
+                        const entry = of(handle);
+                        const file = entry && disk.files.get(entry.path);
+                        if (!file) {
+                            sftp.status(id, STATUS_CODE.FAILURE);
+                            return;
+                        }
+                        if (offset >= file.length) {
+                            sftp.status(id, STATUS_CODE.EOF);
+                            return;
+                        }
+                        sftp.data(id, file.subarray(offset, offset + length));
                     });
                     sftp.on('WRITE', (id, handle, offset, data) => {
                         const entry = of(handle);

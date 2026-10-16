@@ -12,6 +12,8 @@ const {
     selectStalePartials,
     settingsForConnectionTest,
     testRemoteConnection,
+    listRemoteBackups,
+    fetchRemoteBackup,
 } = require('../lib/remote-backup');
 
 const DIR = '/backups/fingerprint';
@@ -68,6 +70,13 @@ function fakeServer(options = {}) {
             [...files.keys()]
                 .filter(path => path.startsWith(`${directory}/`))
                 .map(path => path.slice(directory.length + 1)),
+        readFile: async path => {
+            const file = files.get(path);
+            if (!file) {
+                throw new Error('No such file');
+            }
+            return file;
+        },
         remove: async path => {
             if (options.failRemove && path.endsWith(options.failRemove)) {
                 throw new Error('Permission denied');
@@ -477,6 +486,63 @@ describe('remote backup => connection test', () => {
         assert.equal(result.ok, false);
         assert.ok(result.message.includes('Permission denied'));
         const incomplete = await testRemoteConnection(fakeServer().connect, { enabled: true }, timers);
+        assert.ok(incomplete.message.includes('settings incomplete'));
+    });
+});
+
+describe('remote backup => list and fetch', () => {
+    const put = (server, name, text = '[{"id":1,"template":"A"}]') =>
+        server.files.set(`${DIR}/${name}`, Buffer.from(text));
+
+    it('lists only the backups of this adapter, newest first', async () => {
+        const server = fakeServer();
+        put(server, 'fingerprint-auto-2026-10-10T08-00-00.json');
+        put(server, 'fingerprint-backup-2026-10-12T08-00-00.json');
+        put(server, 'fingerprint-auto-2026-10-13T08-00-00.json.part');
+        put(server, 'holiday.json');
+        const result = await listRemoteBackups(server.connect, settings, timers);
+        assert.equal(result.ok, true);
+        assert.deepEqual(result.names, [
+            'fingerprint-backup-2026-10-12T08-00-00.json',
+            'fingerprint-auto-2026-10-10T08-00-00.json',
+        ]);
+        assert.ok(server.closed.count > 0);
+    });
+
+    it('downloads a backup', async () => {
+        const server = fakeServer();
+        put(server, 'fingerprint-backup-2026-10-12T08-00-00.json', '[{"id":2,"template":"B"}]');
+        const result = await fetchRemoteBackup(
+            server.connect,
+            settings,
+            'fingerprint-backup-2026-10-12T08-00-00.json',
+            timers,
+        );
+        assert.equal(result.ok, true);
+        assert.equal(result.data.toString('utf8'), '[{"id":2,"template":"B"}]');
+    });
+
+    it('refuses names that are not a backup of this adapter before it connects', async () => {
+        const server = fakeServer();
+        for (const name of ['../../etc/passwd', 'holiday.json', '', undefined]) {
+            const result = await fetchRemoteBackup(server.connect, settings, name, timers);
+            assert.equal(result.ok, false, String(name));
+        }
+        assert.equal(server.connects.length, 0);
+    });
+
+    it('reports a missing file and incomplete settings', async () => {
+        const server = fakeServer();
+        const missing = await fetchRemoteBackup(
+            server.connect,
+            settings,
+            'fingerprint-backup-2026-10-12T08-00-00.json',
+            timers,
+        );
+        assert.equal(missing.ok, false);
+        assert.ok(missing.message.includes('No such file'));
+        const incomplete = await listRemoteBackups(server.connect, { enabled: true }, timers);
+        assert.equal(incomplete.ok, false);
         assert.ok(incomplete.message.includes('settings incomplete'));
     });
 });
