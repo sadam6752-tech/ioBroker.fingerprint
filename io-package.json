@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "fingerprint",
-    "version": "0.8.2",
+    "version": "0.8.3",
     "news": {
+      "0.8.3": {
+        "en": "The webhook port is declared in the used resources registry of js-controller 8, and a warning is logged when another instance already uses it. Nothing changes on older js-controller versions.",
+        "de": "Der Webhook-Port wird im Register der belegten Ressourcen von js-controller 8 eingetragen, und es wird eine Warnung protokolliert, wenn eine andere Instanz ihn bereits verwendet. Mit älteren js-controller-Versionen ändert sich nichts.",
+        "ru": "Порт webhook регистрируется в реестре занятых ресурсов js-controller 8, а если его уже использует другой экземпляр, в лог пишется предупреждение. На более старых версиях js-controller ничего не меняется.",
+        "fr": "Le port du webhook est déclaré dans le registre des ressources utilisées de js-controller 8, et un avertissement est journalisé lorsqu'une autre instance l'utilise déjà. Rien ne change avec les versions plus anciennes de js-controller.",
+        "it": "La porta del webhook viene dichiarata nel registro delle risorse utilizzate di js-controller 8 e viene registrato un avviso quando un'altra istanza la sta già usando. Con le versioni precedenti di js-controller non cambia nulla.",
+        "es": "El puerto del webhook se declara en el registro de recursos utilizados de js-controller 8, y se registra una advertencia cuando otra instancia ya lo usa. Con versiones anteriores de js-controller no cambia nada.",
+        "pl": "Port webhooka jest zgłaszany w rejestrze używanych zasobów js-controller 8, a gdy inna instancja już go używa, w logu pojawia się ostrzeżenie. W starszych wersjach js-controller nic się nie zmienia.",
+        "pt": "A porta do webhook é declarada no registo de recursos utilizados do js-controller 8, e é registado um aviso quando outra instância já a utiliza. Nas versões mais antigas do js-controller nada muda.",
+        "nl": "De webhookpoort wordt aangemeld in het register van gebruikte resources van js-controller 8, en er wordt een waarschuwing gelogd als een andere instantie hem al gebruikt. Met oudere js-controller-versies verandert er niets.",
+        "uk": "Порт webhook реєструється в реєстрі зайнятих ресурсів js-controller 8, а якщо його вже використовує інший екземпляр, у лог записується попередження. На старіших версіях js-controller нічого не змінюється.",
+        "zh-cn": "Webhook 端口会登记到 js-controller 8 的已用资源注册表中，如果其他实例已占用该端口，会在日志中记录警告。在较旧的 js-controller 版本上没有任何变化。"
+      },
       "0.8.2": {
         "en": "Admin UI: \"Create backup\" and \"Restore\" moved from \"Manage Fingers\" to the \"Backup\" tab, so everything about backups is on one page.",
         "de": "Admin-Oberfläche: „Sicherung erstellen“ und „Wiederherstellen“ sind vom Reiter „Finger verwalten“ in den Reiter „Sicherung“ umgezogen, damit alles rund um Sicherungen auf einer Seite steht.",
@@ -80,19 +93,6 @@
         "nl": "Fixes: lastMatch.matched wordt na 3 s teruggezet zodat elke match een wijziging geeft; info.connection klopt bij uitgeschakelde polling; tellers verliezen geen gelijktijdige gebeurtenissen meer; sneller stoppen van de adapter. README-badges toegevoegd.",
         "uk": "Виправлення: lastMatch.matched скидається через 3 с, тому кожен збіг викликає зміну; info.connection коректний при вимкненому опитуванні; лічильники більше не втрачають одночасні події; швидша зупинка адаптера. Додано бейджі в README.",
         "zh-cn": "修复：lastMatch.matched 在 3 秒后重置，使每次匹配都会触发变更；禁用轮询时 info.connection 正确；计数器不再丢失并发事件；适配器停止更快。README 添加徽章。"
-      },
-      "0.7.10": {
-        "en": "Polling interval is now range-checked (5-600 s); removed unused translation keys; localLinks name translated into all languages.",
-        "de": "Polling-Intervall wird jetzt auf Bereich geprueft (5-600 s); ungenutzte Uebersetzungsschluessel entfernt; localLinks-Name in alle Sprachen uebersetzt.",
-        "ru": "Интервал опроса теперь проверяется на диапазон (5-600 с); удалены неиспользуемые ключи перевода; название localLinks переведено на все языки.",
-        "fr": "L'intervalle d'interrogation est maintenant limite (5-600 s) ; cles de traduction inutilisees supprimees ; nom de localLinks traduit dans toutes les langues.",
-        "it": "L'intervallo di polling e ora limitato (5-600 s); chiavi di traduzione inutilizzate rimosse; nome di localLinks tradotto in tutte le lingue.",
-        "es": "El intervalo de sondeo ahora se limita (5-600 s); claves de traduccion sin usar eliminadas; nombre de localLinks traducido a todos los idiomas.",
-        "pl": "Interwal odpytywania jest teraz ograniczony (5-600 s); usunieto nieuzywane klucze tlumaczen; nazwa localLinks przetlumaczona na wszystkie jezyki.",
-        "pt": "O intervalo de consulta agora e limitado (5-600 s); chaves de traducao nao utilizadas removidas; nome de localLinks traduzido para todos os idiomas.",
-        "nl": "Pollinginterval wordt nu binnen bereik gehouden (5-600 s); ongebruikte vertaalsleutels verwijderd; localLinks-naam in alle talen vertaald.",
-        "uk": "Інтервал опитування тепер обмежено діапазоном (5-600 с); видалено невикористані ключі перекладу; назву localLinks перекладено всіма мовами.",
-        "zh-cn": "轮询间隔现在会检查范围（5-600 秒）；删除未使用的翻译键；localLinks 名称已翻译为所有语言。"
       }
     },
     "titleLang": {
