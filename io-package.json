@@ -161,6 +161,7 @@
       }
     ],
     "tier": 3,
+    "declareUsedResources": true,
     "localLinks": {
       "_default": {
         "link": "http://%native_espIp%:%native_espPort%/",

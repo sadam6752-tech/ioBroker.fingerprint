@@ -5,6 +5,7 @@ const crypto = require('node:crypto');
 const path = require('node:path');
 const fs = require('node:fs');
 const WebhookServer = require('./lib/webhook-server');
+const { checkTcpPort, registerTcpPort } = require('./lib/used-resources');
 const EspClient = require('./lib/esp-client');
 const { normalizeSecrets, migrateSecrets } = require('./lib/secrets');
 const {
@@ -52,6 +53,7 @@ class Fingerprint extends utils.Adapter {
         this._ringResetTimer = null;
         this._matchResetTimer = null;
         this._webhookRetryTimer = null;
+        this._webhookPortChecked = false;
         this._autoBackupTimer = null;
         this._backupQueue = Promise.resolve();
         this._remoteQueue = Promise.resolve();
@@ -155,9 +157,16 @@ class Fingerprint extends utils.Adapter {
             onMatch: event => this._handleMatchEvent(event),
             onRing: () => this._handleRingEvent(),
         });
+        const bind = webhook._resolveBindAddress(webhook.bind);
+        if (!this._webhookPortChecked) {
+            // once per start: the retries below would repeat the same warning every 30 s
+            this._webhookPortChecked = true;
+            await checkTcpPort(this, port, bind, 'Webhook server');
+        }
         try {
             await webhook.start();
             this.webhook = webhook;
+            await registerTcpPort(this, port, bind);
             if (this._token) {
                 this.log.info('Webhook token active — device must include the token (see instance settings).');
             } else {
