@@ -143,6 +143,9 @@
     "loglevel": "info",
     "mode": "daemon",
     "messagebox": true,
+    "supportedMessages": {
+      "help": true
+    },
     "type": "hardware",
     "compact": true,
     "connectionType": "local",

@@ -22,10 +22,12 @@ const {
     backupLabel,
     backupName,
     isBackupName,
+    parseRestoreTarget,
     selectLocalBackupsToPrune,
     sortBackupsNewestFirst,
     validateBackupContent,
 } = require('./lib/backup-store');
+const { helpAnswer } = require('./lib/agent-help');
 
 /** Name of the mount point of the storage folder, in the eleven admin languages. */
 const STORAGE_NAME = {
@@ -41,6 +43,23 @@ const STORAGE_NAME = {
     uk: 'Сховище резервних копій',
     'zh-cn': '备份存储',
 };
+
+/**
+ * The answer of a backup or restore for sendTo: `{result, file, count}` or `{error}`.
+ *
+ * @param {{ok: boolean, message: string, file?: string, count?: number}} outcome outcome
+ * @returns {Record<string, unknown>} answer
+ */
+function answerOf(outcome) {
+    if (!outcome.ok) {
+        return { error: outcome.message };
+    }
+    return {
+        result: outcome.message,
+        ...(outcome.file ? { file: outcome.file } : {}),
+        ...(Number.isFinite(outcome.count) ? { count: outcome.count } : {}),
+    };
+}
 
 class Fingerprint extends utils.Adapter {
     constructor(options = {}) {
@@ -375,6 +394,12 @@ class Fingerprint extends utils.Adapter {
     }
 
     async _processMessage(obj) {
+        if (obj.command === 'help') {
+            // for AI agents and script authors (common.supportedMessages.help)
+            this.sendTo(obj.from, obj.command, helpAnswer(), obj.callback);
+            return;
+        }
+
         if (obj.command === 'testConnection') {
             const ip = (this.config.espIp || '').trim();
             this.log.debug(`testConnection requested for ${ip}:${this.config.espPort}`);
@@ -583,12 +608,7 @@ class Fingerprint extends utils.Adapter {
                 return;
             }
             const result = await this._createBackup('manual');
-            this.sendTo(
-                obj.from,
-                obj.command,
-                result.ok ? { result: result.message } : { error: result.message },
-                obj.callback,
-            );
+            this.sendTo(obj.from, obj.command, answerOf(result), obj.callback);
             return;
         }
 
@@ -624,14 +644,13 @@ class Fingerprint extends utils.Adapter {
         }
 
         if (obj.command === 'restoreFingerprints') {
-            const file = obj.message && typeof obj.message.file === 'string' ? obj.message.file : '';
-            const result = await this._restoreBackup(file);
-            this.sendTo(
-                obj.from,
-                obj.command,
-                result.ok ? { result: result.message } : { error: result.message },
-                obj.callback,
-            );
+            // { file?, from? }: an own backup, or one of another instance (roll out to a further sensor)
+            const message = obj.message && typeof obj.message === 'object' ? obj.message : {};
+            const target = parseRestoreTarget(message.file, message.from, this.namespace);
+            const result = target.ok
+                ? await this._restoreBackup(target.file, target.instance)
+                : { ok: false, message: target.message };
+            this.sendTo(obj.from, obj.command, answerOf(result), obj.callback);
             return;
         }
 
@@ -731,12 +750,13 @@ class Fingerprint extends utils.Adapter {
     /**
      * The backup files in the storage folder, newest first.
      *
+     * @param {string} [storageId] mount point; another instance's for a backup taken over from it
      * @returns {Promise<Array<{name: string, size: number}>>} backups (empty when the folder is missing)
      */
-    async _listStoredBackups() {
+    async _listStoredBackups(storageId = this._storageId()) {
         let entries;
         try {
-            entries = await this.readDirAsync(this._storageId(), BACKUP_DIR);
+            entries = await this.readDirAsync(storageId, BACKUP_DIR);
         } catch {
             return [];
         }
@@ -761,10 +781,11 @@ class Fingerprint extends utils.Adapter {
      * Read a backup file from the storage folder.
      *
      * @param {string} name backup file name
+     * @param {string} [storageId] mount point; another instance's for a backup taken over from it
      * @returns {Promise<string>} content
      */
-    async _readStoredBackup(name) {
-        const result = await this.readFileAsync(this._storageId(), `${BACKUP_DIR}/${name}`);
+    async _readStoredBackup(name, storageId = this._storageId()) {
+        const result = await this.readFileAsync(storageId, `${BACKUP_DIR}/${name}`);
         const file = result && typeof result === 'object' && 'file' in result ? result.file : result;
         return Buffer.isBuffer(file) ? file.toString('utf8') : String(file ?? '');
     }
@@ -817,10 +838,12 @@ class Fingerprint extends utils.Adapter {
      * copy (`fingerprint-prerestore-…`), so a wrong restore can be undone.
      *
      * @param {string} [file] backup file name; empty = the newest backup
-     * @returns {Promise<{ok: boolean, message: string}>} outcome; never throws
+     * @param {string} [instance] another instance of this adapter (e.g. `fingerprint.1`) whose backup is
+     *     taken over: roll the fingers of one sensor out to another of the same model; empty = this instance
+     * @returns {Promise<{ok: boolean, message: string, file?: string, count?: number}>} outcome; never throws
      */
-    _restoreBackup(file) {
-        const run = () => this._doRestore(file);
+    _restoreBackup(file, instance = '') {
+        const run = () => this._doRestore(file, instance);
         const next = this._backupQueue.then(run, run);
         this._backupQueue = next.catch(() => undefined);
         return next;
@@ -830,14 +853,22 @@ class Fingerprint extends utils.Adapter {
      * See `_restoreBackup`.
      *
      * @param {string} [file] backup file name; empty = the newest backup
-     * @returns {Promise<{ok: boolean, message: string}>} outcome
+     * @param {string} [instance] another instance whose backup is taken over; empty = this instance
+     * @returns {Promise<{ok: boolean, message: string, file?: string, count?: number}>} outcome
      */
-    async _doRestore(file) {
+    async _doRestore(file, instance = '') {
         const client = this._makeEspClient();
         if (!client) {
             return { ok: false, message: 'Device IP not configured (save settings first)' };
         }
         let name = file;
+        if (instance) {
+            const taken = await this._takeOverBackup(instance, file);
+            if (!taken.ok) {
+                return taken;
+            }
+            name = taken.file;
+        }
         if (!name) {
             const newest = (await this._listStoredBackups())[0];
             if (!newest) {
@@ -893,15 +924,55 @@ class Fingerprint extends utils.Adapter {
             return { ok: false, message: 'Restore failed (device unreachable)' };
         }
         await this._syncFingerprints();
+        const origin = instance ? ` (taken over from ${instance})` : '';
         this.log.info(
-            `Fingerprint restore sent from ${name} (${checked.count} finger(s))${safety ? `, safety copy ${safety}` : ''}`,
+            `Fingerprint restore sent from ${name}${origin} (${checked.count} finger(s))${safety ? `, safety copy ${safety}` : ''}`,
         );
         return {
             ok: true,
-            message: `Restore sent: ${checked.count} finger(s) from ${name}${
+            message: `Restore sent: ${checked.count} finger(s) from ${name}${origin}${
                 safety ? `. The previous content is saved as ${safety}.` : ''
             }`,
+            file: name,
+            count: checked.count,
         };
+    }
+
+    /**
+     * Copy a backup of another instance of this adapter into the own storage folder, under the same
+     * name, so it can be restored here like an own backup (and is listed afterwards).
+     *
+     * @param {string} instance e.g. `fingerprint.1`
+     * @param {string} [file] backup file name; empty = the newest backup of that instance
+     * @returns {Promise<{ok: true, file: string} | {ok: false, message: string}>} outcome; never throws
+     */
+    async _takeOverBackup(instance, file) {
+        const storageId = `${instance}.storage`;
+        let name = file;
+        if (!name) {
+            const newest = (await this._listStoredBackups(storageId))[0];
+            if (!newest) {
+                return { ok: false, message: `No backup of ${instance} found. Create a backup there first.` };
+            }
+            name = newest.name;
+        }
+        let content;
+        try {
+            content = await this._readStoredBackup(name, storageId);
+        } catch (err) {
+            return { ok: false, message: `Cannot read ${name} of ${instance}: ${err.message}` };
+        }
+        const checked = validateBackupContent(content);
+        if (!checked.ok) {
+            return { ok: false, message: `${name} of ${instance}: ${checked.message}` };
+        }
+        try {
+            await this._writeStoredBackup(name, checked.json);
+        } catch (err) {
+            return { ok: false, message: `Cannot copy ${name} of ${instance} into the storage folder: ${err.message}` };
+        }
+        this.log.info(`Backup ${name} taken over from ${instance} into ${this._storageId()}/${BACKUP_DIR}`);
+        return { ok: true, file: name };
     }
 
     /**
@@ -945,7 +1016,8 @@ class Fingerprint extends utils.Adapter {
      * must not read the sensor at the same time).
      *
      * @param {'manual'|'auto'} kind made by hand or automatic
-     * @returns {Promise<{ok: boolean, message: string}>} outcome as a text for the admin page and the log
+     * @returns {Promise<{ok: boolean, message: string, file?: string, count?: number}>} outcome as a text for
+     *     the admin page and the log, with the file name and the number of fingers when it worked
      */
     _createBackup(kind) {
         const run = () => this._doBackup(kind);
@@ -959,7 +1031,7 @@ class Fingerprint extends utils.Adapter {
      * external server when that is switched on. Never throws.
      *
      * @param {'manual'|'auto'} kind made by hand or automatic
-     * @returns {Promise<{ok: boolean, message: string}>} outcome
+     * @returns {Promise<{ok: boolean, message: string, file?: string, count?: number}>} outcome
      */
     async _doBackup(kind) {
         const client = this._makeEspClient();
@@ -1005,7 +1077,7 @@ class Fingerprint extends utils.Adapter {
                 ? `; copied to the external server (${remote.remoteFile})`
                 : `; the copy to the external server FAILED: ${remote.message}`;
         }
-        return { ok: true, message };
+        return { ok: true, message, file: name, count };
     }
 
     /**
@@ -1543,9 +1615,55 @@ class Fingerprint extends utils.Adapter {
                 await this._applyLed();
                 break;
 
+            case 'backup':
+                if (value) {
+                    await this.setStateAsync(id, { val: false, ack: true });
+                    const result = await this._createBackup('manual');
+                    await this._setLastResult('backup', result);
+                }
+                break;
+
+            case 'restore': {
+                // "latest", a backup file name, "fingerprint.1" or "fingerprint.1/<file>" (lib/backup-store.js)
+                const text = String(value ?? '').trim();
+                await this.setStateAsync(id, { val: text, ack: true });
+                const target = parseRestoreTarget(text, '', this.namespace);
+                if (!target.ok) {
+                    this.log.warn(`control.restore: ${target.message}`);
+                    await this._setLastResult('restore', { ok: false, message: target.message });
+                    break;
+                }
+                const result = await this._restoreBackup(target.file, target.instance);
+                if (!result.ok) {
+                    this.log.warn(`control.restore: ${result.message}`);
+                }
+                await this._setLastResult('restore', result);
+                break;
+            }
+
             default:
                 this.log.debug(`Unknown control command: ${command}`);
         }
+    }
+
+    /**
+     * Write the outcome of a backup or restore started by a state to info.lastResult, so a script can
+     * wait for it.
+     *
+     * @param {'backup'|'restore'} action what ran
+     * @param {{ok: boolean, message: string, file?: string, count?: number}} outcome outcome
+     * @returns {Promise<void>} resolves when written
+     */
+    async _setLastResult(action, outcome) {
+        const val = JSON.stringify({
+            ok: outcome.ok,
+            action,
+            message: outcome.message,
+            file: outcome.file || '',
+            count: Number.isFinite(outcome.count) ? outcome.count : 0,
+            ts: Date.now(),
+        });
+        await this.setStateAsync('info.lastResult', { val, ack: true });
     }
 
     /**
@@ -2032,6 +2150,37 @@ class Fingerprint extends utils.Adapter {
             native: {},
         });
 
+        // backup and restore by states, e.g. from scripts (roll fingers out to further sensors)
+        await this.extendObjectAsync('control.backup', {
+            type: 'state',
+            common: {
+                name: 'Backup the fingerprints',
+                type: 'boolean',
+                role: 'button',
+                read: false,
+                write: true,
+                def: false,
+                desc: 'Read all fingers from the sensor into a backup file; the outcome is written to info.lastResult',
+            },
+            native: {},
+        });
+        await this.extendObjectAsync('control.restore', {
+            type: 'state',
+            common: {
+                name: 'Restore fingerprints',
+                type: 'string',
+                role: 'text',
+                read: true,
+                write: true,
+                def: '',
+                desc:
+                    'Write "latest", a backup file name, "fingerprint.0" (newest backup of that instance) or ' +
+                    '"fingerprint.0/<file>": replaces all fingers of the sensor (only between identical sensor ' +
+                    'modules); the outcome is written to info.lastResult',
+            },
+            native: {},
+        });
+
         // enroll status channel (read-only, updated by polling)
         await this.extendObjectAsync('enroll', {
             type: 'channel',
@@ -2111,6 +2260,19 @@ class Fingerprint extends utils.Adapter {
                 write: false,
                 def: 0,
                 desc: 'Time of the last backup (by hand or automatic)',
+            },
+            native: {},
+        });
+        await this.extendObjectAsync('info.lastResult', {
+            type: 'state',
+            common: {
+                name: 'Outcome of the last backup or restore started by a state',
+                type: 'string',
+                role: 'json',
+                read: true,
+                write: false,
+                def: '',
+                desc: 'JSON {ok, action (backup | restore), message, file, count, ts}',
             },
             native: {},
         });

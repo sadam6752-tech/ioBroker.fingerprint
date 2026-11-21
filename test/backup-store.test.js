@@ -8,6 +8,7 @@ const {
     selectLocalBackupsToPrune,
     validateBackupContent,
     backupLabel,
+    parseRestoreTarget,
 } = require('../lib/backup-store');
 
 const DATE = new Date('2026-10-16T08:09:10.500Z');
@@ -116,5 +117,61 @@ describe('backup store => label', () => {
             '2026-10-16 08:09:10 UTC · before restore',
         );
         assert.equal(backupLabel('other.json'), 'other.json');
+    });
+});
+
+describe('backup store => restore target', () => {
+    const FILE = 'fingerprint-auto-2026-10-16T08-09-10.json';
+    const own = (file = '') => ({ ok: true, instance: '', file });
+
+    it('the newest own backup for empty and "latest"', () => {
+        assert.deepEqual(parseRestoreTarget('', '', 'fingerprint.0'), own());
+        assert.deepEqual(parseRestoreTarget('  LATEST ', undefined, 'fingerprint.0'), own());
+        assert.deepEqual(parseRestoreTarget(undefined), own());
+    });
+
+    it('an own backup by its file name', () => {
+        assert.deepEqual(parseRestoreTarget(FILE, '', 'fingerprint.0'), own(FILE));
+    });
+
+    it('a backup of another instance: newest or by name', () => {
+        assert.deepEqual(parseRestoreTarget('fingerprint.1', '', 'fingerprint.0'), {
+            ok: true,
+            instance: 'fingerprint.1',
+            file: '',
+        });
+        assert.deepEqual(parseRestoreTarget('fingerprint.1/latest', '', 'fingerprint.0'), {
+            ok: true,
+            instance: 'fingerprint.1',
+            file: '',
+        });
+        assert.deepEqual(parseRestoreTarget(`fingerprint.12/${FILE}`, '', 'fingerprint.0'), {
+            ok: true,
+            instance: 'fingerprint.12',
+            file: FILE,
+        });
+    });
+
+    it('from (sendTo) wins over an instance in the value; the own instance means none', () => {
+        assert.deepEqual(parseRestoreTarget(`fingerprint.1/${FILE}`, 'fingerprint.2', 'fingerprint.0'), {
+            ok: true,
+            instance: 'fingerprint.2',
+            file: FILE,
+        });
+        assert.deepEqual(parseRestoreTarget('fingerprint.0', '', 'fingerprint.0'), own());
+        assert.deepEqual(parseRestoreTarget('', 'fingerprint.0', 'fingerprint.0'), own());
+    });
+
+    it('refuses other adapters, paths and foreign file names', () => {
+        for (const [value, from] of [
+            ['other.json', ''],
+            ['../fingerprint-auto-2026-10-16T08-09-10.json', ''],
+            ['fingerprint.1/../x', ''],
+            ['', 'javascript.0'],
+            ['', 'fingerprint.x'],
+            ['telegram.0', ''],
+        ]) {
+            assert.equal(parseRestoreTarget(value, from, 'fingerprint.0').ok, false, `${value} ${from}`);
+        }
     });
 });
