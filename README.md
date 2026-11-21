@@ -408,7 +408,7 @@ AI agents such as ioBroker.pi-agent read it before they use the adapter.
 
 ## Changelog
 
-### **WORK IN PROGRESS**
+### 0.8.4
 
 - Backup and restore by states for scripts: `control.backup`, `control.restore` and `info.lastResult`
 - A restore can take the backup of another instance over (`control.restore` = `fingerprint.0`, or `restoreFingerprints` with `from`), to roll the fingers of one sensor out to further sensors of the same model

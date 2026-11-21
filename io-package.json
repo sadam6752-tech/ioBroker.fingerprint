@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "fingerprint",
-    "version": "0.8.3",
+    "version": "0.8.4",
     "news": {
+      "0.8.4": {
+        "en": "Backup and restore by states for scripts (control.backup, control.restore, info.lastResult); a restore can take the backup of another instance over, to roll the fingers out to further sensors of the same model; the adapter answers help for AI agents",
+        "de": "Backup und Wiederherstellung über Datenpunkte für Skripte (control.backup, control.restore, info.lastResult); eine Wiederherstellung kann das Backup einer anderen Instanz übernehmen, um die Abdrücke auf weitere Sensoren gleichen Typs auszurollen; der Adapter beantwortet help für KI-Agenten",
+        "ru": "Резервное копирование и восстановление через состояния для скриптов (control.backup, control.restore, info.lastResult); восстановление может взять резервную копию другого экземпляра, чтобы перенести отпечатки на другие датчики той же модели; адаптер отвечает на help для ИИ-агентов",
+        "pt": "Cópia de segurança e restauro por estados para scripts (control.backup, control.restore, info.lastResult); um restauro pode usar a cópia de outra instância, para levar as impressões a outros sensores do mesmo modelo; o adaptador responde a help para agentes de IA",
+        "nl": "Back-up en herstel via states voor scripts (control.backup, control.restore, info.lastResult); een herstel kan de back-up van een andere instantie overnemen, om de vingerafdrukken naar meer sensoren van hetzelfde model uit te rollen; de adapter beantwoordt help voor AI-agents",
+        "fr": "Sauvegarde et restauration par états pour les scripts (control.backup, control.restore, info.lastResult) ; une restauration peut reprendre la sauvegarde d'une autre instance, pour déployer les empreintes sur d'autres capteurs du même modèle ; l'adaptateur répond à help pour les agents IA",
+        "it": "Backup e ripristino tramite stati per gli script (control.backup, control.restore, info.lastResult); un ripristino può usare il backup di un'altra istanza, per distribuire le impronte su altri sensori dello stesso modello; l'adattatore risponde a help per gli agenti IA",
+        "es": "Copia de seguridad y restauración por estados para scripts (control.backup, control.restore, info.lastResult); una restauración puede tomar la copia de otra instancia, para llevar las huellas a otros sensores del mismo modelo; el adaptador responde a help para agentes de IA",
+        "pl": "Kopia zapasowa i przywracanie przez stany dla skryptów (control.backup, control.restore, info.lastResult); przywracanie może przejąć kopię innej instancji, aby przenieść odciski na kolejne czujniki tego samego modelu; adapter odpowiada na help dla agentów AI",
+        "uk": "Резервне копіювання та відновлення через стани для скриптів (control.backup, control.restore, info.lastResult); відновлення може взяти резервну копію іншого екземпляра, щоб перенести відбитки на інші датчики тієї ж моделі; адаптер відповідає на help для ШІ-агентів",
+        "zh-cn": "可通过状态为脚本执行备份和恢复（control.backup、control.restore、info.lastResult）；恢复时可采用另一个实例的备份，将指纹推广到同型号的其他传感器；适配器可为 AI 代理回答 help"
+      },
       "0.8.3": {
         "en": "The webhook port is declared in the used resources registry of js-controller 8, and a warning is logged when another instance already uses it. Nothing changes on older js-controller versions.",
         "de": "Der Webhook-Port wird im Register der belegten Ressourcen von js-controller 8 eingetragen, und es wird eine Warnung protokolliert, wenn eine andere Instanz ihn bereits verwendet. Mit älteren js-controller-Versionen ändert sich nichts.",
@@ -80,19 +93,6 @@
         "nl": "Beveiliging en stabiliteit: het webhooktoken verschijnt niet meer in foutmeldingen, het back-upbestand is privé (0600), ongeldige vinger-ID's worden genegeerd, apparaatnamen worden opgeschoond, geweigerde verzoeken worden beperkt gelogd, ongebruikt commando getWebhookInfo verwijderd, start van de webhook wordt herhaald als de poort bezet is, aanhalingstekens in namen worden in de admin-UI gecontroleerd.",
         "uk": "Безпека та стабільність: webhook-токен більше не потрапляє в повідомлення про помилки, файл резервної копії приватний (0600), недійсні ID відбитків ігноруються, імена очищаються, відхилені запити логуються з обмеженням частоти, видалено невикористану команду getWebhookInfo, запуск webhook повторюється при зайнятому порті, лапки в іменах перевіряються в адмінці.",
         "zh-cn": "安全与稳定性：webhook 令牌不再出现在错误消息中，备份文件为私有（0600），忽略无效的指纹 ID，清理设备名称，被拒绝的请求限速记录，移除未使用的 getWebhookInfo 命令，端口被占用时重试启动 webhook，在管理界面中校验名称中的引号。"
-      },
-      "0.7.11": {
-        "en": "Fixes: lastMatch.matched is reset after 3 s so every match triggers a change; info.connection is correct when polling is disabled; match/ring counters no longer lose concurrent events; faster adapter stop. README badges added.",
-        "de": "Fixes: lastMatch.matched wird nach 3 s zurueckgesetzt, sodass jeder Match eine Aenderung ausloest; info.connection ist bei deaktiviertem Polling korrekt; Match-/Ring-Zaehler verlieren keine gleichzeitigen Ereignisse mehr; schnelleres Beenden des Adapters. README-Badges ergaenzt.",
-        "ru": "Исправления: lastMatch.matched сбрасывается через 3 с, поэтому каждое совпадение вызывает изменение; info.connection корректен при выключенном опросе; счётчики совпадений/звонков больше не теряют одновременные события; быстрая остановка адаптера. Добавлены бейджи в README.",
-        "fr": "Corrections : lastMatch.matched est remis a zero apres 3 s pour que chaque detection declenche un changement ; info.connection est correct si l'interrogation est desactivee ; les compteurs ne perdent plus d'evenements simultanes ; arret plus rapide de l'adaptateur. Badges ajoutes au README.",
-        "it": "Correzioni: lastMatch.matched viene azzerato dopo 3 s cosi ogni riconoscimento genera una modifica; info.connection e corretto con il polling disattivato; i contatori non perdono piu eventi simultanei; arresto piu rapido dell'adattatore. Badge aggiunti al README.",
-        "es": "Correcciones: lastMatch.matched se restablece tras 3 s para que cada coincidencia genere un cambio; info.connection es correcto con el sondeo desactivado; los contadores ya no pierden eventos simultaneos; parada mas rapida del adaptador. Insignias anadidas al README.",
-        "pl": "Poprawki: lastMatch.matched jest zerowany po 3 s, wiec kazde dopasowanie wywoluje zmiane; info.connection jest poprawny przy wylaczonym odpytywaniu; liczniki nie gubia rownoczesnych zdarzen; szybsze zatrzymywanie adaptera. Dodano odznaki w README.",
-        "pt": "Correcoes: lastMatch.matched e reposto apos 3 s para que cada correspondencia gere uma alteracao; info.connection esta correto com a consulta desativada; os contadores deixam de perder eventos simultaneos; paragem mais rapida do adaptador. Emblemas adicionados ao README.",
-        "nl": "Fixes: lastMatch.matched wordt na 3 s teruggezet zodat elke match een wijziging geeft; info.connection klopt bij uitgeschakelde polling; tellers verliezen geen gelijktijdige gebeurtenissen meer; sneller stoppen van de adapter. README-badges toegevoegd.",
-        "uk": "Виправлення: lastMatch.matched скидається через 3 с, тому кожен збіг викликає зміну; info.connection коректний при вимкненому опитуванні; лічильники більше не втрачають одночасні події; швидша зупинка адаптера. Додано бейджі в README.",
-        "zh-cn": "修复：lastMatch.matched 在 3 秒后重置，使每次匹配都会触发变更；禁用轮询时 info.connection 正确；计数器不再丢失并发事件；适配器停止更快。README 添加徽章。"
       }
     },
     "titleLang": {
